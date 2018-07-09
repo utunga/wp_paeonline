@@ -1,3 +1,6 @@
 [submodule "wp-content/plugins"]
 	path = wp-content/plugins
 	url = git@github.com:utunga/pae_online_plugins.git
+[submodule "wp-content/themes/genesis"]
+	path = wp-content/themes/genesis
+	url = git@github.com:utunga/genesis_base.git
