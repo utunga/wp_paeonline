@@ -1,0 +1,3 @@
+[submodule "wp-content/plugins"]
+	path = wp-content/plugins
+	url = git@github.com:utunga/pae_online_plugins.git
