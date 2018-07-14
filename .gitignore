@@ -1,0 +1,41 @@
+*.log
+wp-config.php
+wp-content/advanced-cache.php
+wp-content/backup-db/
+wp-content/backups/
+wp-content/blogs.dir/
+wp-content/cache/
+wp-content/upgrade/
+wp-content/uploads/
+wp-content/mu-plugins/
+wp-content/wp-cache-config.php
+wp-content/plugins/hello.php
+
+/.htaccess
+/license.txt
+/readme.html
+/sitemap.xml
+/sitemap.xml.gz
+
+# ignore IDE/hidden/OS cache files
+.*
+*~
+nbproject
+nb-configuration.xml
+Session.vim
+*.tmproj
+*.tmproject
+tmtags
+Thumbs.db
+Desktop.ini
+
+# ignore Composer downloads
+/vendor/*
+
+# keep some hiddens
+!.htaccess
+!/.gitignore
+!/.travis.yml
+pass_info.txt
+sftp-config.json
+Wordpress.phpproj.user

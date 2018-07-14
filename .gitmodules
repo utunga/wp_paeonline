@@ -4,6 +4,6 @@
 [submodule "wp-content/themes/genesis"]
 	path = wp-content/themes/genesis
 	url = git@github.com:utunga/genesis_base.git
-[submodule "wp-content/themes/pae_online_theme"]
+[submodule "wp-content/themes/pae_online"]
 	path = wp-content/themes/pae_online
-	url = git@github.com:utunga/pae_online_theme.git
+	url = git@github.com:utunga/pae_online.git
