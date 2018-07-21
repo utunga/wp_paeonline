@@ -21,21 +21,21 @@
     <IncludeDebugInformation>false</IncludeDebugInformation>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="wp-content\plugins\everything_directory\includes\class-a-to-z-widget.php" />
-    <Compile Include="wp-content\plugins\everything_directory\includes\class-category-list-widget.php" />
-    <Compile Include="wp-content\plugins\everything_directory\includes\class-listing-sidebar-widget.php" />
-    <Compile Include="wp-content\plugins\everything_directory\includes\class-listings-widget.php" />
-    <Compile Include="wp-content\plugins\everything_directory\includes\class-listings.php" />
-    <Compile Include="wp-content\plugins\everything_directory\includes\class-property-search-widget.php" />
-    <Compile Include="wp-content\plugins\everything_directory\includes\class-taxonomies.php" />
-    <Compile Include="wp-content\plugins\everything_directory\includes\functions.php" />
-    <Compile Include="wp-content\plugins\everything_directory\includes\views\create-tax.php" />
-    <Compile Include="wp-content\plugins\everything_directory\includes\views\edit-tax.php" />
-    <Compile Include="wp-content\plugins\everything_directory\includes\views\listing-a-z-view.php" />
-    <Compile Include="wp-content\plugins\everything_directory\includes\views\listing-common.php" />
-    <Compile Include="wp-content\plugins\everything_directory\includes\views\listing-details-metabox.php" />
-    <Compile Include="wp-content\plugins\everything_directory\includes\views\listing-sidebar-view.php" />
-    <Compile Include="wp-content\plugins\everything_directory\plugin.php" />
+    <Compile Include="wp-content\plugins\everything-directory\includes\class-a-to-z-widget.php" />
+    <Compile Include="wp-content\plugins\everything-directory\includes\class-category-list-widget.php" />
+    <Compile Include="wp-content\plugins\everything-directory\includes\class-listing-sidebar-widget.php" />
+    <Compile Include="wp-content\plugins\everything-directory\includes\class-listings-widget.php" />
+    <Compile Include="wp-content\plugins\everything-directory\includes\class-listings.php" />
+    <Compile Include="wp-content\plugins\everything-directory\includes\class-property-search-widget.php" />
+    <Compile Include="wp-content\plugins\everything-directory\includes\class-taxonomies.php" />
+    <Compile Include="wp-content\plugins\everything-directory\includes\functions.php" />
+    <Compile Include="wp-content\plugins\everything-directory\includes\views\create-tax.php" />
+    <Compile Include="wp-content\plugins\everything-directory\includes\views\edit-tax.php" />
+    <Compile Include="wp-content\plugins\everything-directory\includes\views\listing-a-z-view.php" />
+    <Compile Include="wp-content\plugins\everything-directory\includes\views\listing-common.php" />
+    <Compile Include="wp-content\plugins\everything-directory\includes\views\listing-details-metabox.php" />
+    <Compile Include="wp-content\plugins\everything-directory\includes\views\listing-sidebar-view.php" />
+    <Compile Include="wp-content\plugins\everything-directory\plugin.php" />
     <Compile Include="wp-content\plugins\index.php" />
     <Compile Include="wp-content\plugins\quadmenu\includes\3rd\compatibility.php" />
     <Compile Include="wp-content\plugins\quadmenu\includes\3rd\lmm.php" />
@@ -384,10 +384,10 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="wp-content\plugins" />
-    <Folder Include="wp-content\plugins\everything_directory\" />
-    <Folder Include="wp-content\plugins\everything_directory\includes\" />
-    <Folder Include="wp-content\plugins\everything_directory\includes\js\" />
-    <Folder Include="wp-content\plugins\everything_directory\includes\views\" />
+    <Folder Include="wp-content\plugins\everything-directory\" />
+    <Folder Include="wp-content\plugins\everything-directory\includes\" />
+    <Folder Include="wp-content\plugins\everything-directory\includes\js\" />
+    <Folder Include="wp-content\plugins\everything-directory\includes\views\" />
     <Folder Include="wp-content\plugins\quadmenu\" />
     <Folder Include="wp-content\plugins\quadmenu\assets\" />
     <Folder Include="wp-content\plugins\quadmenu\assets\backend\" />
@@ -573,15 +573,15 @@
     <Folder Include="wp-content\themes\pae_online\tribe-events\list\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="wp-content\plugins\everything_directory\.gitignore" />
-    <Content Include="wp-content\plugins\everything_directory\Gruntfile.js" />
-    <Content Include="wp-content\plugins\everything_directory\includes\js\admin.js" />
-    <Content Include="wp-content\plugins\everything_directory\includes\js\jquery.liveFilter.js" />
-    <Content Include="wp-content\plugins\everything_directory\LICENSE" />
-    <Content Include="wp-content\plugins\everything_directory\package-lock.json" />
-    <Content Include="wp-content\plugins\everything_directory\package.json" />
-    <Content Include="wp-content\plugins\everything_directory\README.md" />
-    <Content Include="wp-content\plugins\everything_directory\readme.txt" />
+    <Content Include="wp-content\plugins\everything-directory\.gitignore" />
+    <Content Include="wp-content\plugins\everything-directory\Gruntfile.js" />
+    <Content Include="wp-content\plugins\everything-directory\includes\js\admin.js" />
+    <Content Include="wp-content\plugins\everything-directory\includes\js\jquery.liveFilter.js" />
+    <Content Include="wp-content\plugins\everything-directory\LICENSE" />
+    <Content Include="wp-content\plugins\everything-directory\package-lock.json" />
+    <Content Include="wp-content\plugins\everything-directory\package.json" />
+    <Content Include="wp-content\plugins\everything-directory\README.md" />
+    <Content Include="wp-content\plugins\everything-directory\readme.txt" />
     <Content Include="wp-content\plugins\quadmenu\assets\backend\css\modal.css" />
     <Content Include="wp-content\plugins\quadmenu\assets\backend\css\modal.min.css" />
     <Content Include="wp-content\plugins\quadmenu\assets\backend\css\quadmenu-admin.css" />

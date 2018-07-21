@@ -1,0 +1,28 @@
+todo_paeonline.txt
+
+b4 weekend 
+
+fix bug with google maps on staging.paekakariki.nz
+layout change for category pages per Catherine mockup
+delete pages that are actually categories
+the three layouts for category pages 
+write a thing to get stories on rhs of entries
+make sure home page has chrono order
+
+
+the rest
+
+make the format thing go away
+
+form for contact us 
+move listings to rhs 
+click on tags in a-z
+email address hiding 
+featured layouts 
+enforce dissapearing of images and url when no supporter is checked
+automated list of supporters 
+emergency page 
+manual html for the meet the locals page 
+official stuff custom layout 
+stories layout 
+author field fallback
