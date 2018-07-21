@@ -3,8 +3,8 @@ todo_paeonline.txt
 b4 weekend 
 
 fix bug with google maps on staging.paekakariki.nz <done>
-layout change for category pages per Catherine mockup
-delete pages that are actually categories
+layout change for category header pages per Catherine mockup
+delete pages that are actually categories <done>
 the three layouts for category pages 
 write a thing to get stories on rhs of entries
 make sure home page has chrono order
