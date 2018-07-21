@@ -2,7 +2,7 @@ todo_paeonline.txt
 
 b4 weekend 
 
-fix bug with google maps on staging.paekakariki.nz
+fix bug with google maps on staging.paekakariki.nz <done>
 layout change for category pages per Catherine mockup
 delete pages that are actually categories
 the three layouts for category pages 
