@@ -27,7 +27,7 @@ abstract class WP_REST_Meta_Fields {
 	/**
 	 * Retrieves the object meta subtype.
 	 *
-	 * @since 5.0.0
+	 * @since 4.9.8
 	 *
 	 * @return string Subtype for the meta type, or empty string if no specific subtype.
 	 */
@@ -53,7 +53,9 @@ abstract class WP_REST_Meta_Fields {
 	 */
 	public function register_field() {
 		register_rest_field(
-			$this->get_rest_field_type(), 'meta', array(
+			$this->get_rest_field_type(),
+			'meta',
+			array(
 				'get_callback'    => array( $this, 'get_value' ),
 				'update_callback' => array( $this, 'update_value' ),
 				'schema'          => $this->get_field_schema(),

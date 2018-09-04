@@ -69,7 +69,7 @@ function current_time( $type, $gmt = 0 ) {
 		case 'timestamp':
 			return ( $gmt ) ? time() : time() + ( get_option( 'gmt_offset' ) * HOUR_IN_SECONDS );
 		default:
-			return ( $gmt ) ? date( $type ) : date( $type, time() + ( get_option( 'gmt_offset' ) * HOUR_IN_SECONDS ) );
+			return ( $gmt ) ? gmdate( $type ) : gmdate( $type, time() + ( get_option( 'gmt_offset' ) * HOUR_IN_SECONDS ) );
 	}
 }
 
@@ -106,6 +106,9 @@ function date_i18n( $dateformatstring, $timestamp_with_offset = false, $gmt = fa
 	 * See https://core.trac.wordpress.org/ticket/9396
 	 */
 	$req_format = $dateformatstring;
+
+	$dateformatstring = preg_replace( '/(?<!\\\\)c/', DATE_W3C, $dateformatstring );
+	$dateformatstring = preg_replace( '/(?<!\\\\)r/', DATE_RFC2822, $dateformatstring );
 
 	if ( ( ! empty( $wp_locale->month ) ) && ( ! empty( $wp_locale->weekday ) ) ) {
 		$datemonth            = $wp_locale->get_month( date( 'm', $i ) );
@@ -1818,7 +1821,7 @@ function wp_normalize_path( $path ) {
 	$wrapper = '';
 	if ( wp_is_stream( $path ) ) {
 		list( $wrapper, $path ) = explode( '://', $path, 2 );
-		$wrapper .= '://';
+		$wrapper               .= '://';
 	}
 
 	// Standardise all paths to use /
@@ -2289,7 +2292,8 @@ function wp_upload_bits( $name, $deprecated, $bits, $time = null ) {
 	 * @param mixed $upload_bits_error An array of upload bits data, or a non-array error to return.
 	 */
 	$upload_bits_error = apply_filters(
-		'wp_upload_bits', array(
+		'wp_upload_bits',
+		array(
 			'name' => $name,
 			'bits' => $bits,
 			'time' => $time,
@@ -2339,12 +2343,14 @@ function wp_upload_bits( $name, $deprecated, $bits, $time = null ) {
 
 	/** This filter is documented in wp-admin/includes/file.php */
 	return apply_filters(
-		'wp_handle_upload', array(
+		'wp_handle_upload',
+		array(
 			'file'  => $new_file,
 			'url'   => $url,
 			'type'  => $wp_filetype['type'],
 			'error' => false,
-		), 'sideload'
+		),
+		'sideload'
 	);
 }
 
@@ -2446,7 +2452,8 @@ function wp_check_filetype_and_ext( $file, $filename, $mimes = null ) {
 			 * @param  array $mime_to_ext Array of image mime types and their matching extensions.
 			 */
 			$mime_to_ext = apply_filters(
-				'getimagesize_mimes_to_exts', array(
+				'getimagesize_mimes_to_exts',
+				array(
 					'image/jpeg' => 'jpg',
 					'image/png'  => 'png',
 					'image/gif'  => 'gif',
@@ -2565,7 +2572,8 @@ function wp_get_mime_types() {
 	 *                                 corresponding to those types.
 	 */
 	return apply_filters(
-		'mime_types', array(
+		'mime_types',
+		array(
 			// Image formats.
 			'jpg|jpeg|jpe'                 => 'image/jpeg',
 			'gif'                          => 'image/gif',
@@ -2691,7 +2699,8 @@ function wp_get_ext_types() {
 	 *                        of file types.
 	 */
 	return apply_filters(
-		'ext2type', array(
+		'ext2type',
+		array(
 			'image'       => array( 'jpg', 'jpeg', 'jpe', 'gif', 'png', 'bmp', 'tif', 'tiff', 'ico' ),
 			'audio'       => array( 'aac', 'ac3', 'aif', 'aiff', 'flac', 'm3a', 'm4a', 'm4b', 'mka', 'mp1', 'mp2', 'mp3', 'ogg', 'oga', 'ram', 'wav', 'wma' ),
 			'video'       => array( '3g2', '3gp', '3gpp', 'asf', 'avi', 'divx', 'dv', 'flv', 'm4v', 'mkv', 'mov', 'mp4', 'mpeg', 'mpg', 'mpv', 'ogm', 'ogv', 'qt', 'rm', 'vob', 'wmv' ),
@@ -2923,17 +2932,17 @@ function _default_wp_die_handler( $message, $title = '', $args = array() ) {
 		} else {
 			$dir_attr = "dir='$text_direction'";
 		}
-?>
+		?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" <?php echo $dir_attr; ?>>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="viewport" content="width=device-width">
-	<?php
-	if ( function_exists( 'wp_no_robots' ) ) {
-		wp_no_robots();
-	}
-	?>
+		<?php
+		if ( function_exists( 'wp_no_robots' ) ) {
+			wp_no_robots();
+		}
+		?>
 	<title><?php echo $title; ?></title>
 	<style type="text/css">
 		html {
@@ -3057,7 +3066,7 @@ function _default_wp_die_handler( $message, $title = '', $args = array() ) {
 	<?php echo $message; ?>
 </body>
 </html>
-<?php
+	<?php
 	die();
 }
 
@@ -3343,7 +3352,9 @@ function wp_send_json( $response, $status_code = null ) {
 
 	if ( wp_doing_ajax() ) {
 		wp_die(
-			'', '', array(
+			'',
+			'',
+			array(
 				'response' => null,
 			)
 		);
@@ -3960,7 +3971,7 @@ function dead_db() {
 	if ( is_rtl() ) {
 		$dir_attr = ' dir="rtl"';
 	}
-?>
+	?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"<?php echo $dir_attr; ?>>
 <head>
@@ -3972,7 +3983,7 @@ function dead_db() {
 	<h1><?php _e( 'Error establishing a database connection' ); ?></h1>
 </body>
 </html>
-<?php
+	<?php
 	die();
 }
 
@@ -4095,7 +4106,10 @@ function _deprecated_constructor( $class, $version, $parent_class = '' ) {
 				trigger_error(
 					sprintf(
 						__( 'The called constructor method for %1$s in %2$s is <strong>deprecated</strong> since version %3$s! Use %4$s instead.' ),
-						$class, $parent_class, $version, '<pre>__construct()</pre>'
+						$class,
+						$parent_class,
+						$version,
+						'<pre>__construct()</pre>'
 					)
 				);
 			} else {
@@ -4103,7 +4117,9 @@ function _deprecated_constructor( $class, $version, $parent_class = '' ) {
 				trigger_error(
 					sprintf(
 						__( 'The called constructor method for %1$s is <strong>deprecated</strong> since version %2$s! Use %3$s instead.' ),
-						$class, $version, '<pre>__construct()</pre>'
+						$class,
+						$version,
+						'<pre>__construct()</pre>'
 					)
 				);
 			}
@@ -4112,14 +4128,19 @@ function _deprecated_constructor( $class, $version, $parent_class = '' ) {
 				trigger_error(
 					sprintf(
 						'The called constructor method for %1$s in %2$s is <strong>deprecated</strong> since version %3$s! Use %4$s instead.',
-						$class, $parent_class, $version, '<pre>__construct()</pre>'
+						$class,
+						$parent_class,
+						$version,
+						'<pre>__construct()</pre>'
 					)
 				);
 			} else {
 				trigger_error(
 					sprintf(
 						'The called constructor method for %1$s is <strong>deprecated</strong> since version %2$s! Use %3$s instead.',
-						$class, $version, '<pre>__construct()</pre>'
+						$class,
+						$version,
+						'<pre>__construct()</pre>'
 					)
 				);
 			}
@@ -4337,10 +4358,14 @@ function _doing_it_wrong( $function, $message, $version ) {
 	 * Filters whether to trigger an error for _doing_it_wrong() calls.
 	 *
 	 * @since 3.1.0
+	 * @since 5.0.0 Added the $function, $message and $version parameters.
 	 *
-	 * @param bool $trigger Whether to trigger the error for _doing_it_wrong() calls. Default true.
+	 * @param bool   $trigger  Whether to trigger the error for _doing_it_wrong() calls. Default true.
+	 * @param string $function The function that was called.
+	 * @param string $message  A message explaining what has been done incorrectly.
+	 * @param string $version  The version of WordPress where the message was added.
 	 */
-	if ( WP_DEBUG && apply_filters( 'doing_it_wrong_trigger_error', true ) ) {
+	if ( WP_DEBUG && apply_filters( 'doing_it_wrong_trigger_error', true, $function, $message, $version ) ) {
 		if ( function_exists( '__' ) ) {
 			if ( is_null( $version ) ) {
 				$version = '';
@@ -5464,7 +5489,7 @@ function wp_debug_backtrace_summary( $ignore_class = null, $skip_frames = 0, $pr
 	if ( ! isset( $truncate_paths ) ) {
 		$truncate_paths = array(
 			wp_normalize_path( WP_CONTENT_DIR ),
-			wp_normalize_path( ABSPATH )
+			wp_normalize_path( ABSPATH ),
 		);
 	}
 
@@ -5550,6 +5575,11 @@ function _device_can_upload() {
  * @return bool True if the path is a stream URL.
  */
 function wp_is_stream( $path ) {
+	if ( false === strpos( $path, '://' ) ) {
+		// $path isn't a stream
+		return false;
+	}
+
 	$wrappers    = stream_get_wrappers();
 	$wrappers    = array_map( 'preg_quote', $wrappers );
 	$wrappers_re = '(' . join( '|', $wrappers ) . ')';
@@ -5562,7 +5592,7 @@ function wp_is_stream( $path ) {
  *
  * @since 3.5.0
  *
- * @see checkdate()
+ * @link https://secure.php.net/manual/en/function.checkdate.php
  *
  * @param  int    $month       Month number.
  * @param  int    $day         Day number.
@@ -5658,7 +5688,8 @@ function wp_auth_check_html() {
 			array(
 				'interim-login' => '1',
 				'wp_lang'       => get_user_locale(),
-			), $login_url
+			),
+			$login_url
 		);
 		?>
 		<div id="wp-auth-check-form" class="loading" data-src="<?php echo esc_url( $login_src ); ?>"></div>
@@ -5857,7 +5888,7 @@ function wp_delete_file( $file ) {
  * @return bool True on success, false on failure.
  */
 function wp_delete_file_from_directory( $file, $directory ) {
-	$real_file = realpath( wp_normalize_path( $file ) );
+	$real_file      = realpath( wp_normalize_path( $file ) );
 	$real_directory = realpath( wp_normalize_path( $directory ) );
 
 	if ( false === $real_file || false === $real_directory || strpos( wp_normalize_path( $real_file ), trailingslashit( wp_normalize_path( $real_directory ) ) ) !== 0 ) {
@@ -6040,11 +6071,14 @@ function wp_raise_memory_limit( $context = 'admin' ) {
 function wp_generate_uuid4() {
 	return sprintf(
 		'%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
-		mt_rand( 0, 0xffff ), mt_rand( 0, 0xffff ),
+		mt_rand( 0, 0xffff ),
+		mt_rand( 0, 0xffff ),
 		mt_rand( 0, 0xffff ),
 		mt_rand( 0, 0x0fff ) | 0x4000,
 		mt_rand( 0, 0x3fff ) | 0x8000,
-		mt_rand( 0, 0xffff ), mt_rand( 0, 0xffff ), mt_rand( 0, 0xffff )
+		mt_rand( 0, 0xffff ),
+		mt_rand( 0, 0xffff ),
+		mt_rand( 0, 0xffff )
 	);
 }
 
@@ -6182,10 +6216,13 @@ All at ###SITENAME###
 	$email_change_email['message'] = str_replace( '###SITEURL###', home_url(), $email_change_email['message'] );
 
 	wp_mail(
-		$email_change_email['to'], sprintf(
+		$email_change_email['to'],
+		sprintf(
 			$email_change_email['subject'],
 			$site_name
-		), $email_change_email['message'], $email_change_email['headers']
+		),
+		$email_change_email['message'],
+		$email_change_email['headers']
 	);
 }
 
@@ -6241,7 +6278,7 @@ function wp_privacy_anonymize_ip( $ip_addr, $ipv6_fallback = false ) {
 		// Partially anonymize the IP by reducing it to the corresponding network ID.
 		if ( function_exists( 'inet_pton' ) && function_exists( 'inet_ntop' ) ) {
 			$ip_addr = inet_ntop( inet_pton( $ip_addr ) & inet_pton( $netmask ) );
-			if ( false === $ip_addr) {
+			if ( false === $ip_addr ) {
 				return '::';
 			}
 		} elseif ( ! $ipv6_fallback ) {
