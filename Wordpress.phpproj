@@ -146,9 +146,9 @@
     <Compile Include="wp-content\plugins\everything-directory\includes\class-a-to-z-widget.php" />
     <Compile Include="wp-content\plugins\everything-directory\includes\class-category-list-widget.php" />
     <Compile Include="wp-content\plugins\everything-directory\includes\class-listing-sidebar-widget.php" />
+    <Compile Include="wp-content\plugins\everything-directory\includes\class-category-links-widget.php" />
     <Compile Include="wp-content\plugins\everything-directory\includes\class-listings-widget.php" />
     <Compile Include="wp-content\plugins\everything-directory\includes\class-listings.php" />
-    <Compile Include="wp-content\plugins\everything-directory\includes\class-property-search-widget.php" />
     <Compile Include="wp-content\plugins\everything-directory\includes\class-taxonomies.php" />
     <Compile Include="wp-content\plugins\everything-directory\includes\functions.php" />
     <Compile Include="wp-content\plugins\everything-directory\includes\views\create-tax.php" />
