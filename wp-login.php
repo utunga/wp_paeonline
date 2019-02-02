@@ -13,7 +13,7 @@ require( dirname( __FILE__ ) . '/wp-load.php' );
 
 // Redirect to https login if forced to use SSL
 if ( force_ssl_admin() && ! is_ssl() ) {
-	if ( 0 === strpos( $_SERVER['REQUEST_URI'], 'http' ) ) {
+	if ( 0 === strpos($_SERVER['REQUEST_URI'], 'http') ) {
 		wp_safe_redirect( set_url_scheme( $_SERVER['REQUEST_URI'], 'https' ) );
 		exit();
 	} else {
@@ -34,7 +34,7 @@ function login_header( $title = 'Log In', $message = '', $wp_error = null ) {
 	global $error, $interim_login, $action;
 
 	// Don't index any of these forms
-	add_action( 'login_head', 'wp_no_robots' );
+	add_action( 'login_head', 'wp_sensitive_page_meta' );
 
 	add_action( 'login_head', 'wp_login_viewport_meta' );
 
@@ -259,9 +259,8 @@ function login_footer( $input_id = '' ) {
 		<?php
 		/* translators: %s: site title */
 		printf( _x( '&larr; Back to %s', 'site' ), get_bloginfo( 'title', 'display' ) );
-		?>
-	</a></p>
-		<?php the_privacy_policy_link( '<div class="privacy-policy-page-link">', '</div>' ); ?>
+	?></a></p>
+	<?php the_privacy_policy_link( '<div class="privacy-policy-page-link">', '</div>' ); ?>
 	<?php endif; ?>
 
 	</div>
@@ -428,7 +427,7 @@ if ( isset( $_GET['key'] ) ) {
 }
 
 // validate action so as to default to the login screen
-if ( ! in_array( $action, array( 'postpass', 'logout', 'lostpassword', 'retrievepassword', 'resetpass', 'rp', 'register', 'login', 'confirmaction' ), true ) && false === has_filter( 'login_form_' . $action ) ) {
+if ( !in_array( $action, array( 'postpass', 'logout', 'lostpassword', 'retrievepassword', 'resetpass', 'rp', 'register', 'login', 'confirmaction' ), true ) && false === has_filter( 'login_form_' . $action ) )
 	$action = 'login';
 }
 
@@ -453,9 +452,6 @@ setcookie( TEST_COOKIE, 'WP Cookie check', 0, COOKIEPATH, COOKIE_DOMAIN, $secure
 if ( SITECOOKIEPATH != COOKIEPATH ) {
 	setcookie( TEST_COOKIE, 'WP Cookie check', 0, SITECOOKIEPATH, COOKIE_DOMAIN, $secure );
 }
-
-$lang            = ! empty( $_GET['wp_lang'] ) ? sanitize_text_field( $_GET['wp_lang'] ) : '';
-$switched_locale = switch_to_locale( $lang );
 
 /**
  * Fires when the login form is initialized.
@@ -498,28 +494,8 @@ switch ( $action ) {
 		require_once ABSPATH . WPINC . '/class-phpass.php';
 		$hasher = new PasswordHash( 8, true );
 
-		/**
-		 * Filters the life span of the post password cookie.
-		 *
-		 * By default, the cookie expires 10 days from creation. To turn this
-		 * into a session cookie, return 0.
-		 *
-		 * @since 3.7.0
-		 *
-		 * @param int $expires The expiry time, as passed to setcookie().
-		 */
-		$expire  = apply_filters( 'post_password_expires', time() + 10 * DAY_IN_SECONDS );
-		$referer = wp_get_referer();
-		if ( $referer ) {
-			$secure = ( 'https' === parse_url( $referer, PHP_URL_SCHEME ) );
-		} else {
-			$secure = false;
-		}
-		setcookie( 'wp-postpass_' . COOKIEHASH, $hasher->HashPassword( wp_unslash( $_POST['post_password'] ) ), $expire, COOKIEPATH, COOKIE_DOMAIN, $secure );
-
-		if ( $switched_locale ) {
-			restore_previous_locale();
-		}
+	wp_safe_redirect( wp_get_referer() );
+	exit();
 
 		wp_safe_redirect( wp_get_referer() );
 		exit();
@@ -531,16 +507,18 @@ switch ( $action ) {
 
 		wp_logout();
 
-		if ( ! empty( $_REQUEST['redirect_to'] ) ) {
-			$redirect_to = $requested_redirect_to = $_REQUEST['redirect_to'];
-		} else {
-			$redirect_to           = 'wp-login.php?loggedout=true';
-			$requested_redirect_to = '';
-		}
-
-		if ( $switched_locale ) {
-			restore_previous_locale();
-		}
+	/**
+	 * Filters the log out redirect URL.
+	 *
+	 * @since 4.2.0
+	 *
+	 * @param string  $redirect_to           The redirect destination URL.
+	 * @param string  $requested_redirect_to The requested redirect destination URL passed as a parameter.
+	 * @param WP_User $user                  The WP_User object for the user that's logging out.
+	 */
+	$redirect_to = apply_filters( 'logout_redirect', $redirect_to, $requested_redirect_to, $user );
+	wp_safe_redirect( $redirect_to );
+	exit();
 
 		/**
 		 * Filters the log out redirect URL.
@@ -636,12 +614,7 @@ switch ( $action ) {
 		?>
 	</p>
 
-		<?php
-		login_footer( 'user_login' );
-
-		if ( $switched_locale ) {
-			restore_previous_locale();
-		}
+break;
 
 		break;
 
@@ -770,11 +743,7 @@ switch ( $action ) {
 		<?php
 		login_footer( 'user_pass' );
 
-		if ( $switched_locale ) {
-			restore_previous_locale();
-		}
-
-		break;
+break;
 
 	case 'register':
 		if ( is_multisite() ) {
@@ -857,16 +826,51 @@ switch ( $action ) {
 		<?php
 		login_footer( 'user_login' );
 
-		if ( $switched_locale ) {
-			restore_previous_locale();
-		}
+break;
 
-		break;
+case 'confirmaction' :
+	if ( ! isset( $_GET['request_id'] ) ) {
+		wp_die( __( 'Invalid request.' ) );
+	}
 
-	case 'confirmaction':
-		if ( ! isset( $_GET['request_id'] ) ) {
-			wp_die( __( 'Invalid request.' ) );
-		}
+	$request_id = (int) $_GET['request_id'];
+
+	if ( isset( $_GET['confirm_key'] ) ) {
+		$key    = sanitize_text_field( wp_unslash( $_GET['confirm_key'] ) );
+		$result = wp_validate_user_request_key( $request_id, $key );
+	} else {
+		$result = new WP_Error( 'invalid_key', __( 'Invalid key' ) );
+	}
+
+	if ( is_wp_error( $result ) ) {
+		wp_die( $result );
+	}
+	
+	/**
+	 * Fires an action hook when the account action has been confirmed by the user.
+	 * 
+	 * Using this you can assume the user has agreed to perform the action by
+	 * clicking on the link in the confirmation email.
+	 * 
+	 * After firing this action hook the page will redirect to wp-login a callback
+	 * redirects or exits first.
+	 *
+	 * @param int $request_id Request ID.
+	 */
+	do_action( 'user_request_action_confirmed', $request_id );
+
+	$message = _wp_privacy_account_request_confirmed_message( $request_id );
+
+	login_header( __( 'User action confirmed.' ), $message );
+	login_footer();
+	exit;
+
+case 'login' :
+default:
+	$secure_cookie = '';
+	$customize_login = isset( $_REQUEST['customize-login'] );
+	if ( $customize_login )
+		wp_enqueue_script( 'customize-base' );
 
 		$request_id = (int) $_GET['request_id'];
 
@@ -1164,12 +1168,5 @@ switch ( $action ) {
 	<?php } ?>
 	</script>
 
-		<?php
-		login_footer();
-
-		if ( $switched_locale ) {
-			restore_previous_locale();
-		}
-
-		break;
+break;
 } // end action switch

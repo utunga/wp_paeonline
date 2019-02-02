@@ -103,7 +103,7 @@
 				 *
 				 * To test for support, try to render a new emoji (female superhero),
 				 * then compare it to how it would look if the browser doesn't render it correctly
-				 * (superhero + female sign) .
+				 * (superhero + female sign).
 				 */
 				isIdentical = emojiSetsRenderIdentically(
 					[55358, 56760, 9792, 65039],

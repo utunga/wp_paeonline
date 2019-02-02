@@ -248,10 +248,8 @@ if ( $theme->errors() ) {
 			<li class="howto">
 				<?php
 				/* translators: %s: link to edit parent theme */
-				echo sprintf(
-					__( 'This child theme inherits templates from a parent theme, %s.' ),
-					sprintf(
-						'<a href="%s">%s</a>',
+				echo sprintf( __( 'This child theme inherits templates from a parent theme, %s.' ),
+					sprintf( '<a href="%s">%s</a>',
 						self_admin_url( 'theme-editor.php?theme=' . urlencode( $theme->get_template() ) ),
 						$theme->parent()->display( 'Name' )
 					)

@@ -115,12 +115,9 @@ function wp_underscore_video_template() {
 			<?php
 		}
 	endforeach;
-	?>
-	<#
-	<?php
-	foreach ( array( 'autoplay', 'loop' ) as $attr ) :
-		?>
-	if ( ! _.isUndefined( data.model.<?php echo $attr; ?> ) && data.model.<?php echo $attr; ?> ) {
+	?><#
+	<?php foreach ( array( 'autoplay', 'loop' ) as $attr ):
+	?> if ( ! _.isUndefined( data.model.<?php echo $attr; ?> ) && data.model.<?php echo $attr; ?> ) {
 		#> <?php echo $attr; ?><#
 	}
 	<?php endforeach ?>#>

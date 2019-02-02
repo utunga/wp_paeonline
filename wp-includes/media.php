@@ -2253,7 +2253,7 @@ function wp_get_audio_extensions() {
 	 *
 	 * @since 3.6.0
 	 *
-	 * @param array $extensions An array of supported audio formats. Defaults are
+	 * @param array $extensions An array of support audio formats. Defaults are
 	 *                          'mp3', 'ogg', 'flac', 'm4a', 'wav'.
 	 */
 	return apply_filters( 'wp_audio_extensions', array( 'mp3', 'ogg', 'flac', 'm4a', 'wav' ) );
@@ -3654,35 +3654,35 @@ function wp_enqueue_media( $args = array() ) {
 		'uploadImagesTitle'           => __( 'Upload Images' ),
 
 		// Library
-		'mediaLibraryTitle'           => __( 'Media Library' ),
-		'insertMediaTitle'            => __( 'Add Media' ),
-		'createNewGallery'            => __( 'Create a new gallery' ),
-		'createNewPlaylist'           => __( 'Create a new playlist' ),
-		'createNewVideoPlaylist'      => __( 'Create a new video playlist' ),
-		'returnToLibrary'             => __( '&#8592; Return to library' ),
-		'allMediaItems'               => __( 'All media items' ),
-		'allDates'                    => __( 'All dates' ),
-		'noItemsFound'                => __( 'No items found.' ),
-		'insertIntoPost'              => $post_type_object->labels->insert_into_item,
-		'unattached'                  => __( 'Unattached' ),
-		'mine'                        => _x( 'Mine', 'media items' ),
-		'trash'                       => _x( 'Trash', 'noun' ),
-		'uploadedToThisPost'          => $post_type_object->labels->uploaded_to_this_item,
-		'warnDelete'                  => __( "You are about to permanently delete this item from your site.\nThis action cannot be undone.\n 'Cancel' to stop, 'OK' to delete." ),
-		'warnBulkDelete'              => __( "You are about to permanently delete these items from your site.\nThis action cannot be undone.\n 'Cancel' to stop, 'OK' to delete." ),
-		'warnBulkTrash'               => __( "You are about to trash these items.\n  'Cancel' to stop, 'OK' to delete." ),
-		'bulkSelect'                  => __( 'Bulk Select' ),
-		'cancelSelection'             => __( 'Cancel Selection' ),
-		'trashSelected'               => __( 'Trash Selected' ),
-		'untrashSelected'             => __( 'Untrash Selected' ),
-		'deleteSelected'              => __( 'Delete Selected' ),
-		'deletePermanently'           => __( 'Delete Permanently' ),
-		'apply'                       => __( 'Apply' ),
-		'filterByDate'                => __( 'Filter by date' ),
-		'filterByType'                => __( 'Filter by type' ),
-		'searchMediaLabel'            => __( 'Search Media' ),
-		'searchMediaPlaceholder'      => __( 'Search media items...' ), // placeholder (no ellipsis)
-		'noMedia'                     => __( 'No media files found.' ),
+		'mediaLibraryTitle'      => __( 'Media Library' ),
+		'insertMediaTitle'       => __( 'Add Media' ),
+		'createNewGallery'       => __( 'Create a new gallery' ),
+		'createNewPlaylist'      => __( 'Create a new playlist' ),
+		'createNewVideoPlaylist' => __( 'Create a new video playlist' ),
+		'returnToLibrary'        => __( '&#8592; Return to library' ),
+		'allMediaItems'          => __( 'All media items' ),
+		'allDates'               => __( 'All dates' ),
+		'noItemsFound'           => __( 'No items found.' ),
+		'insertIntoPost'         => $post_type_object->labels->insert_into_item,
+		'unattached'             => __( 'Unattached' ),
+		'mine'                   => _x( 'Mine', 'media items' ),
+		'trash'                  => _x( 'Trash', 'noun' ),
+		'uploadedToThisPost'     => $post_type_object->labels->uploaded_to_this_item,
+		'warnDelete'             => __( "You are about to permanently delete this item from your site.\nThis action cannot be undone.\n 'Cancel' to stop, 'OK' to delete." ),
+		'warnBulkDelete'         => __( "You are about to permanently delete these items from your site.\nThis action cannot be undone.\n 'Cancel' to stop, 'OK' to delete." ),
+		'warnBulkTrash'          => __( "You are about to trash these items.\n  'Cancel' to stop, 'OK' to delete." ),
+		'bulkSelect'             => __( 'Bulk Select' ),
+		'cancelSelection'        => __( 'Cancel Selection' ),
+		'trashSelected'          => __( 'Trash Selected' ),
+		'untrashSelected'        => __( 'Untrash Selected' ),
+		'deleteSelected'         => __( 'Delete Selected' ),
+		'deletePermanently'      => __( 'Delete Permanently' ),
+		'apply'                  => __( 'Apply' ),
+		'filterByDate'           => __( 'Filter by date' ),
+		'filterByType'           => __( 'Filter by type' ),
+		'searchMediaLabel'       => __( 'Search Media' ),
+		'searchMediaPlaceholder' => __( 'Search media items...' ), // placeholder (no ellipsis)
+		'noMedia'                => __( 'No media files found.' ),
 
 		// Library Details
 		'attachmentDetails'           => __( 'Attachment Details' ),
@@ -4134,7 +4134,7 @@ function wp_media_personal_data_exporter( $email_address, $page = 1 ) {
 
 	$data_to_export = array();
 
-	$user = get_user_by( 'email', $email_address );
+	$user = get_user_by( 'email' , $email_address );
 	if ( false === $user ) {
 		return array(
 			'data' => $data_to_export,
@@ -4159,10 +4159,7 @@ function wp_media_personal_data_exporter( $email_address, $page = 1 ) {
 
 		if ( $attachment_url ) {
 			$post_data_to_export = array(
-				array(
-					'name'  => __( 'URL' ),
-					'value' => $attachment_url,
-				),
+				array( 'name'  => __( 'URL' ), 'value' => $attachment_url ),
 			);
 
 			$data_to_export[] = array(

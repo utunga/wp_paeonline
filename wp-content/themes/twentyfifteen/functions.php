@@ -51,129 +51,84 @@ if ( ! function_exists( 'twentyfifteen_setup' ) ) :
 	 *
 	 * @since Twenty Fifteen 1.0
 	 */
-	function twentyfifteen_setup() {
+	add_editor_style( array( 'css/editor-style.css', 'genericons/genericons.css', twentyfifteen_fonts_url() ) );
 
-		/*
-		 * Make theme available for translation.
-		 * Translations can be filed at WordPress.org. See: https://translate.wordpress.org/projects/wp-themes/twentyfifteen
-		 * If you're building a theme based on twentyfifteen, use a find and replace
-		 * to change 'twentyfifteen' to the name of your theme in all the template files
-		 */
-		load_theme_textdomain( 'twentyfifteen' );
+	// Load regular editor styles into the new block-based editor.
+	add_theme_support( 'editor-styles' );
 
-		// Add default posts and comments RSS feed links to head.
-		add_theme_support( 'automatic-feed-links' );
+	// Load default block styles.
+	add_theme_support( 'wp-block-styles' );
 
-		/*
-		 * Let WordPress manage the document title.
-		 * By adding theme support, we declare that this theme does not use a
-		 * hard-coded <title> tag in the document head, and expect WordPress to
-		 * provide it for us.
-		 */
-		add_theme_support( 'title-tag' );
+	// Add support for responsive embeds.
+	add_theme_support( 'responsive-embeds' );
 
-		/*
-		 * Enable support for Post Thumbnails on posts and pages.
-		 *
-		 * See: https://codex.wordpress.org/Function_Reference/add_theme_support#Post_Thumbnails
-		 */
-		add_theme_support( 'post-thumbnails' );
-		set_post_thumbnail_size( 825, 510, true );
+	// Add support for custom color scheme.
+	add_theme_support( 'editor-color-palette', array(
+		array(
+			'name'  => __( 'Dark Gray', 'twentyfifteen' ),
+			'slug'  => 'dark-gray',
+			'color' => '#111',
+		),
+		array(
+			'name'  => __( 'Light Gray', 'twentyfifteen' ),
+			'slug'  => 'light-gray',
+			'color' => '#f1f1f1',
+		),
+		array(
+			'name'  => __( 'White', 'twentyfifteen' ),
+			'slug'  => 'white',
+			'color' => '#fff',
+		),
+		array(
+			'name'  => __( 'Yellow', 'twentyfifteen' ),
+			'slug'  => 'yellow',
+			'color' => '#f4ca16',
+		),
+		array(
+			'name'  => __( 'Dark Brown', 'twentyfifteen' ),
+			'slug'  => 'dark-brown',
+			'color' => '#352712',
+		),
+		array(
+			'name'  => __( 'Medium Pink', 'twentyfifteen' ),
+			'slug'  => 'medium-pink',
+			'color' => '#e53b51',
+		),
+		array(
+			'name'  => __( 'Light Pink', 'twentyfifteen' ),
+			'slug'  => 'light-pink',
+			'color' => '#ffe5d1',
+		),
+		array(
+			'name'  => __( 'Dark Purple', 'twentyfifteen' ),
+			'slug'  => 'dark-purple',
+			'color' => '#2e2256',
+		),
+		array(
+			'name'  => __( 'Purple', 'twentyfifteen' ),
+			'slug'  => 'purple',
+			'color' => '#674970',
+		),
+		array(
+			'name'  => __( 'Blue Gray', 'twentyfifteen' ),
+			'slug'  => 'blue-gray',
+			'color' => '#22313f',
+		),
+		array(
+			'name'  => __( 'Bright Blue', 'twentyfifteen' ),
+			'slug'  => 'bright-blue',
+			'color' => '#55c3dc',
+		),
+		array(
+			'name'  => __( 'Light Blue', 'twentyfifteen' ),
+			'slug'  => 'light-blue',
+			'color' => '#e9f2f9',
+		),
+	) );
 
-		// This theme uses wp_nav_menu() in two locations.
-		register_nav_menus(
-			array(
-				'primary' => __( 'Primary Menu', 'twentyfifteen' ),
-				'social'  => __( 'Social Links Menu', 'twentyfifteen' ),
-			)
-		);
-
-		/*
-		 * Switch default core markup for search form, comment form, and comments
-		 * to output valid HTML5.
-		 */
-		add_theme_support(
-			'html5',
-			array(
-				'search-form',
-				'comment-form',
-				'comment-list',
-				'gallery',
-				'caption',
-			)
-		);
-
-		/*
-		 * Enable support for Post Formats.
-		 *
-		 * See: https://codex.wordpress.org/Post_Formats
-		 */
-		add_theme_support(
-			'post-formats',
-			array(
-				'aside',
-				'image',
-				'video',
-				'quote',
-				'link',
-				'gallery',
-				'status',
-				'audio',
-				'chat',
-			)
-		);
-
-		/*
-		 * Enable support for custom logo.
-		 *
-		 * @since Twenty Fifteen 1.5
-		 */
-		add_theme_support(
-			'custom-logo',
-			array(
-				'height'      => 248,
-				'width'       => 248,
-				'flex-height' => true,
-			)
-		);
-
-		$color_scheme  = twentyfifteen_get_color_scheme();
-		$default_color = trim( $color_scheme[0], '#' );
-
-		// Setup the WordPress core custom background feature.
-
-		/**
-		 * Filter Twenty Fifteen custom-header support arguments.
-		 *
-		 * @since Twenty Fifteen 1.0
-		 *
-		 * @param array $args {
-		 *     An array of custom-header support arguments.
-		 *
-		 *     @type string $default-color          Default color of the header.
-		 *     @type string $default-attachment     Default attachment of the header.
-		 * }
-		 */
-		add_theme_support(
-			'custom-background',
-			apply_filters(
-				'twentyfifteen_custom_background_args',
-				array(
-					'default-color'      => $default_color,
-					'default-attachment' => 'fixed',
-				)
-			)
-		);
-
-		/*
-		 * This theme styles the visual editor to resemble the theme style,
-		 * specifically font, colors, icons, and column width.
-		 */
-		add_editor_style( array( 'css/editor-style.css', 'genericons/genericons.css', twentyfifteen_fonts_url() ) );
-
-		// Indicate widget sidebars can use selective refresh in the Customizer.
-		add_theme_support( 'customize-selective-refresh-widgets' );
-	}
+	// Indicate widget sidebars can use selective refresh in the Customizer.
+	add_theme_support( 'customize-selective-refresh-widgets' );
+}
 endif; // twentyfifteen_setup
 add_action( 'after_setup_theme', 'twentyfifteen_setup' );
 
@@ -293,6 +248,9 @@ function twentyfifteen_scripts() {
 	// Load our main stylesheet.
 	wp_enqueue_style( 'twentyfifteen-style', get_stylesheet_uri() );
 
+	// Theme block stylesheet.
+	wp_enqueue_style( 'twentyfifteen-block-style', get_template_directory_uri() . '/css/blocks.css', array( 'twentyfifteen-style' ), '20181230' );
+
 	// Load the Internet Explorer specific stylesheet.
 	wp_enqueue_style( 'twentyfifteen-ie', get_template_directory_uri() . '/css/ie.css', array( 'twentyfifteen-style' ), '20141010' );
 	wp_style_add_data( 'twentyfifteen-ie', 'conditional', 'lt IE 9' );
@@ -322,6 +280,20 @@ function twentyfifteen_scripts() {
 	);
 }
 add_action( 'wp_enqueue_scripts', 'twentyfifteen_scripts' );
+
+/**
+ * Enqueue styles for the block-based editor.
+ *
+ * @since Twenty Fifteen 2.1
+ */
+function twentyfifteen_block_editor_styles() {
+	// Block styles.
+	wp_enqueue_style( 'twentyfifteen-block-editor-style', get_template_directory_uri() . '/css/editor-blocks.css', array(), '20181230' );
+	// Add custom fonts.
+	wp_enqueue_style( 'twentyfifteen-fonts', twentyfifteen_fonts_url(), array(), null );
+}
+add_action( 'enqueue_block_editor_assets', 'twentyfifteen_block_editor_styles' );
+
 
 /**
  * Add preconnect for Google Fonts.

@@ -51,11 +51,11 @@ if ( $wp_customize->changeset_post_id() ) {
 		 *
 		 * By opening an Ajax request, this is avoided and the changeset is published. See #39221.
 		 */
-		$nonces       = $wp_customize->get_nonces();
+		$nonces = $wp_customize->get_nonces();
 		$request_args = array(
-			'nonce'                      => $nonces['save'],
-			'customize_changeset_uuid'   => $wp_customize->changeset_uuid(),
-			'wp_customize'               => 'on',
+			'nonce' => $nonces['save'],
+			'customize_changeset_uuid' => $wp_customize->changeset_uuid(),
+			'wp_customize' => 'on',
 			'customize_changeset_status' => 'publish',
 		);
 		ob_start();

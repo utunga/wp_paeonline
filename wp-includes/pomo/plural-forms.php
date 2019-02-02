@@ -206,8 +206,8 @@ class Plural_Forms {
 					if ( $next >= '0' && $next <= '9' ) {
 						$span     = strspn( $str, self::NUM_CHARS, $pos );
 						$output[] = array( 'value', intval( substr( $str, $pos, $span ) ) );
-						$pos     += $span;
-						continue;
+						$pos += $span;
+						break;
 					}
 
 					throw new Exception( sprintf( 'Unknown symbol "%s"', $next ) );

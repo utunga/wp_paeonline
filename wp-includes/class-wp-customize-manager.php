@@ -317,7 +317,7 @@ final class WP_Customize_Manager {
 		require_once( ABSPATH . WPINC . '/customize/class-wp-customize-nav-menu-name-control.php' );
 		require_once( ABSPATH . WPINC . '/customize/class-wp-customize-nav-menu-locations-control.php' );
 		require_once( ABSPATH . WPINC . '/customize/class-wp-customize-nav-menu-auto-add-control.php' );
-		require_once( ABSPATH . WPINC . '/customize/class-wp-customize-new-menu-control.php' ); // @todo Remove in 5.0. See #42364.
+		require_once( ABSPATH . WPINC . '/customize/class-wp-customize-new-menu-control.php' ); // @todo Remove in a future release. See #42364.
 
 		require_once( ABSPATH . WPINC . '/customize/class-wp-customize-nav-menus-panel.php' );
 
@@ -325,7 +325,7 @@ final class WP_Customize_Manager {
 		require_once( ABSPATH . WPINC . '/customize/class-wp-customize-themes-section.php' );
 		require_once( ABSPATH . WPINC . '/customize/class-wp-customize-sidebar-section.php' );
 		require_once( ABSPATH . WPINC . '/customize/class-wp-customize-nav-menu-section.php' );
-		require_once( ABSPATH . WPINC . '/customize/class-wp-customize-new-menu-section.php' ); // @todo Remove in 5.0. See #42364.
+		require_once( ABSPATH . WPINC . '/customize/class-wp-customize-new-menu-section.php' ); // @todo Remove in a future release. See #42364.
 
 		require_once( ABSPATH . WPINC . '/customize/class-wp-customize-custom-css-setting.php' );
 		require_once( ABSPATH . WPINC . '/customize/class-wp-customize-filter-setting.php' );
@@ -2304,7 +2304,7 @@ final class WP_Customize_Manager {
 			if ( ! is_wp_error( $validity ) ) {
 				/** This filter is documented in wp-includes/class-wp-customize-setting.php */
 				$late_validity = apply_filters( "customize_validate_{$setting->id}", new WP_Error(), $unsanitized_value, $setting );
-				if ( is_wp_error( $late_validity ) && $late_validity->has_errors() ) {
+				if ( is_wp_error( $late_validity ) && ! empty( $late_validity->errors ) ) {
 					$validity = $late_validity;
 				}
 			}
@@ -4017,14 +4017,14 @@ final class WP_Customize_Manager {
 		if ( $this->branching() ) {
 			$l10n = array(
 				/* translators: %s: User who is customizing the changeset in customizer. */
-				'locked'                => __( '%s is already customizing this changeset. Please wait until they are done to try customizing. Your latest changes have been autosaved.' ),
+				'locked' => __( '%s is already customizing this changeset. Please wait until they are done to try customizing. Your latest changes have been autosaved.' ),
 				/* translators: %s: User who is customizing the changeset in customizer. */
 				'locked_allow_override' => __( '%s is already customizing this changeset. Do you want to take over?' ),
 			);
 		} else {
 			$l10n = array(
 				/* translators: %s: User who is customizing the changeset in customizer. */
-				'locked'                => __( '%s is already customizing this site. Please wait until they are done to try customizing. Your latest changes have been autosaved.' ),
+				'locked' => __( '%s is already customizing this site. Please wait until they are done to try customizing. Your latest changes have been autosaved.' ),
 				/* translators: %s: User who is customizing the changeset in customizer. */
 				'locked_allow_override' => __( '%s is already customizing this site. Do you want to take over?' ),
 			);
@@ -4766,7 +4766,7 @@ final class WP_Customize_Manager {
 				'reflowPaneContents'      => 100,
 				'previewFrameSensitivity' => 2000,
 			),
-			'theme'                  => array(
+			'theme'    => array(
 				'stylesheet'  => $this->get_stylesheet(),
 				'active'      => $this->is_theme_active(),
 				'_canInstall' => current_user_can( 'install_themes' ),

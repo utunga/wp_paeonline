@@ -1558,7 +1558,7 @@ body.full-overlay-active {
 /* rtl:ignore */
 .wp-full-overlay.collapsed .collapse-sidebar-arrow:before,
 .rtl .wp-full-overlay .collapse-sidebar-arrow:before {
-	transform: rotate(180.001deg); /* Firefox: promoting to its own layer to trigger anti-aliasing */
+	transform: rotate(180.001deg); /* Firefox: promoting to its own layer to trigger anti-aliasing  */
 }
 
 .rtl .wp-full-overlay.collapsed .collapse-sidebar-arrow:before {

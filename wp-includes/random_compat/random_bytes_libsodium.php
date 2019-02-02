@@ -26,7 +26,36 @@
  * SOFTWARE.
  */
 
-if (!is_callable('random_bytes')) {
+if ( ! is_callable( 'random_bytes' ) ):
+/**
+ * If the libsodium PHP extension is loaded, we'll use it above any other
+ * solution.
+ *
+ * libsodium-php project:
+ * @ref https://github.com/jedisct1/libsodium-php
+ *
+ * @param int $bytes
+ *
+ * @throws Exception
+ *
+ * @return string
+ */
+function random_bytes($bytes)
+{
+    try {
+        $bytes = RandomCompat_intval($bytes);
+    } catch (TypeError $ex) {
+        throw new TypeError(
+            'random_bytes(): $bytes must be an integer'
+        );
+    }
+
+    if ($bytes < 1) {
+        throw new Error(
+            'Length must be greater than 0'
+        );
+    }
+
     /**
      * If the libsodium PHP extension is loaded, we'll use it above any other
      * solution.
@@ -86,3 +115,4 @@ if (!is_callable('random_bytes')) {
         );
     }
 }
+endif;

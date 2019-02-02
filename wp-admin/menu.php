@@ -252,16 +252,14 @@ if ( current_user_can( 'list_users' ) ) {
 	}
 }
 
-$menu[75]                     = array( __( 'Tools' ), 'edit_posts', 'tools.php', '', 'menu-top menu-icon-tools', 'menu-tools', 'dashicons-admin-tools' );
-	$submenu['tools.php'][5]  = array( __( 'Available Tools' ), 'edit_posts', 'tools.php' );
-	$submenu['tools.php'][10] = array( __( 'Import' ), 'import', 'import.php' );
-	$submenu['tools.php'][15] = array( __( 'Export' ), 'export', 'export.php' );
-if ( is_multisite() && ! is_main_site() ) {
-	$submenu['tools.php'][25] = array( __( 'Delete Site' ), 'delete_site', 'ms-delete-site.php' );
-}
-if ( ! is_multisite() && defined( 'WP_ALLOW_MULTISITE' ) && WP_ALLOW_MULTISITE ) {
-	$submenu['tools.php'][50] = array( __( 'Network Setup' ), 'setup_network', 'network.php' );
-}
+$menu[75] = array( __('Tools'), 'edit_posts', 'tools.php', '', 'menu-top menu-icon-tools', 'menu-tools', 'dashicons-admin-tools' );
+	$submenu['tools.php'][5] = array( __('Available Tools'), 'edit_posts', 'tools.php' );
+	$submenu['tools.php'][10] = array( __('Import'), 'import', 'import.php' );
+	$submenu['tools.php'][15] = array( __('Export'), 'export', 'export.php' );
+	if ( is_multisite() && !is_main_site() )
+		$submenu['tools.php'][25] = array( __('Delete Site'), 'delete_site', 'ms-delete-site.php' );
+	if ( ! is_multisite() && defined('WP_ALLOW_MULTISITE') && WP_ALLOW_MULTISITE )
+		$submenu['tools.php'][50] = array(__('Network Setup'), 'setup_network', 'network.php');
 
 $change_notice = '';
 if ( current_user_can( 'manage_privacy_options' ) && WP_Privacy_Policy_Content::text_change_check() ) {

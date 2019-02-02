@@ -338,38 +338,17 @@ class WP_REST_Taxonomies_Controller extends WP_REST_Controller {
 					'context'     => array( 'view', 'edit', 'embed' ),
 					'readonly'    => true,
 				),
-				'visibility'   => array(
-					'description' => __( 'The visibility settings for the taxonomy.' ),
-					'type'        => 'object',
-					'context'     => array( 'edit' ),
-					'readonly'    => true,
-					'properties'  => array(
-						'public'             => array(
-							'description' => __( 'Whether a taxonomy is intended for use publicly either via the admin interface or by front-end users.' ),
-							'type'        => 'boolean',
-						),
-						'publicly_queryable' => array(
-							'description' => __( 'Whether the taxonomy is publicly queryable.' ),
-							'type'        => 'boolean',
-						),
-						'show_ui'            => array(
-							'description' => __( 'Whether to generate a default UI for managing this taxonomy.' ),
-							'type'        => 'boolean',
-						),
-						'show_admin_column'  => array(
-							'description' => __( 'Whether to allow automatic creation of taxonomy columns on associated post-types table.' ),
-							'type'        => 'boolean',
-						),
-						'show_in_nav_menus'  => array(
-							'description' => __( 'Whether to make the taxonomy available for selection in navigation menus.' ),
-							'type'        => 'boolean',
-						),
-						'show_in_quick_edit' => array(
-							'description' => __( 'Whether to show the taxonomy in the quick/bulk edit panel.' ),
-							'type'        => 'boolean',
-						),
-
-					),
+				'visibility'       => array(
+					'description'  => __( 'The visibility settings for the taxonomy.' ),
+					'type'         => 'object',
+					'context'      => array( 'edit' ),
+					'readonly'     => true,
+				),
+				'rest_base'            => array(
+					'description'  => __( 'REST base route for the taxonomy.' ),
+					'type'         => 'string',
+					'context'      => array( 'view', 'edit', 'embed' ),
+					'readonly'     => true,
 				),
 			),
 		);

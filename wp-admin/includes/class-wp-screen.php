@@ -179,6 +179,14 @@ final class WP_Screen {
 	private $_screen_settings;
 
 	/**
+	 * Whether the screen is using the block editor.
+	 *
+	 * @since 5.0.0
+	 * @var bool
+	 */
+	public $is_block_editor = false;
+
+	/**
 	 * Fetches a screen object.
 	 *
 	 * @since 3.3.0
@@ -271,8 +279,10 @@ final class WP_Screen {
 			}
 
 			switch ( $base ) {
-				case 'post':
-					if ( isset( $_GET['post'] ) ) {
+				case 'post' :
+					if ( isset( $_GET['post'] ) && isset( $_POST['post_ID'] ) && (int) $_GET['post'] !== (int) $_POST['post_ID'] )
+						wp_die( __( 'A post ID mismatch has been detected.' ), __( 'Sorry, you are not allowed to edit this item.' ), 400 );
+					elseif ( isset( $_GET['post'] ) )
 						$post_id = (int) $_GET['post'];
 					} elseif ( isset( $_POST['post_ID'] ) ) {
 						$post_id = (int) $_POST['post_ID'];
@@ -408,6 +418,22 @@ final class WP_Screen {
 		}
 
 		return ( $admin == $this->in_admin );
+	}
+
+	/**
+	 * Sets or returns whether the block editor is loading on the current screen.
+	 *
+	 * @since 5.0.0
+	 *
+	 * @param bool $set Optional. Sets whether the block editor is loading on the current screen or not.
+	 * @return bool True if the block editor is being loaded, false otherwise.
+	 */
+	public function is_block_editor( $set = null ) {
+		if ( $set !== null ) {
+			$this->is_block_editor = (bool) $set;
+		}
+
+		return $this->is_block_editor;
 	}
 
 	/**
@@ -1034,20 +1060,21 @@ if ( $this->show_screen_options() ) :
 		<?php
 			meta_box_prefs( $this );
 
-		if ( 'dashboard' === $this->id && has_action( 'welcome_panel' ) && current_user_can( 'edit_theme_options' ) ) {
-			if ( isset( $_GET['welcome'] ) ) {
-				$welcome_checked = empty( $_GET['welcome'] ) ? 0 : 1;
-				update_user_meta( get_current_user_id(), 'show_welcome_panel', $welcome_checked );
-			} else {
-				$welcome_checked = get_user_meta( get_current_user_id(), 'show_welcome_panel', true );
-				if ( 2 == $welcome_checked && wp_get_current_user()->user_email != get_option( 'admin_email' ) ) {
-					$welcome_checked = false;
+			if ( 'dashboard' === $this->id && has_action( 'welcome_panel' ) && current_user_can( 'edit_theme_options' ) ) {
+				if ( isset( $_GET['welcome'] ) ) {
+					$welcome_checked = empty( $_GET['welcome'] ) ? 0 : 1;
+					update_user_meta( get_current_user_id(), 'show_welcome_panel', $welcome_checked );
+				} else {
+					$welcome_checked = get_user_meta( get_current_user_id(), 'show_welcome_panel', true );
+					if ( '' === $welcome_checked ) {
+						$welcome_checked = '1';
+					}
+					if ( '2' === $welcome_checked && wp_get_current_user()->user_email != get_option( 'admin_email' ) ) {
+						$welcome_checked = false;
+					}
 				}
 			}
-			echo '<label for="wp_welcome_panel-hide">';
-			echo '<input type="checkbox" id="wp_welcome_panel-hide"' . checked( (bool) $welcome_checked, true, false ) . ' />';
-			echo _x( 'Welcome', 'Welcome panel' ) . "</label>\n";
-		}
+
 		?>
 		</fieldset>
 		<?php

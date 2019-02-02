@@ -233,7 +233,7 @@ class WP_Community_Events {
 	 *                      or false on failure.
 	 */
 	public static function get_unsafe_client_ip() {
-		$client_ip = false;
+		$client_ip = $netmask = false;
 
 		// In order of preference, with the best ones for this purpose first.
 		$address_headers = array(
@@ -425,7 +425,7 @@ class WP_Community_Events {
 			$response_body['events'] = array_slice( $response_body['events'], 0, 3 );
 			$trimmed_event_types     = wp_list_pluck( $response_body['events'], 'type' );
 
-			// Make sure the soonest upcoming WordCamp is pinned in the list.
+			// Make sure the soonest upcoming WordCamps is pinned in the list.
 			if ( ! in_array( 'wordcamp', $trimmed_event_types ) && $wordcamps ) {
 				array_pop( $response_body['events'] );
 				array_push( $response_body['events'], $wordcamps[0] );

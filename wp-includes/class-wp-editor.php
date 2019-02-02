@@ -79,26 +79,24 @@ final class _WP_Editors {
 		 */
 		$settings = apply_filters( 'wp_editor_settings', $settings, $editor_id );
 
-		$set = wp_parse_args(
-			$settings,
-			array(
-				'wpautop'             => true,
-				'media_buttons'       => true,
-				'default_editor'      => '',
-				'drag_drop_upload'    => false,
-				'textarea_name'       => $editor_id,
-				'textarea_rows'       => 20,
-				'tabindex'            => '',
-				'tabfocus_elements'   => ':prev,:next',
-				'editor_css'          => '',
-				'editor_class'        => '',
-				'teeny'               => false,
-				'dfw'                 => false,
-				'_content_editor_dfw' => false,
-				'tinymce'             => true,
-				'quicktags'           => true,
-			)
-		);
+		$set = wp_parse_args( $settings, array(
+			// Disable autop if the current post has blocks in it.
+			'wpautop'             => ! has_blocks(),
+			'media_buttons'       => true,
+			'default_editor'      => '',
+			'drag_drop_upload'    => false,
+			'textarea_name'       => $editor_id,
+			'textarea_rows'       => 20,
+			'tabindex'            => '',
+			'tabfocus_elements'   => ':prev,:next',
+			'editor_css'          => '',
+			'editor_class'        => '',
+			'teeny'               => false,
+			'dfw'                 => false,
+			'_content_editor_dfw' => false,
+			'tinymce'             => true,
+			'quicktags'           => true
+		) );
 
 		self::$this_tinymce = ( $set['tinymce'] && user_can_richedit() );
 
@@ -317,9 +315,11 @@ final class _WP_Editors {
 		if ( empty( self::$first_init ) ) {
 			if ( is_admin() ) {
 				add_action( 'admin_print_footer_scripts', array( __CLASS__, 'editor_js' ), 50 );
+				add_action( 'admin_print_footer_scripts', array( __CLASS__, 'force_uncompressed_tinymce' ), 1 );
 				add_action( 'admin_print_footer_scripts', array( __CLASS__, 'enqueue_scripts' ), 1 );
 			} else {
 				add_action( 'wp_print_footer_scripts', array( __CLASS__, 'editor_js' ), 50 );
+				add_action( 'wp_print_footer_scripts', array( __CLASS__, 'force_uncompressed_tinymce' ), 1 );
 				add_action( 'wp_print_footer_scripts', array( __CLASS__, 'enqueue_scripts' ), 1 );
 			}
 		}
@@ -755,6 +755,9 @@ final class _WP_Editors {
 	}
 
 	/**
+	 *
+	 * @static
+	 *
 	 * @param bool $default_scripts Optional. Whether default scripts should be enqueued. Default false.
 	 */
 	public static function enqueue_scripts( $default_scripts = false ) {
@@ -819,8 +822,10 @@ final class _WP_Editors {
 		wp_enqueue_style( 'editor-buttons' );
 
 		if ( is_admin() ) {
+			add_action( 'admin_print_footer_scripts', array( __CLASS__, 'force_uncompressed_tinymce' ), 1 );
 			add_action( 'admin_print_footer_scripts', array( __CLASS__, 'print_default_editor_scripts' ), 45 );
 		} else {
+			add_action( 'wp_print_footer_scripts', array( __CLASS__, 'force_uncompressed_tinymce' ), 1 );
 			add_action( 'wp_print_footer_scripts', array( __CLASS__, 'print_default_editor_scripts' ), 45 );
 		}
 	}
@@ -1014,293 +1019,295 @@ final class _WP_Editors {
 	private static function get_translation() {
 		if ( empty( self::$translation ) ) {
 			self::$translation = array(
-				// Default TinyMCE strings
-				'New document'                         => __( 'New document' ),
-				'Formats'                              => _x( 'Formats', 'TinyMCE' ),
+			// Default TinyMCE strings
+			'New document' => __( 'New document' ),
+			'Formats' => _x( 'Formats', 'TinyMCE' ),
 
-				'Headings'                             => _x( 'Headings', 'TinyMCE' ),
-				'Heading 1'                            => array( __( 'Heading 1' ), 'access1' ),
-				'Heading 2'                            => array( __( 'Heading 2' ), 'access2' ),
-				'Heading 3'                            => array( __( 'Heading 3' ), 'access3' ),
-				'Heading 4'                            => array( __( 'Heading 4' ), 'access4' ),
-				'Heading 5'                            => array( __( 'Heading 5' ), 'access5' ),
-				'Heading 6'                            => array( __( 'Heading 6' ), 'access6' ),
+			'Headings' => _x( 'Headings', 'TinyMCE' ),
+			'Heading 1' => array( __( 'Heading 1' ), 'access1' ),
+			'Heading 2' => array( __( 'Heading 2' ), 'access2' ),
+			'Heading 3' => array( __( 'Heading 3' ), 'access3' ),
+			'Heading 4' => array( __( 'Heading 4' ), 'access4' ),
+			'Heading 5' => array( __( 'Heading 5' ), 'access5' ),
+			'Heading 6' => array( __( 'Heading 6' ), 'access6' ),
 
-				/* translators: block tags */
-				'Blocks'                               => _x( 'Blocks', 'TinyMCE' ),
-				'Paragraph'                            => array( __( 'Paragraph' ), 'access7' ),
-				'Blockquote'                           => array( __( 'Blockquote' ), 'accessQ' ),
-				'Div'                                  => _x( 'Div', 'HTML tag' ),
-				'Pre'                                  => _x( 'Pre', 'HTML tag' ),
-				'Preformatted'                         => _x( 'Preformatted', 'HTML tag' ),
-				'Address'                              => _x( 'Address', 'HTML tag' ),
+			/* translators: block tags */
+			'Blocks' => _x( 'Blocks', 'TinyMCE' ),
+			'Paragraph' => array( __( 'Paragraph' ), 'access7' ),
+			'Blockquote' => array( __( 'Blockquote' ), 'accessQ' ),
+			'Div' => _x( 'Div', 'HTML tag' ),
+			'Pre' => _x( 'Pre', 'HTML tag' ),
+			'Preformatted' => _x( 'Preformatted', 'HTML tag' ),
+			'Address' => _x( 'Address', 'HTML tag' ),
 
-				'Inline'                               => _x( 'Inline', 'HTML elements' ),
-				'Underline'                            => array( __( 'Underline' ), 'metaU' ),
-				'Strikethrough'                        => array( __( 'Strikethrough' ), 'accessD' ),
-				'Subscript'                            => __( 'Subscript' ),
-				'Superscript'                          => __( 'Superscript' ),
-				'Clear formatting'                     => __( 'Clear formatting' ),
-				'Bold'                                 => array( __( 'Bold' ), 'metaB' ),
-				'Italic'                               => array( __( 'Italic' ), 'metaI' ),
-				'Code'                                 => array( __( 'Code' ), 'accessX' ),
-				'Source code'                          => __( 'Source code' ),
-				'Font Family'                          => __( 'Font Family' ),
-				'Font Sizes'                           => __( 'Font Sizes' ),
+			'Inline' => _x( 'Inline', 'HTML elements' ),
+			'Underline' => array( __( 'Underline' ), 'metaU' ),
+			'Strikethrough' => array( __( 'Strikethrough' ), 'accessD' ),
+			'Subscript' => __( 'Subscript' ),
+			'Superscript' => __( 'Superscript' ),
+			'Clear formatting' => __( 'Clear formatting' ),
+			'Bold' => array( __( 'Bold' ), 'metaB' ),
+			'Italic' => array( __( 'Italic' ), 'metaI' ),
+			'Code' => array( __( 'Code' ), 'accessX' ),
+			'Source code' => __( 'Source code' ),
+			'Font Family' => __( 'Font Family' ),
+			'Font Sizes' => __( 'Font Sizes' ),
 
-				'Align center'                         => array( __( 'Align center' ), 'accessC' ),
-				'Align right'                          => array( __( 'Align right' ), 'accessR' ),
-				'Align left'                           => array( __( 'Align left' ), 'accessL' ),
-				'Justify'                              => array( __( 'Justify' ), 'accessJ' ),
-				'Increase indent'                      => __( 'Increase indent' ),
-				'Decrease indent'                      => __( 'Decrease indent' ),
+			'Align center' => array( __( 'Align center' ), 'accessC' ),
+			'Align right' => array( __( 'Align right' ), 'accessR' ),
+			'Align left' => array( __( 'Align left' ), 'accessL' ),
+			'Justify' => array( __( 'Justify' ), 'accessJ' ),
+			'Increase indent' => __( 'Increase indent' ),
+			'Decrease indent' => __( 'Decrease indent' ),
 
-				'Cut'                                  => array( __( 'Cut' ), 'metaX' ),
-				'Copy'                                 => array( __( 'Copy' ), 'metaC' ),
-				'Paste'                                => array( __( 'Paste' ), 'metaV' ),
-				'Select all'                           => array( __( 'Select all' ), 'metaA' ),
-				'Undo'                                 => array( __( 'Undo' ), 'metaZ' ),
-				'Redo'                                 => array( __( 'Redo' ), 'metaY' ),
+			'Cut' => array( __( 'Cut' ), 'metaX' ),
+			'Copy' => array( __( 'Copy' ), 'metaC' ),
+			'Paste' => array( __( 'Paste' ), 'metaV' ),
+			'Select all' => array( __( 'Select all' ), 'metaA' ),
+			'Undo' => array( __( 'Undo' ), 'metaZ' ),
+			'Redo' => array( __( 'Redo' ), 'metaY' ),
 
-				'Ok'                                   => __( 'OK' ),
-				'Cancel'                               => __( 'Cancel' ),
-				'Close'                                => __( 'Close' ),
-				'Visual aids'                          => __( 'Visual aids' ),
+			'Ok' => __( 'OK' ),
+			'Cancel' => __( 'Cancel' ),
+			'Close' => __( 'Close' ),
+			'Visual aids' => __( 'Visual aids' ),
 
-				'Bullet list'                          => array( __( 'Bulleted list' ), 'accessU' ),
-				'Numbered list'                        => array( __( 'Numbered list' ), 'accessO' ),
-				'Square'                               => _x( 'Square', 'list style' ),
-				'Default'                              => _x( 'Default', 'list style' ),
-				'Circle'                               => _x( 'Circle', 'list style' ),
-				'Disc'                                 => _x( 'Disc', 'list style' ),
-				'Lower Greek'                          => _x( 'Lower Greek', 'list style' ),
-				'Lower Alpha'                          => _x( 'Lower Alpha', 'list style' ),
-				'Upper Alpha'                          => _x( 'Upper Alpha', 'list style' ),
-				'Upper Roman'                          => _x( 'Upper Roman', 'list style' ),
-				'Lower Roman'                          => _x( 'Lower Roman', 'list style' ),
+			'Bullet list' => array( __( 'Bulleted list' ), 'accessU' ),
+			'Numbered list' => array( __( 'Numbered list' ), 'accessO' ),
+			'Square' => _x( 'Square', 'list style' ),
+			'Default' => _x( 'Default', 'list style' ),
+			'Circle' => _x( 'Circle', 'list style' ),
+			'Disc' => _x('Disc', 'list style' ),
+			'Lower Greek' => _x( 'Lower Greek', 'list style' ),
+			'Lower Alpha' => _x( 'Lower Alpha', 'list style' ),
+			'Upper Alpha' => _x( 'Upper Alpha', 'list style' ),
+			'Upper Roman' => _x( 'Upper Roman', 'list style' ),
+			'Lower Roman' => _x( 'Lower Roman', 'list style' ),
 
-				// Anchor plugin
-				'Name'                                 => _x( 'Name', 'Name of link anchor (TinyMCE)' ),
-				'Anchor'                               => _x( 'Anchor', 'Link anchor (TinyMCE)' ),
-				'Anchors'                              => _x( 'Anchors', 'Link anchors (TinyMCE)' ),
-				'Id should start with a letter, followed only by letters, numbers, dashes, dots, colons or underscores.' =>
-					__( 'Id should start with a letter, followed only by letters, numbers, dashes, dots, colons or underscores.' ),
-				'Id'                                   => _x( 'Id', 'Id for link anchor (TinyMCE)' ),
+			// Anchor plugin
+			'Name' => _x( 'Name', 'Name of link anchor (TinyMCE)' ),
+			'Anchor' => _x( 'Anchor', 'Link anchor (TinyMCE)' ),
+			'Anchors' => _x( 'Anchors', 'Link anchors (TinyMCE)' ),
+			'Id should start with a letter, followed only by letters, numbers, dashes, dots, colons or underscores.' =>
+				__( 'Id should start with a letter, followed only by letters, numbers, dashes, dots, colons or underscores.' ),
+			'Id' => _x( 'Id', 'Id for link anchor (TinyMCE)' ),
 
-				// Fullpage plugin
-				'Document properties'                  => __( 'Document properties' ),
-				'Robots'                               => __( 'Robots' ),
-				'Title'                                => __( 'Title' ),
-				'Keywords'                             => __( 'Keywords' ),
-				'Encoding'                             => __( 'Encoding' ),
-				'Description'                          => __( 'Description' ),
-				'Author'                               => __( 'Author' ),
+			// Fullpage plugin
+			'Document properties' => __( 'Document properties' ),
+			'Robots' => __( 'Robots' ),
+			'Title' => __( 'Title' ),
+			'Keywords' => __( 'Keywords' ),
+			'Encoding' => __( 'Encoding' ),
+			'Description' => __( 'Description' ),
+			'Author' => __( 'Author' ),
 
-				// Media, image plugins
-				'Image'                                => __( 'Image' ),
-				'Insert/edit image'                    => array( __( 'Insert/edit image' ), 'accessM' ),
-				'General'                              => __( 'General' ),
-				'Advanced'                             => __( 'Advanced' ),
-				'Source'                               => __( 'Source' ),
-				'Border'                               => __( 'Border' ),
-				'Constrain proportions'                => __( 'Constrain proportions' ),
-				'Vertical space'                       => __( 'Vertical space' ),
-				'Image description'                    => __( 'Image description' ),
-				'Style'                                => __( 'Style' ),
-				'Dimensions'                           => __( 'Dimensions' ),
-				'Insert image'                         => __( 'Insert image' ),
-				'Date/time'                            => __( 'Date/time' ),
-				'Insert date/time'                     => __( 'Insert date/time' ),
-				'Table of Contents'                    => __( 'Table of Contents' ),
-				'Insert/Edit code sample'              => __( 'Insert/edit code sample' ),
-				'Language'                             => __( 'Language' ),
-				'Media'                                => __( 'Media' ),
-				'Insert/edit media'                    => __( 'Insert/edit media' ),
-				'Poster'                               => __( 'Poster' ),
-				'Alternative source'                   => __( 'Alternative source' ),
-				'Paste your embed code below:'         => __( 'Paste your embed code below:' ),
-				'Insert video'                         => __( 'Insert video' ),
-				'Embed'                                => __( 'Embed' ),
+			// Media, image plugins
+			'Image' => __( 'Image' ),
+			'Insert/edit image' => array( __( 'Insert/edit image' ), 'accessM' ),
+			'General' => __( 'General' ),
+			'Advanced' => __( 'Advanced' ),
+			'Source' => __( 'Source' ),
+			'Border' => __( 'Border' ),
+			'Constrain proportions' => __( 'Constrain proportions' ),
+			'Vertical space' => __( 'Vertical space' ),
+			'Image description' => __( 'Image description' ),
+			'Style' => __( 'Style' ),
+			'Dimensions' => __( 'Dimensions' ),
+			'Insert image' => __( 'Insert image' ),
+			'Date/time' => __( 'Date/time' ),
+			'Insert date/time' => __( 'Insert date/time' ),
+			'Table of Contents' => __( 'Table of Contents' ),
+			'Insert/Edit code sample' => __( 'Insert/edit code sample' ),
+			'Language' => __( 'Language' ),
+			'Media' => __( 'Media' ),
+			'Insert/edit media' => __( 'Insert/edit media' ),
+			'Poster' => __( 'Poster' ),
+			'Alternative source' => __( 'Alternative source' ),
+			'Paste your embed code below:' => __( 'Paste your embed code below:' ),
+			'Insert video' => __( 'Insert video' ),
+			'Embed' => __( 'Embed' ),
 
-				// Each of these have a corresponding plugin
-				'Special character'                    => __( 'Special character' ),
-				'Right to left'                        => _x( 'Right to left', 'editor button' ),
-				'Left to right'                        => _x( 'Left to right', 'editor button' ),
-				'Emoticons'                            => __( 'Emoticons' ),
-				'Nonbreaking space'                    => __( 'Nonbreaking space' ),
-				'Page break'                           => __( 'Page break' ),
-				'Paste as text'                        => __( 'Paste as text' ),
-				'Preview'                              => __( 'Preview' ),
-				'Print'                                => __( 'Print' ),
-				'Save'                                 => __( 'Save' ),
-				'Fullscreen'                           => __( 'Fullscreen' ),
-				'Horizontal line'                      => __( 'Horizontal line' ),
-				'Horizontal space'                     => __( 'Horizontal space' ),
-				'Restore last draft'                   => __( 'Restore last draft' ),
-				'Insert/edit link'                     => array( __( 'Insert/edit link' ), 'metaK' ),
-				'Remove link'                          => array( __( 'Remove link' ), 'accessS' ),
+			// Each of these have a corresponding plugin
+			'Special character' => __( 'Special character' ),
+			'Right to left' => _x( 'Right to left', 'editor button' ),
+			'Left to right' => _x( 'Left to right', 'editor button' ),
+			'Emoticons' => __( 'Emoticons' ),
+			'Nonbreaking space' => __( 'Nonbreaking space' ),
+			'Page break' => __( 'Page break' ),
+			'Paste as text' => __( 'Paste as text' ),
+			'Preview' => __( 'Preview' ),
+			'Print' => __( 'Print' ),
+			'Save' => __( 'Save' ),
+			'Fullscreen' => __( 'Fullscreen' ),
+			'Horizontal line' => __( 'Horizontal line' ),
+			'Horizontal space' => __( 'Horizontal space' ),
+			'Restore last draft' => __( 'Restore last draft' ),
+			'Insert/edit link' => array( __( 'Insert/edit link' ), 'metaK' ),
+			'Remove link' => array( __( 'Remove link' ), 'accessS' ),
 
-				// Link plugin
-				'Link'                                 => __( 'Link' ),
-				'Insert link'                          => __( 'Insert link' ),
-				'Insert/edit link'                     => __( 'Insert/edit link' ),
-				'Target'                               => __( 'Target' ),
-				'New window'                           => __( 'New window' ),
-				'Text to display'                      => __( 'Text to display' ),
-				'Url'                                  => __( 'URL' ),
-				'The URL you entered seems to be an email address. Do you want to add the required mailto: prefix?' =>
-					__( 'The URL you entered seems to be an email address. Do you want to add the required mailto: prefix?' ),
-				'The URL you entered seems to be an external link. Do you want to add the required http:// prefix?' =>
-					__( 'The URL you entered seems to be an external link. Do you want to add the required http:// prefix?' ),
+			// Link plugin
+			'Link' => __( 'Link' ),
+			'Insert link' => __( 'Insert link' ),
+			'Insert/edit link' => __( 'Insert/edit link' ),
+			'Target' => __( 'Target' ),
+			'New window' => __( 'New window' ),
+			'Text to display' => __( 'Text to display' ),
+			'Url' => __( 'URL' ),
+			'The URL you entered seems to be an email address. Do you want to add the required mailto: prefix?' =>
+				__( 'The URL you entered seems to be an email address. Do you want to add the required mailto: prefix?' ),
+			'The URL you entered seems to be an external link. Do you want to add the required http:// prefix?' =>
+				__( 'The URL you entered seems to be an external link. Do you want to add the required http:// prefix?' ),
 
-				'Color'                                => __( 'Color' ),
-				'Custom color'                         => __( 'Custom color' ),
-				'Custom...'                            => _x( 'Custom...', 'label for custom color' ), // no ellipsis
-				'No color'                             => __( 'No color' ),
-				'R'                                    => _x( 'R', 'Short for red in RGB' ),
-				'G'                                    => _x( 'G', 'Short for green in RGB' ),
-				'B'                                    => _x( 'B', 'Short for blue in RGB' ),
+			'Color' => __( 'Color' ),
+			'Custom color' => __( 'Custom color' ),
+			'Custom...' => _x( 'Custom...', 'label for custom color' ), // no ellipsis
+			'No color' => __( 'No color' ),
+			'R' => _x( 'R', 'Short for red in RGB' ),
+			'G' => _x( 'G', 'Short for green in RGB' ),
+			'B' => _x( 'B', 'Short for blue in RGB' ),
 
-				// Spelling, search/replace plugins
-				'Could not find the specified string.' => __( 'Could not find the specified string.' ),
-				'Replace'                              => _x( 'Replace', 'find/replace' ),
-				'Next'                                 => _x( 'Next', 'find/replace' ),
-				/* translators: previous */
-				'Prev'                                 => _x( 'Prev', 'find/replace' ),
-				'Whole words'                          => _x( 'Whole words', 'find/replace' ),
-				'Find and replace'                     => __( 'Find and replace' ),
-				'Replace with'                         => _x( 'Replace with', 'find/replace' ),
-				'Find'                                 => _x( 'Find', 'find/replace' ),
-				'Replace all'                          => _x( 'Replace all', 'find/replace' ),
-				'Match case'                           => __( 'Match case' ),
-				'Spellcheck'                           => __( 'Check Spelling' ),
-				'Finish'                               => _x( 'Finish', 'spellcheck' ),
-				'Ignore all'                           => _x( 'Ignore all', 'spellcheck' ),
-				'Ignore'                               => _x( 'Ignore', 'spellcheck' ),
-				'Add to Dictionary'                    => __( 'Add to Dictionary' ),
+			// Spelling, search/replace plugins
+			'Could not find the specified string.' => __( 'Could not find the specified string.' ),
+			'Replace' => _x( 'Replace', 'find/replace' ),
+			'Next' => _x( 'Next', 'find/replace' ),
+			/* translators: previous */
+			'Prev' => _x( 'Prev', 'find/replace' ),
+			'Whole words' => _x( 'Whole words', 'find/replace' ),
+			'Find and replace' => __( 'Find and replace' ),
+			'Replace with' => _x('Replace with', 'find/replace' ),
+			'Find' => _x( 'Find', 'find/replace' ),
+			'Replace all' => _x( 'Replace all', 'find/replace' ),
+			'Match case' => __( 'Match case' ),
+			'Spellcheck' => __( 'Check Spelling' ),
+			'Finish' => _x( 'Finish', 'spellcheck' ),
+			'Ignore all' => _x( 'Ignore all', 'spellcheck' ),
+			'Ignore' => _x( 'Ignore', 'spellcheck' ),
+			'Add to Dictionary' => __( 'Add to Dictionary' ),
 
-				// TinyMCE tables
-				'Insert table'                         => __( 'Insert table' ),
-				'Delete table'                         => __( 'Delete table' ),
-				'Table properties'                     => __( 'Table properties' ),
-				'Row properties'                       => __( 'Table row properties' ),
-				'Cell properties'                      => __( 'Table cell properties' ),
-				'Border color'                         => __( 'Border color' ),
+			// TinyMCE tables
+			'Insert table' => __( 'Insert table' ),
+			'Delete table' => __( 'Delete table' ),
+			'Table properties' => __( 'Table properties' ),
+			'Row properties' => __( 'Table row properties' ),
+			'Cell properties' => __( 'Table cell properties' ),
+			'Border color' => __( 'Border color' ),
 
-				'Row'                                  => __( 'Row' ),
-				'Rows'                                 => __( 'Rows' ),
-				'Column'                               => _x( 'Column', 'table column' ),
-				'Cols'                                 => _x( 'Cols', 'table columns' ),
-				'Cell'                                 => _x( 'Cell', 'table cell' ),
-				'Header cell'                          => __( 'Header cell' ),
-				'Header'                               => _x( 'Header', 'table header' ),
-				'Body'                                 => _x( 'Body', 'table body' ),
-				'Footer'                               => _x( 'Footer', 'table footer' ),
+			'Row' => __( 'Row' ),
+			'Rows' => __( 'Rows' ),
+			'Column' => _x( 'Column', 'table column' ),
+			'Cols' => _x( 'Cols', 'table columns' ),
+			'Cell' => _x( 'Cell', 'table cell' ),
+			'Header cell' => __( 'Header cell' ),
+			'Header' => _x( 'Header', 'table header' ),
+			'Body' => _x( 'Body', 'table body' ),
+			'Footer' => _x( 'Footer', 'table footer' ),
 
-				'Insert row before'                    => __( 'Insert row before' ),
-				'Insert row after'                     => __( 'Insert row after' ),
-				'Insert column before'                 => __( 'Insert column before' ),
-				'Insert column after'                  => __( 'Insert column after' ),
-				'Paste row before'                     => __( 'Paste table row before' ),
-				'Paste row after'                      => __( 'Paste table row after' ),
-				'Delete row'                           => __( 'Delete row' ),
-				'Delete column'                        => __( 'Delete column' ),
-				'Cut row'                              => __( 'Cut table row' ),
-				'Copy row'                             => __( 'Copy table row' ),
-				'Merge cells'                          => __( 'Merge table cells' ),
-				'Split cell'                           => __( 'Split table cell' ),
+			'Insert row before' => __( 'Insert row before' ),
+			'Insert row after' => __( 'Insert row after' ),
+			'Insert column before' => __( 'Insert column before' ),
+			'Insert column after' => __( 'Insert column after' ),
+			'Paste row before' => __( 'Paste table row before' ),
+			'Paste row after' => __( 'Paste table row after' ),
+			'Delete row' => __( 'Delete row' ),
+			'Delete column' => __( 'Delete column' ),
+			'Cut row' => __( 'Cut table row' ),
+			'Copy row' => __( 'Copy table row' ),
+			'Merge cells' => __( 'Merge table cells' ),
+			'Split cell' => __( 'Split table cell' ),
 
-				'Height'                               => __( 'Height' ),
-				'Width'                                => __( 'Width' ),
-				'Caption'                              => __( 'Caption' ),
-				'Alignment'                            => __( 'Alignment' ),
-				'H Align'                              => _x( 'H Align', 'horizontal table cell alignment' ),
-				'Left'                                 => __( 'Left' ),
-				'Center'                               => __( 'Center' ),
-				'Right'                                => __( 'Right' ),
-				'None'                                 => _x( 'None', 'table cell alignment attribute' ),
-				'V Align'                              => _x( 'V Align', 'vertical table cell alignment' ),
-				'Top'                                  => __( 'Top' ),
-				'Middle'                               => __( 'Middle' ),
-				'Bottom'                               => __( 'Bottom' ),
+			'Height' => __( 'Height' ),
+			'Width' => __( 'Width' ),
+			'Caption' => __( 'Caption' ),
+			'Alignment' => __( 'Alignment' ),
+			'H Align' => _x( 'H Align', 'horizontal table cell alignment' ),
+			'Left' => __( 'Left' ),
+			'Center' => __( 'Center' ),
+			'Right' => __( 'Right' ),
+			'None' => _x( 'None', 'table cell alignment attribute' ),
+			'V Align' => _x( 'V Align', 'vertical table cell alignment' ),
+			'Top' => __( 'Top' ),
+			'Middle' => __( 'Middle' ),
+			'Bottom' => __( 'Bottom' ),
 
-				'Row group'                            => __( 'Row group' ),
-				'Column group'                         => __( 'Column group' ),
-				'Row type'                             => __( 'Row type' ),
-				'Cell type'                            => __( 'Cell type' ),
-				'Cell padding'                         => __( 'Cell padding' ),
-				'Cell spacing'                         => __( 'Cell spacing' ),
-				'Scope'                                => _x( 'Scope', 'table cell scope attribute' ),
+			'Row group' => __( 'Row group' ),
+			'Column group' => __( 'Column group' ),
+			'Row type' => __( 'Row type' ),
+			'Cell type' => __( 'Cell type' ),
+			'Cell padding' => __( 'Cell padding' ),
+			'Cell spacing' => __( 'Cell spacing' ),
+			'Scope' => _x( 'Scope', 'table cell scope attribute' ),
 
-				'Insert template'                      => _x( 'Insert template', 'TinyMCE' ),
-				'Templates'                            => _x( 'Templates', 'TinyMCE' ),
+			'Insert template' => _x( 'Insert template', 'TinyMCE' ),
+			'Templates' => _x( 'Templates', 'TinyMCE' ),
 
-				'Background color'                     => __( 'Background color' ),
-				'Text color'                           => __( 'Text color' ),
-				'Show blocks'                          => _x( 'Show blocks', 'editor button' ),
-				'Show invisible characters'            => __( 'Show invisible characters' ),
+			'Background color' => __( 'Background color' ),
+			'Text color' => __( 'Text color' ),
+			'Show blocks' => _x( 'Show blocks', 'editor button' ),
+			'Show invisible characters' => __( 'Show invisible characters' ),
 
-				/* translators: word count */
-				'Words: {0}'                           => sprintf( __( 'Words: %s' ), '{0}' ),
-				'Paste is now in plain text mode. Contents will now be pasted as plain text until you toggle this option off.' =>
-					__( 'Paste is now in plain text mode. Contents will now be pasted as plain text until you toggle this option off.' ) . "\n\n" .
-					__( 'If you&#8217;re looking to paste rich content from Microsoft Word, try turning this option off. The editor will clean up text pasted from Word automatically.' ),
-				'Rich Text Area. Press ALT-F9 for menu. Press ALT-F10 for toolbar. Press ALT-0 for help' =>
-					__( 'Rich Text Area. Press Alt-Shift-H for help.' ),
-				'Rich Text Area. Press Control-Option-H for help.' => __( 'Rich Text Area. Press Control-Option-H for help.' ),
-				'You have unsaved changes are you sure you want to navigate away?' =>
-					__( 'The changes you made will be lost if you navigate away from this page.' ),
-				'Your browser doesn\'t support direct access to the clipboard. Please use the Ctrl+X/C/V keyboard shortcuts instead.' =>
-					__( 'Your browser does not support direct access to the clipboard. Please use keyboard shortcuts or your browser&#8217;s edit menu instead.' ),
+			/* translators: word count */
+			'Words: {0}' => sprintf( __( 'Words: %s' ), '{0}' ),
+			'Paste is now in plain text mode. Contents will now be pasted as plain text until you toggle this option off.' =>
+				__( 'Paste is now in plain text mode. Contents will now be pasted as plain text until you toggle this option off.' ) . "\n\n" .
+				__( 'If you&#8217;re looking to paste rich content from Microsoft Word, try turning this option off. The editor will clean up text pasted from Word automatically.' ),
+			'Rich Text Area. Press ALT-F9 for menu. Press ALT-F10 for toolbar. Press ALT-0 for help' =>
+				__( 'Rich Text Area. Press Alt-Shift-H for help.' ),
+			'Rich Text Area. Press Control-Option-H for help.' => __( 'Rich Text Area. Press Control-Option-H for help.' ),
+			'You have unsaved changes are you sure you want to navigate away?' =>
+				__( 'The changes you made will be lost if you navigate away from this page.' ),
+			'Your browser doesn\'t support direct access to the clipboard. Please use the Ctrl+X/C/V keyboard shortcuts instead.' =>
+				__( 'Your browser does not support direct access to the clipboard. Please use keyboard shortcuts or your browser&#8217;s edit menu instead.' ),
 
-				// TinyMCE menus
-				'Insert'                               => _x( 'Insert', 'TinyMCE menu' ),
-				'File'                                 => _x( 'File', 'TinyMCE menu' ),
-				'Edit'                                 => _x( 'Edit', 'TinyMCE menu' ),
-				'Tools'                                => _x( 'Tools', 'TinyMCE menu' ),
-				'View'                                 => _x( 'View', 'TinyMCE menu' ),
-				'Table'                                => _x( 'Table', 'TinyMCE menu' ),
-				'Format'                               => _x( 'Format', 'TinyMCE menu' ),
+			// TinyMCE menus
+			'Insert' => _x( 'Insert', 'TinyMCE menu' ),
+			'File' => _x( 'File', 'TinyMCE menu' ),
+			'Edit' => _x( 'Edit', 'TinyMCE menu' ),
+			'Tools' => _x( 'Tools', 'TinyMCE menu' ),
+			'View' => _x( 'View', 'TinyMCE menu' ),
+			'Table' => _x( 'Table', 'TinyMCE menu' ),
+			'Format' => _x( 'Format', 'TinyMCE menu' ),
 
-				// WordPress strings
-				'Toolbar Toggle'                       => array( __( 'Toolbar Toggle' ), 'accessZ' ),
-				'Insert Read More tag'                 => array( __( 'Insert Read More tag' ), 'accessT' ),
-				'Insert Page Break tag'                => array( __( 'Insert Page Break tag' ), 'accessP' ),
-				'Read more...'                         => __( 'Read more...' ), // Title on the placeholder inside the editor (no ellipsis)
-				'Distraction-free writing mode'        => array( __( 'Distraction-free writing mode' ), 'accessW' ),
-				'No alignment'                         => __( 'No alignment' ), // Tooltip for the 'alignnone' button in the image toolbar
-				'Remove'                               => __( 'Remove' ), // Tooltip for the 'remove' button in the image toolbar
-				'Edit|button'                          => __( 'Edit' ), // Tooltip for the 'edit' button in the image toolbar
-				'Paste URL or type to search'          => __( 'Paste URL or type to search' ), // Placeholder for the inline link dialog
-				'Apply'                                => __( 'Apply' ), // Tooltip for the 'apply' button in the inline link dialog
-				'Link options'                         => __( 'Link options' ), // Tooltip for the 'link options' button in the inline link dialog
-				'Visual'                               => _x( 'Visual', 'Name for the Visual editor tab' ), // Editor switch tab label
-				'Text'                                 => _x( 'Text', 'Name for the Text editor tab (formerly HTML)' ), // Editor switch tab label
+			// WordPress strings
+			'Toolbar Toggle' => array( __( 'Toolbar Toggle' ), 'accessZ' ),
+			'Insert Read More tag' => array( __( 'Insert Read More tag' ), 'accessT' ),
+			'Insert Page Break tag' => array( __( 'Insert Page Break tag' ), 'accessP' ),
+			'Read more...' => __( 'Read more...' ), // Title on the placeholder inside the editor (no ellipsis)
+			'Distraction-free writing mode' => array( __( 'Distraction-free writing mode' ), 'accessW' ),
+			'No alignment' => __( 'No alignment' ), // Tooltip for the 'alignnone' button in the image toolbar
+			'Remove' => __( 'Remove' ), // Tooltip for the 'remove' button in the image toolbar
+			'Edit|button' => __( 'Edit' ), // Tooltip for the 'edit' button in the image toolbar
+			'Paste URL or type to search' => __( 'Paste URL or type to search' ), // Placeholder for the inline link dialog
+			'Apply'  => __( 'Apply' ), // Tooltip for the 'apply' button in the inline link dialog
+			'Link options'  => __( 'Link options' ), // Tooltip for the 'link options' button in the inline link dialog
+			'Visual' => _x( 'Visual', 'Name for the Visual editor tab' ), // Editor switch tab label
+			'Text' => _x( 'Text', 'Name for the Text editor tab (formerly HTML)' ), // Editor switch tab label
+			'Add Media' => array( __( 'Add Media' ), 'accessM' ), // Tooltip for the 'Add Media' button in the Block Editor Classic block
 
-				// Shortcuts help modal
-				'Keyboard Shortcuts'                   => array( __( 'Keyboard Shortcuts' ), 'accessH' ),
-				'Default shortcuts,'                   => __( 'Default shortcuts,' ),
-				'Additional shortcuts,'                => __( 'Additional shortcuts,' ),
-				'Focus shortcuts:'                     => __( 'Focus shortcuts:' ),
-				'Inline toolbar (when an image, link or preview is selected)' => __( 'Inline toolbar (when an image, link or preview is selected)' ),
-				'Editor menu (when enabled)'           => __( 'Editor menu (when enabled)' ),
-				'Editor toolbar'                       => __( 'Editor toolbar' ),
-				'Elements path'                        => __( 'Elements path' ),
-				'Ctrl + Alt + letter:'                 => __( 'Ctrl + Alt + letter:' ),
-				'Shift + Alt + letter:'                => __( 'Shift + Alt + letter:' ),
-				'Cmd + letter:'                        => __( 'Cmd + letter:' ),
-				'Ctrl + letter:'                       => __( 'Ctrl + letter:' ),
-				'Letter'                               => __( 'Letter' ),
-				'Action'                               => __( 'Action' ),
-				'Warning: the link has been inserted but may have errors. Please test it.' => __( 'Warning: the link has been inserted but may have errors. Please test it.' ),
-				'To move focus to other buttons use Tab or the arrow keys. To return focus to the editor press Escape or use one of the buttons.' =>
-					__( 'To move focus to other buttons use Tab or the arrow keys. To return focus to the editor press Escape or use one of the buttons.' ),
-				'When starting a new paragraph with one of these formatting shortcuts followed by a space, the formatting will be applied automatically. Press Backspace or Escape to undo.' =>
-					__( 'When starting a new paragraph with one of these formatting shortcuts followed by a space, the formatting will be applied automatically. Press Backspace or Escape to undo.' ),
-				'The following formatting shortcuts are replaced when pressing Enter. Press Escape or the Undo button to undo.' =>
-					__( 'The following formatting shortcuts are replaced when pressing Enter. Press Escape or the Undo button to undo.' ),
-				'The next group of formatting shortcuts are applied as you type or when you insert them around plain text in the same paragraph. Press Escape or the Undo button to undo.' =>
-					__( 'The next group of formatting shortcuts are applied as you type or when you insert them around plain text in the same paragraph. Press Escape or the Undo button to undo.' ),
+			// Shortcuts help modal
+			'Keyboard Shortcuts' => array( __( 'Keyboard Shortcuts' ), 'accessH' ),
+			'Classic Block Keyboard Shortcuts' => __( 'Classic Block Keyboard Shortcuts' ),
+			'Default shortcuts,' => __( 'Default shortcuts,' ),
+			'Additional shortcuts,' => __( 'Additional shortcuts,' ),
+			'Focus shortcuts:' => __( 'Focus shortcuts:' ),
+			'Inline toolbar (when an image, link or preview is selected)' => __( 'Inline toolbar (when an image, link or preview is selected)' ),
+			'Editor menu (when enabled)' => __( 'Editor menu (when enabled)' ),
+			'Editor toolbar' => __( 'Editor toolbar' ),
+			'Elements path' => __( 'Elements path' ),
+			'Ctrl + Alt + letter:' => __( 'Ctrl + Alt + letter:' ),
+			'Shift + Alt + letter:' => __( 'Shift + Alt + letter:' ),
+			'Cmd + letter:' => __( 'Cmd + letter:' ),
+			'Ctrl + letter:' => __( 'Ctrl + letter:' ),
+			'Letter' => __( 'Letter' ),
+			'Action' => __( 'Action' ),
+			'Warning: the link has been inserted but may have errors. Please test it.' => __( 'Warning: the link has been inserted but may have errors. Please test it.' ),
+			'To move focus to other buttons use Tab or the arrow keys. To return focus to the editor press Escape or use one of the buttons.' =>
+				__( 'To move focus to other buttons use Tab or the arrow keys. To return focus to the editor press Escape or use one of the buttons.' ),
+			'When starting a new paragraph with one of these formatting shortcuts followed by a space, the formatting will be applied automatically. Press Backspace or Escape to undo.' =>
+				__( 'When starting a new paragraph with one of these formatting shortcuts followed by a space, the formatting will be applied automatically. Press Backspace or Escape to undo.' ),
+			'The following formatting shortcuts are replaced when pressing Enter. Press Escape or the Undo button to undo.' =>
+				__( 'The following formatting shortcuts are replaced when pressing Enter. Press Escape or the Undo button to undo.' ),
+			'The next group of formatting shortcuts are applied as you type or when you insert them around plain text in the same paragraph. Press Escape or the Undo button to undo.' =>
+				__( 'The next group of formatting shortcuts are applied as you type or when you insert them around plain text in the same paragraph. Press Escape or the Undo button to undo.' ),
 			);
 		}
 
@@ -1388,6 +1395,32 @@ final class _WP_Editors {
 	}
 
 	/**
+	 * Force uncompressed TinyMCE when a custom theme has been defined.
+	 *
+	 * The compressed TinyMCE file cannot deal with custom themes, so this makes
+	 * sure that we use the uncompressed TinyMCE file if a theme is defined.
+	 * Even if we are on a production environment.
+	 */
+	public static function force_uncompressed_tinymce() {
+		$has_custom_theme = false;
+		foreach ( self::$mce_settings as $init ) {
+			if ( ! empty( $init['theme_url'] ) ) {
+				$has_custom_theme = true;
+				break;
+			}
+		}
+
+		if ( ! $has_custom_theme ) {
+			return;
+		}
+
+		$wp_scripts = wp_scripts();
+
+		$wp_scripts->remove( 'wp-tinymce' );
+		wp_register_tinymce_scripts( $wp_scripts, true );
+	}
+
+	/**
 	 * Print (output) the main TinyMCE scripts.
 	 *
 	 * @since 4.8.0
@@ -1397,7 +1430,7 @@ final class _WP_Editors {
 	 * @global bool   $compress_scripts
 	 */
 	public static function print_tinymce_scripts() {
-		global $tinymce_version, $concatenate_scripts, $compress_scripts;
+		global $concatenate_scripts;
 
 		if ( self::$tinymce_scripts_printed ) {
 			return;
@@ -1409,30 +1442,7 @@ final class _WP_Editors {
 			script_concat_settings();
 		}
 
-		$suffix  = SCRIPT_DEBUG ? '' : '.min';
-		$version = 'ver=' . $tinymce_version;
-		$baseurl = self::get_baseurl();
-
-		$has_custom_theme = false;
-		foreach ( self::$mce_settings as $init ) {
-			if ( ! empty( $init['theme_url'] ) ) {
-				$has_custom_theme = true;
-				break;
-			}
-		}
-
-		$compressed = $compress_scripts && $concatenate_scripts && isset( $_SERVER['HTTP_ACCEPT_ENCODING'] )
-			&& false !== stripos( $_SERVER['HTTP_ACCEPT_ENCODING'], 'gzip' ) && ! $has_custom_theme;
-
-		// Load tinymce.js when running from /src, else load wp-tinymce.js.gz (production) or tinymce.min.js (SCRIPT_DEBUG)
-		$mce_suffix = false !== strpos( get_bloginfo( 'version' ), '-src' ) ? '' : '.min';
-
-		if ( $compressed ) {
-			echo "<script type='text/javascript' src='{$baseurl}/wp-tinymce.php?c=1&amp;$version'></script>\n";
-		} else {
-			echo "<script type='text/javascript' src='{$baseurl}/tinymce{$mce_suffix}.js?$version'></script>\n";
-			echo "<script type='text/javascript' src='{$baseurl}/plugins/compat3x/plugin{$suffix}.js?$version'></script>\n";
-		}
+		wp_print_scripts( array( 'wp-tinymce' ) );
 
 		echo "<script type='text/javascript'>\n" . self::wp_mce_translation() . "</script>\n";
 	}

@@ -29,7 +29,7 @@ if ( empty( $load ) ) {
 	exit;
 }
 
-$rtl            = ( isset( $_GET['dir'] ) && 'rtl' == $_GET['dir'] );
+$rtl = ( isset($_GET['dir']) && 'rtl' == $_GET['dir'] );
 $expires_offset = 31536000; // 1 year
 $out            = '';
 
@@ -75,10 +75,10 @@ foreach ( $load as $handle ) {
 	}
 }
 
-header( "Etag: $wp_version" );
-header( 'Content-Type: text/css; charset=UTF-8' );
-header( 'Expires: ' . gmdate( 'D, d M Y H:i:s', time() + $expires_offset ) . ' GMT' );
-header( "Cache-Control: public, max-age=$expires_offset" );
+header("Etag: $wp_version");
+header('Content-Type: text/css; charset=UTF-8');
+header('Expires: ' . gmdate( "D, d M Y H:i:s", time() + $expires_offset ) . ' GMT');
+header("Cache-Control: public, max-age=$expires_offset");
 
 echo $out;
 exit;

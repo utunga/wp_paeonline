@@ -51,25 +51,78 @@ if ( ! isset( $content_width ) ) {
 /* Tell WordPress to run twentyten_setup() when the 'after_setup_theme' hook is run. */
 add_action( 'after_setup_theme', 'twentyten_setup' );
 
-if ( ! function_exists( 'twentyten_setup' ) ) :
-	/**
-	 * Set up theme defaults and registers support for various WordPress features.
-	 *
-	 * Note that this function is hooked into the after_setup_theme hook, which runs
-	 * before the init hook. The init hook is too late for some features, such as indicating
-	 * support post thumbnails.
-	 *
-	 * To override twentyten_setup() in a child theme, add your own twentyten_setup to your child theme's
-	 * functions.php file.
-	 *
-	 * @uses add_theme_support()        To add support for post thumbnails, custom headers and backgrounds, and automatic feed links.
-	 * @uses register_nav_menus()       To add support for navigation menus.
-	 * @uses add_editor_style()         To style the visual editor.
-	 * @uses load_theme_textdomain()    For translation/localization support.
-	 * @uses register_default_headers() To register the default custom header images provided with the theme.
-	 * @uses set_post_thumbnail_size()  To set a custom post thumbnail size.
-	 *
-	 * @since Twenty Ten 1.0
+if ( ! function_exists( 'twentyten_setup' ) ):
+/**
+ * Set up theme defaults and registers support for various WordPress features.
+ *
+ * Note that this function is hooked into the after_setup_theme hook, which runs
+ * before the init hook. The init hook is too late for some features, such as indicating
+ * support post thumbnails.
+ *
+ * To override twentyten_setup() in a child theme, add your own twentyten_setup to your child theme's
+ * functions.php file.
+ *
+ * @uses add_theme_support()        To add support for post thumbnails, custom headers and backgrounds, and automatic feed links.
+ * @uses register_nav_menus()       To add support for navigation menus.
+ * @uses add_editor_style()         To style the visual editor.
+ * @uses load_theme_textdomain()    For translation/localization support.
+ * @uses register_default_headers() To register the default custom header images provided with the theme.
+ * @uses set_post_thumbnail_size()  To set a custom post thumbnail size.
+ *
+ * @since Twenty Ten 1.0
+ */
+function twentyten_setup() {
+
+	// This theme styles the visual editor with editor-style.css to match the theme style.
+	add_editor_style();
+
+	// Load regular editor styles into the new block-based editor.
+	add_theme_support( 'editor-styles' );
+
+	// Load default block styles.
+	add_theme_support( 'wp-block-styles' );
+
+		// Add support for custom color scheme.
+	add_theme_support( 'editor-color-palette', array(
+		array(
+			'name'  => __( 'Blue', 'twentyten' ),
+			'slug'  => 'blue',
+			'color' => '#0066cc',
+		),
+		array(
+			'name'  => __( 'Black', 'twentyten' ),
+			'slug'  => 'black',
+			'color' => '#000',
+		),
+		array(
+			'name'  => __( 'Medium Gray', 'twentyten' ),
+			'slug'  => 'medium-gray',
+			'color' => '#666',
+		),
+		array(
+			'name'  => __( 'Light Gray', 'twentyten' ),
+			'slug'  => 'light-gray',
+			'color' => '#f1f1f1',
+		),
+		array(
+			'name'  => __( 'White', 'twentyten' ),
+			'slug'  => 'white',
+			'color' => '#fff',
+		),
+	) );
+
+	// Post Format support. You can also use the legacy "gallery" or "asides" (note the plural) categories.
+	add_theme_support( 'post-formats', array( 'aside', 'gallery' ) );
+
+	// This theme uses post thumbnails
+	add_theme_support( 'post-thumbnails' );
+
+	// Add default posts and comments RSS feed links to head
+	add_theme_support( 'automatic-feed-links' );
+
+	/*
+	 * Make theme available for translation.
+	 * Translations can be filed in the /languages/ directory
 	 */
 	function twentyten_setup() {
 
@@ -655,3 +708,27 @@ function twentyten_widget_tag_cloud_args( $args ) {
 	return $args;
 }
 add_filter( 'widget_tag_cloud_args', 'twentyten_widget_tag_cloud_args' );
+
+/**
+ * Enqueue scripts and styles for front end.
+ *
+ * @since Twenty Ten 2.6
+ */
+function twentyten_scripts_styles() {
+	// Theme block stylesheet.
+	wp_enqueue_style( 'twentyten-block-style', get_template_directory_uri() . '/blocks.css', array(), '20181018' );
+}
+add_action( 'wp_enqueue_scripts', 'twentyten_scripts_styles' );
+
+/**
+ * Enqueue styles for the block-based editor.
+ *
+ * @since Twenty Ten 2.6
+ */
+function twentyten_block_editor_styles() {
+	// Block styles.
+	wp_enqueue_style( 'twentyten-block-editor-style', get_template_directory_uri() . '/editor-blocks.css' );
+}
+add_action( 'enqueue_block_editor_assets', 'twentyten_block_editor_styles' );
+
+

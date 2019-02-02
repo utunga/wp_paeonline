@@ -53,7 +53,7 @@ include( ABSPATH . 'wp-admin/admin-header.php' );
 
 <table class="form-table">
 <tr>
-<th scope="row"><?php _e( 'Thumbnail size' ); ?></th>
+<th scope="row"><?php _e('Thumbnail size') ?></th>
 <td><fieldset><legend class="screen-reader-text"><span><?php _e( 'Thumbnail size' ); ?></span></legend>
 <label for="thumbnail_size_w"><?php _e( 'Width' ); ?></label>
 <input name="thumbnail_size_w" type="number" step="1" min="0" id="thumbnail_size_w" value="<?php form_option( 'thumbnail_size_w' ); ?>" class="small-text" />

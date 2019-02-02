@@ -1155,18 +1155,18 @@ table.form-table td .updated p {
 }
 
 .status-label {
-	font-weight: 600;
+	font-weight: bold;
 }
 
 .status-label.status-request-pending {
-	font-weight: 400;
+	font-weight: normal;
 	font-style: italic;
 	color: #6c7781;
 }
 
 .status-label.status-request-failed {
 	color: #aa0000;
-	font-weight: 600;
+	font-weight: bold;
 }
 
 .wp-privacy-request-form {
@@ -1178,7 +1178,7 @@ table.form-table td .updated p {
 }
 
 .wp-privacy-request-form label {
-	font-weight: 600;
+	font-weight: bold;
 	line-height: 1.5;
 	padding-bottom: .5em;
 	display: block;

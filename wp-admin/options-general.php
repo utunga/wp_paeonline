@@ -170,16 +170,14 @@ if ( ! empty( $languages ) || ! empty( $translations ) ) {
 				$locale = '';
 			}
 
-			wp_dropdown_languages(
-				array(
-					'name'                        => 'WPLANG',
-					'id'                          => 'WPLANG',
-					'selected'                    => $locale,
-					'languages'                   => $languages,
-					'translations'                => $translations,
-					'show_available_translations' => current_user_can( 'install_languages' ) && wp_can_install_language_pack(),
-				)
-			);
+			wp_dropdown_languages( array(
+				'name'         => 'WPLANG',
+				'id'           => 'WPLANG',
+				'selected'     => $locale,
+				'languages'    => $languages,
+				'translations' => $translations,
+				'show_available_translations' => current_user_can( 'install_languages' ) && wp_can_install_language_pack(),
+			) );
 
 			// Add note about deprecated WPLANG constant.
 			if ( defined( 'WPLANG' ) && ( '' !== WPLANG ) && $locale !== WPLANG ) {

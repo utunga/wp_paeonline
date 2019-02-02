@@ -293,19 +293,20 @@ class WP {
 		}
 
 		foreach ( $this->public_query_vars as $wpvar ) {
-			if ( isset( $this->extra_query_vars[ $wpvar ] ) ) {
-				$this->query_vars[ $wpvar ] = $this->extra_query_vars[ $wpvar ];
-			} elseif ( isset( $_POST[ $wpvar ] ) ) {
-				$this->query_vars[ $wpvar ] = $_POST[ $wpvar ];
-			} elseif ( isset( $_GET[ $wpvar ] ) ) {
-				$this->query_vars[ $wpvar ] = $_GET[ $wpvar ];
-			} elseif ( isset( $perma_query_vars[ $wpvar ] ) ) {
-				$this->query_vars[ $wpvar ] = $perma_query_vars[ $wpvar ];
-			}
+			if ( isset( $this->extra_query_vars[$wpvar] ) )
+				$this->query_vars[$wpvar] = $this->extra_query_vars[$wpvar];
+			elseif ( isset( $_GET[ $wpvar ] ) && isset( $_POST[ $wpvar ] ) && $_GET[ $wpvar ] !== $_POST[ $wpvar ] )
+				wp_die( __( 'A variable mismatch has been detected.' ), __( 'Sorry, you are not allowed to view this item.' ), 400 );
+			elseif ( isset( $_POST[$wpvar] ) )
+				$this->query_vars[$wpvar] = $_POST[$wpvar];
+			elseif ( isset( $_GET[$wpvar] ) )
+				$this->query_vars[$wpvar] = $_GET[$wpvar];
+			elseif ( isset( $perma_query_vars[$wpvar] ) )
+				$this->query_vars[$wpvar] = $perma_query_vars[$wpvar];
 
-			if ( ! empty( $this->query_vars[ $wpvar ] ) ) {
-				if ( ! is_array( $this->query_vars[ $wpvar ] ) ) {
-					$this->query_vars[ $wpvar ] = (string) $this->query_vars[ $wpvar ];
+			if ( !empty( $this->query_vars[$wpvar] ) ) {
+				if ( ! is_array( $this->query_vars[$wpvar] ) ) {
+					$this->query_vars[$wpvar] = (string) $this->query_vars[$wpvar];
 				} else {
 					foreach ( $this->query_vars[ $wpvar ] as $vkey => $v ) {
 						if ( is_scalar( $v ) ) {

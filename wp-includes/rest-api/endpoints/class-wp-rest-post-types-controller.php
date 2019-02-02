@@ -156,8 +156,8 @@ class WP_REST_Post_Types_Controller extends WP_REST_Controller {
 	public function prepare_item_for_response( $post_type, $request ) {
 		$taxonomies = wp_list_filter( get_object_taxonomies( $post_type->name, 'objects' ), array( 'show_in_rest' => true ) );
 		$taxonomies = wp_list_pluck( $taxonomies, 'name' );
-		$base       = ! empty( $post_type->rest_base ) ? $post_type->rest_base : $post_type->name;
-		$supports   = get_all_post_type_supports( $post_type->name );
+		$base = ! empty( $post_type->rest_base ) ? $post_type->rest_base : $post_type->name;
+		$supports = get_all_post_type_supports( $post_type->name );
 
 		$fields = $this->get_fields_for_response( $request );
 		$data   = array();
@@ -265,11 +265,17 @@ class WP_REST_Post_Types_Controller extends WP_REST_Controller {
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
-				'viewable'     => array(
-					'description' => __( 'Whether or not the post type can be viewed.' ),
-					'type'        => 'boolean',
-					'context'     => array( 'edit' ),
-					'readonly'    => true,
+				'viewable'         => array(
+					'description'  => __( 'Whether or not the post type can be viewed.' ),
+					'type'         => 'boolean',
+					'context'      => array( 'edit' ),
+					'readonly'     => true,
+				),
+				'labels'           => array(
+					'description'  => __( 'Human-readable labels for the post type for various contexts.' ),
+					'type'         => 'object',
+					'context'      => array( 'edit' ),
+					'readonly'     => true,
 				),
 				'labels'       => array(
 					'description' => __( 'Human-readable labels for the post type for various contexts.' ),

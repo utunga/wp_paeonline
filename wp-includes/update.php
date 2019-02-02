@@ -475,7 +475,7 @@ function wp_update_themes( $extra_stats = array() ) {
 		case 'load-update.php':
 			$timeout = HOUR_IN_SECONDS;
 			break;
-		default:
+		default :
 			if ( $doing_cron ) {
 				$timeout = 2 * HOUR_IN_SECONDS;
 			} else {

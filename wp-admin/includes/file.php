@@ -1957,11 +1957,11 @@ function wp_print_request_filesystem_credentials_modal() {
  */
 function wp_privacy_generate_personal_data_export_group_html( $group_data ) {
 	$allowed_tags      = array(
-		'a'  => array(
+		'a' => array(
 			'href'   => array(),
-			'target' => array(),
+			'target' => array()
 		),
-		'br' => array(),
+		'br' => array()
 	);
 	$allowed_protocols = array( 'http', 'https' );
 	$group_html        = '';
@@ -2045,7 +2045,7 @@ function wp_privacy_generate_personal_data_export_file( $request_id ) {
 	$file_basename        = 'wp-personal-data-file-' . $stripped_email . '-' . $obscura;
 	$html_report_filename = $file_basename . '.html';
 	$html_report_pathname = wp_normalize_path( $exports_dir . $html_report_filename );
-	$file                 = fopen( $html_report_pathname, 'w' );
+	$file = fopen( $html_report_pathname, 'w' );
 	if ( false === $file ) {
 		wp_send_json_error( __( 'Unable to open export file (HTML report) for writing.' ) );
 	}
@@ -2064,22 +2064,22 @@ function wp_privacy_generate_personal_data_export_file( $request_id ) {
 	fwrite( $file, "<head>\n" );
 	fwrite( $file, "<meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />\n" );
 	fwrite( $file, "<style type='text/css'>" );
-	fwrite( $file, 'body { color: black; font-family: Arial, sans-serif; font-size: 11pt; margin: 15px auto; width: 860px; }' );
-	fwrite( $file, 'table { background: #f0f0f0; border: 1px solid #ddd; margin-bottom: 20px; width: 100%; }' );
-	fwrite( $file, 'th { padding: 5px; text-align: left; width: 20%; }' );
-	fwrite( $file, 'td { padding: 5px; }' );
-	fwrite( $file, 'tr:nth-child(odd) { background-color: #fafafa; }' );
-	fwrite( $file, '</style>' );
-	fwrite( $file, '<title>' );
+	fwrite( $file, "body { color: black; font-family: Arial, sans-serif; font-size: 11pt; margin: 15px auto; width: 860px; }" );
+	fwrite( $file, "table { background: #f0f0f0; border: 1px solid #ddd; margin-bottom: 20px; width: 100%; }" );
+	fwrite( $file, "th { padding: 5px; text-align: left; width: 20%; }" );
+	fwrite( $file, "td { padding: 5px; }" );
+	fwrite( $file, "tr:nth-child(odd) { background-color: #fafafa; }" );
+	fwrite( $file, "</style>" );
+	fwrite( $file, "<title>" );
 	fwrite( $file, esc_html( $title ) );
-	fwrite( $file, '</title>' );
+	fwrite( $file, "</title>" );
 	fwrite( $file, "</head>\n" );
 
 	// Body.
 	fwrite( $file, "<body>\n" );
 
 	// Heading.
-	fwrite( $file, '<h1>' . esc_html__( 'Personal Data Export' ) . '</h1>' );
+	fwrite( $file, "<h1>" . esc_html__( 'Personal Data Export' ) . "</h1>" );
 
 	// And now, all the Groups.
 	$groups = get_post_meta( $request_id, '_export_data_grouped', true );
@@ -2194,16 +2194,16 @@ function wp_privacy_send_personal_data_export_email( $request_id ) {
 	$request = wp_get_user_request_data( $request_id );
 
 	if ( ! $request || 'export_personal_data' !== $request->action_name ) {
-		return new WP_Error( 'invalid_request', __( 'Invalid request ID when sending personal data export email.' ) );
+		return new WP_Error( 'invalid', __( 'Invalid request ID when sending personal data export email.' ) );
 	}
 
 	/** This filter is documented in wp-includes/functions.php */
 	$expiration      = apply_filters( 'wp_privacy_export_expiration', 3 * DAY_IN_SECONDS );
 	$expiration_date = date_i18n( get_option( 'date_format' ), time() + $expiration );
 
-	/* translators: Do not translate EXPIRATION, LINK, SITENAME, SITEURL: those are placeholders. */
-	$email_text = __(
-		'Howdy,
+/* translators: Do not translate EXPIRATION, LINK, SITENAME, SITEURL: those are placeholders. */
+$email_text = __(
+'Howdy,
 
 Your request for an export of personal data has been completed. You may
 download your personal data by clicking on the link below. For privacy
@@ -2215,7 +2215,7 @@ so please download it before then.
 Regards,
 All at ###SITENAME###
 ###SITEURL###'
-	);
+);
 
 	/**
 	 * Filters the text of the email sent with a personal data export file.
@@ -2233,10 +2233,10 @@ All at ###SITENAME###
 	 */
 	$content = apply_filters( 'wp_privacy_personal_data_email_content', $email_text, $request_id );
 
-	$email_address   = $request->email;
+	$email_address = $request->email;
 	$export_file_url = get_post_meta( $request_id, '_export_file_url', true );
-	$site_name       = wp_specialchars_decode( get_option( 'blogname' ), ENT_QUOTES );
-	$site_url        = home_url();
+	$site_name = wp_specialchars_decode( get_option( 'blogname' ), ENT_QUOTES );
+	$site_url = home_url();
 
 	$content = str_replace( '###EXPIRATION###', $expiration_date, $content );
 	$content = str_replace( '###LINK###', esc_url_raw( $export_file_url ), $content );
@@ -2254,7 +2254,7 @@ All at ###SITENAME###
 	);
 
 	if ( ! $mail_success ) {
-		return new WP_Error( 'privacy_email_error', __( 'Unable to send personal data export email.' ) );
+		return new WP_Error( 'error', __( 'Unable to send personal data export email.' ) );
 	}
 
 	return true;
@@ -2317,9 +2317,9 @@ function wp_privacy_process_personal_data_export_page( $response, $exporter_inde
 
 	// If we are not yet on the last page of the last exporter, return now.
 	/** This filter is documented in wp-admin/includes/ajax-actions.php */
-	$exporters        = apply_filters( 'wp_privacy_personal_data_exporters', array() );
+	$exporters = apply_filters( 'wp_privacy_personal_data_exporters', array() );
 	$is_last_exporter = $exporter_index === count( $exporters );
-	$exporter_done    = $response['done'];
+	$exporter_done = $response['done'];
 	if ( ! $is_last_exporter || ! $exporter_done ) {
 		return $response;
 	}
@@ -2343,8 +2343,8 @@ function wp_privacy_process_personal_data_export_page( $response, $exporter_inde
 			$groups[ $group_id ]['items'][ $item_id ] = array();
 		}
 
-		$old_item_data                            = $groups[ $group_id ]['items'][ $item_id ];
-		$merged_item_data                         = array_merge( $export_datum['data'], $old_item_data );
+		$old_item_data = $groups[ $group_id ]['items'][ $item_id ];
+		$merged_item_data = array_merge( $export_datum['data'], $old_item_data );
 		$groups[ $group_id ]['items'][ $item_id ] = $merged_item_data;
 	}
 

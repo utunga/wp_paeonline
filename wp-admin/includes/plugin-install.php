@@ -427,6 +427,7 @@ function install_plugin_install_status( $api, $loop = false ) {
 	$status      = 'install';
 	$url         = false;
 	$update_file = false;
+	$version = '';
 
 	/*
 	 * Check to see if this plugin is known to be installed,
@@ -715,10 +716,8 @@ if ( ! empty( $api->ratings ) && array_sum( (array) $api->ratings ) > 0 ) {
 				);
 				?>
 				<div class="counter-container">
-						<span class="counter-label">
-							<a href="https://wordpress.org/support/plugin/<?php echo $api->slug; ?>/reviews/?filter=<?php echo $key; ?>"
-								target="_blank" aria-label="<?php echo $aria_label; ?>"><?php printf( _n( '%d star', '%d stars', $key ), $key ); ?></a>
-						</span>
+						<span class="counter-label"><a href="https://wordpress.org/support/plugin/<?php echo $api->slug; ?>/reviews/?filter=<?php echo $key; ?>"
+						                               target="_blank" aria-label="<?php echo $aria_label; ?>"><?php printf( _n( '%d star', '%d stars', $key ), $key ); ?></a></span>
 						<span class="counter-back">
 							<span class="counter-bar" style="width: <?php echo 92 * $_rating; ?>px;"></span>
 						</span>

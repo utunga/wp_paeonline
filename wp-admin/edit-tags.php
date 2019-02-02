@@ -77,29 +77,24 @@ if ( ! $referer ) { // For POST requests.
 $referer = remove_query_arg( array( '_wp_http_referer', '_wpnonce', 'error', 'message', 'paged' ), $referer );
 switch ( $wp_list_table->current_action() ) {
 
-	case 'add-tag':
-		check_admin_referer( 'add-tag', '_wpnonce_add-tag' );
+case 'add-tag':
+	check_admin_referer( 'add-tag', '_wpnonce_add-tag' );
 
-		if ( ! current_user_can( $tax->cap->edit_terms ) ) {
-			wp_die(
-				'<h1>' . __( 'You need a higher level of permission.' ) . '</h1>' .
-				'<p>' . __( 'Sorry, you are not allowed to create terms in this taxonomy.' ) . '</p>',
-				403
-			);
-		}
+	if ( ! current_user_can( $tax->cap->edit_terms ) ) {
+		wp_die(
+			'<h1>' . __( 'You need a higher level of permission.' ) . '</h1>' .
+			'<p>' . __( 'Sorry, you are not allowed to create terms in this taxonomy.' ) . '</p>',
+			403
+		);
+	}
 
-		$ret = wp_insert_term( $_POST['tag-name'], $taxonomy, $_POST );
-		if ( $ret && ! is_wp_error( $ret ) ) {
-			$location = add_query_arg( 'message', 1, $referer );
-		} else {
-			$location = add_query_arg(
-				array(
-					'error'   => true,
-					'message' => 4,
-				),
-				$referer
-			);
-		}
+	$ret = wp_insert_term( $_POST['tag-name'], $taxonomy, $_POST );
+	if ( $ret && !is_wp_error( $ret ) )
+		$location = add_query_arg( 'message', 1, $referer );
+	else
+		$location = add_query_arg( array( 'error' => true, 'message' => 4 ), $referer );
+
+	break;
 
 		break;
 
@@ -108,8 +103,22 @@ switch ( $wp_list_table->current_action() ) {
 			break;
 		}
 
-		$tag_ID = (int) $_REQUEST['tag_ID'];
-		check_admin_referer( 'delete-tag_' . $tag_ID );
+	if ( ! current_user_can( 'delete_term', $tag_ID ) ) {
+		wp_die(
+			'<h1>' . __( 'You need a higher level of permission.' ) . '</h1>' .
+			'<p>' . __( 'Sorry, you are not allowed to delete this item.' ) . '</p>',
+			403
+		);
+	}
+
+	wp_delete_term( $tag_ID, $taxonomy );
+
+	$location = add_query_arg( 'message', 2, $referer );
+
+	// When deleting a term, prevent the action from redirecting back to a term that no longer exists.
+	$location = remove_query_arg( array( 'tag_ID', 'action' ), $location );
+
+	break;
 
 		if ( ! current_user_can( 'delete_term', $tag_ID ) ) {
 			wp_die(
@@ -119,6 +128,16 @@ switch ( $wp_list_table->current_action() ) {
 			);
 		}
 
+	if ( ! current_user_can( $tax->cap->delete_terms ) ) {
+		wp_die(
+			'<h1>' . __( 'You need a higher level of permission.' ) . '</h1>' .
+			'<p>' . __( 'Sorry, you are not allowed to delete these items.' ) . '</p>',
+			403
+		);
+	}
+
+	$tags = (array) $_REQUEST['delete_tags'];
+	foreach ( $tags as $tag_ID ) {
 		wp_delete_term( $tag_ID, $taxonomy );
 
 		$location = add_query_arg( 'message', 2, $referer );
@@ -139,10 +158,13 @@ switch ( $wp_list_table->current_action() ) {
 			);
 		}
 
-		$tags = (array) $_REQUEST['delete_tags'];
-		foreach ( $tags as $tag_ID ) {
-			wp_delete_term( $tag_ID, $taxonomy );
-		}
+	if ( ! current_user_can( 'edit_term', $tag_ID ) ) {
+		wp_die(
+			'<h1>' . __( 'You need a higher level of permission.' ) . '</h1>' .
+			'<p>' . __( 'Sorry, you are not allowed to edit this item.' ) . '</p>',
+			403
+		);
+	}
 
 		$location = add_query_arg( 'message', 6, $referer );
 

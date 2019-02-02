@@ -99,278 +99,278 @@ function create_initial_post_types() {
 	add_post_type_support( 'attachment:audio', 'thumbnail' );
 	add_post_type_support( 'attachment:video', 'thumbnail' );
 
-	register_post_type(
-		'revision',
-		array(
-			'labels'           => array(
-				'name'          => __( 'Revisions' ),
-				'singular_name' => __( 'Revision' ),
-			),
-			'public'           => false,
-			'_builtin'         => true, /* internal use only. don't use this when registering your own post type. */
-			'_edit_link'       => 'revision.php?revision=%d', /* internal use only. don't use this when registering your own post type. */
-			'capability_type'  => 'post',
-			'map_meta_cap'     => true,
-			'hierarchical'     => false,
-			'rewrite'          => false,
-			'query_var'        => false,
-			'can_export'       => false,
-			'delete_with_user' => true,
-			'supports'         => array( 'author' ),
-		)
-	);
+	register_post_type( 'revision', array(
+		'labels' => array(
+			'name' => __( 'Revisions' ),
+			'singular_name' => __( 'Revision' ),
+		),
+		'public' => false,
+		'_builtin' => true, /* internal use only. don't use this when registering your own post type. */
+		'_edit_link' => 'revision.php?revision=%d', /* internal use only. don't use this when registering your own post type. */
+		'capability_type' => 'post',
+		'map_meta_cap' => true,
+		'hierarchical' => false,
+		'rewrite' => false,
+		'query_var' => false,
+		'can_export' => false,
+		'delete_with_user' => true,
+		'supports' => array( 'author' ),
+	) );
+
+	register_post_type( 'nav_menu_item', array(
+		'labels' => array(
+			'name' => __( 'Navigation Menu Items' ),
+			'singular_name' => __( 'Navigation Menu Item' ),
+		),
+		'public' => false,
+		'_builtin' => true, /* internal use only. don't use this when registering your own post type. */
+		'hierarchical' => false,
+		'rewrite' => false,
+		'delete_with_user' => false,
+		'query_var' => false,
+	) );
+
+	register_post_type( 'custom_css', array(
+		'labels' => array(
+			'name'          => __( 'Custom CSS' ),
+			'singular_name' => __( 'Custom CSS' ),
+		),
+		'public'           => false,
+		'hierarchical'     => false,
+		'rewrite'          => false,
+		'query_var'        => false,
+		'delete_with_user' => false,
+		'can_export'       => true,
+		'_builtin'         => true, /* internal use only. don't use this when registering your own post type. */
+		'supports'         => array( 'title', 'revisions' ),
+		'capabilities'     => array(
+			'delete_posts'           => 'edit_theme_options',
+			'delete_post'            => 'edit_theme_options',
+			'delete_published_posts' => 'edit_theme_options',
+			'delete_private_posts'   => 'edit_theme_options',
+			'delete_others_posts'    => 'edit_theme_options',
+			'edit_post'              => 'edit_css',
+			'edit_posts'             => 'edit_css',
+			'edit_others_posts'      => 'edit_css',
+			'edit_published_posts'   => 'edit_css',
+			'read_post'              => 'read',
+			'read_private_posts'     => 'read',
+			'publish_posts'          => 'edit_theme_options',
+		),
+	) );
+
+	register_post_type( 'customize_changeset', array(
+		'labels' => array(
+			'name'               => _x( 'Changesets', 'post type general name' ),
+			'singular_name'      => _x( 'Changeset', 'post type singular name' ),
+			'menu_name'          => _x( 'Changesets', 'admin menu' ),
+			'name_admin_bar'     => _x( 'Changeset', 'add new on admin bar' ),
+			'add_new'            => _x( 'Add New', 'Customize Changeset' ),
+			'add_new_item'       => __( 'Add New Changeset' ),
+			'new_item'           => __( 'New Changeset' ),
+			'edit_item'          => __( 'Edit Changeset' ),
+			'view_item'          => __( 'View Changeset' ),
+			'all_items'          => __( 'All Changesets' ),
+			'search_items'       => __( 'Search Changesets' ),
+			'not_found'          => __( 'No changesets found.' ),
+			'not_found_in_trash' => __( 'No changesets found in Trash.' ),
+		),
+		'public' => false,
+		'_builtin' => true, /* internal use only. don't use this when registering your own post type. */
+		'map_meta_cap' => true,
+		'hierarchical' => false,
+		'rewrite' => false,
+		'query_var' => false,
+		'can_export' => false,
+		'delete_with_user' => false,
+		'supports' => array( 'title', 'author' ),
+		'capability_type' => 'customize_changeset',
+		'capabilities' => array(
+			'create_posts' => 'customize',
+			'delete_others_posts' => 'customize',
+			'delete_post' => 'customize',
+			'delete_posts' => 'customize',
+			'delete_private_posts' => 'customize',
+			'delete_published_posts' => 'customize',
+			'edit_others_posts' => 'customize',
+			'edit_post' => 'customize',
+			'edit_posts' => 'customize',
+			'edit_private_posts' => 'customize',
+			'edit_published_posts' => 'do_not_allow',
+			'publish_posts' => 'customize',
+			'read' => 'read',
+			'read_post' => 'customize',
+			'read_private_posts' => 'customize',
+		),
+	) );
+
+	register_post_type( 'oembed_cache', array(
+		'labels' => array(
+			'name'          => __( 'oEmbed Responses' ),
+			'singular_name' => __( 'oEmbed Response' ),
+		),
+		'public'           => false,
+		'hierarchical'     => false,
+		'rewrite'          => false,
+		'query_var'        => false,
+		'delete_with_user' => false,
+		'can_export'       => false,
+		'_builtin'         => true, /* internal use only. don't use this when registering your own post type. */
+		'supports'         => array(),
+	) );
+
+	register_post_type( 'user_request', array(
+		'labels'           => array(
+			'name'          => __( 'User Requests' ),
+			'singular_name' => __( 'User Request' ),
+		),
+		'public'           => false,
+		'_builtin'         => true, /* internal use only. don't use this when registering your own post type. */
+		'hierarchical'     => false,
+		'rewrite'          => false,
+		'query_var'        => false,
+		'can_export'       => false,
+		'delete_with_user' => false,
+		'supports'         => array(),
+	) );
 
 	register_post_type(
-		'nav_menu_item',
+		'wp_block',
 		array(
-			'labels'           => array(
-				'name'          => __( 'Navigation Menu Items' ),
-				'singular_name' => __( 'Navigation Menu Item' ),
+			'labels'                => array(
+				'name'                     => _x( 'Blocks', 'post type general name' ),
+				'singular_name'            => _x( 'Block', 'post type singular name' ),
+				'menu_name'                => _x( 'Blocks', 'admin menu' ),
+				'name_admin_bar'           => _x( 'Block', 'add new on admin bar' ),
+				'add_new'                  => _x( 'Add New', 'Block' ),
+				'add_new_item'             => __( 'Add New Block' ),
+				'new_item'                 => __( 'New Block' ),
+				'edit_item'                => __( 'Edit Block' ),
+				'view_item'                => __( 'View Block' ),
+				'all_items'                => __( 'All Blocks' ),
+				'search_items'             => __( 'Search Blocks' ),
+				'not_found'                => __( 'No blocks found.' ),
+				'not_found_in_trash'       => __( 'No blocks found in Trash.' ),
+				'filter_items_list'        => __( 'Filter blocks list' ),
+				'items_list_navigation'    => __( 'Blocks list navigation' ),
+				'items_list'               => __( 'Blocks list' ),
+				'item_published'           => __( 'Block published.' ),
+				'item_published_privately' => __( 'Block published privately.' ),
+				'item_reverted_to_draft'   => __( 'Block reverted to draft.' ),
+				'item_scheduled'           => __( 'Block scheduled.' ),
+				'item_updated'             => __( 'Block updated.' ),
 			),
-			'public'           => false,
-			'_builtin'         => true, /* internal use only. don't use this when registering your own post type. */
-			'hierarchical'     => false,
-			'rewrite'          => false,
-			'delete_with_user' => false,
-			'query_var'        => false,
-		)
-	);
-
-	register_post_type(
-		'custom_css',
-		array(
-			'labels'           => array(
-				'name'          => __( 'Custom CSS' ),
-				'singular_name' => __( 'Custom CSS' ),
+			'public'                => false,
+			'_builtin'              => true, /* internal use only. don't use this when registering your own post type. */
+			'show_ui'               => true,
+			'show_in_menu'          => false,
+			'rewrite'               => false,
+			'show_in_rest'          => true,
+			'rest_base'             => 'blocks',
+			'rest_controller_class' => 'WP_REST_Blocks_Controller',
+			'capability_type'       => 'block',
+			'capabilities'          => array(
+				// You need to be able to edit posts, in order to read blocks in their raw form.
+				'read'                   => 'edit_posts',
+				// You need to be able to publish posts, in order to create blocks.
+				'create_posts'           => 'publish_posts',
+				'edit_published_posts'   => 'edit_published_posts',
+				'delete_published_posts' => 'delete_published_posts',
+				'edit_others_posts'      => 'edit_others_posts',
+				'delete_others_posts'    => 'delete_others_posts',
 			),
-			'public'           => false,
-			'hierarchical'     => false,
-			'rewrite'          => false,
-			'query_var'        => false,
-			'delete_with_user' => false,
-			'can_export'       => true,
-			'_builtin'         => true, /* internal use only. don't use this when registering your own post type. */
-			'supports'         => array( 'title', 'revisions' ),
-			'capabilities'     => array(
-				'delete_posts'           => 'edit_theme_options',
-				'delete_post'            => 'edit_theme_options',
-				'delete_published_posts' => 'edit_theme_options',
-				'delete_private_posts'   => 'edit_theme_options',
-				'delete_others_posts'    => 'edit_theme_options',
-				'edit_post'              => 'edit_css',
-				'edit_posts'             => 'edit_css',
-				'edit_others_posts'      => 'edit_css',
-				'edit_published_posts'   => 'edit_css',
-				'read_post'              => 'read',
-				'read_private_posts'     => 'read',
-				'publish_posts'          => 'edit_theme_options',
-			),
-		)
-	);
-
-	register_post_type(
-		'customize_changeset',
-		array(
-			'labels'           => array(
-				'name'               => _x( 'Changesets', 'post type general name' ),
-				'singular_name'      => _x( 'Changeset', 'post type singular name' ),
-				'menu_name'          => _x( 'Changesets', 'admin menu' ),
-				'name_admin_bar'     => _x( 'Changeset', 'add new on admin bar' ),
-				'add_new'            => _x( 'Add New', 'Customize Changeset' ),
-				'add_new_item'       => __( 'Add New Changeset' ),
-				'new_item'           => __( 'New Changeset' ),
-				'edit_item'          => __( 'Edit Changeset' ),
-				'view_item'          => __( 'View Changeset' ),
-				'all_items'          => __( 'All Changesets' ),
-				'search_items'       => __( 'Search Changesets' ),
-				'not_found'          => __( 'No changesets found.' ),
-				'not_found_in_trash' => __( 'No changesets found in Trash.' ),
-			),
-			'public'           => false,
-			'_builtin'         => true, /* internal use only. don't use this when registering your own post type. */
-			'map_meta_cap'     => true,
-			'hierarchical'     => false,
-			'rewrite'          => false,
-			'query_var'        => false,
-			'can_export'       => false,
-			'delete_with_user' => false,
-			'supports'         => array( 'title', 'author' ),
-			'capability_type'  => 'customize_changeset',
-			'capabilities'     => array(
-				'create_posts'           => 'customize',
-				'delete_others_posts'    => 'customize',
-				'delete_post'            => 'customize',
-				'delete_posts'           => 'customize',
-				'delete_private_posts'   => 'customize',
-				'delete_published_posts' => 'customize',
-				'edit_others_posts'      => 'customize',
-				'edit_post'              => 'customize',
-				'edit_posts'             => 'customize',
-				'edit_private_posts'     => 'customize',
-				'edit_published_posts'   => 'do_not_allow',
-				'publish_posts'          => 'customize',
-				'read'                   => 'read',
-				'read_post'              => 'customize',
-				'read_private_posts'     => 'customize',
+			'map_meta_cap'          => true,
+			'supports'              => array(
+				'title',
+				'editor',
 			),
 		)
 	);
 
-	register_post_type(
-		'oembed_cache',
-		array(
-			'labels'           => array(
-				'name'          => __( 'oEmbed Responses' ),
-				'singular_name' => __( 'oEmbed Response' ),
-			),
-			'public'           => false,
-			'hierarchical'     => false,
-			'rewrite'          => false,
-			'query_var'        => false,
-			'delete_with_user' => false,
-			'can_export'       => false,
-			'_builtin'         => true, /* internal use only. don't use this when registering your own post type. */
-			'supports'         => array(),
-		)
-	);
 
-	register_post_type(
-		'user_request',
-		array(
-			'labels'           => array(
-				'name'          => __( 'User Requests' ),
-				'singular_name' => __( 'User Request' ),
-			),
-			'public'           => false,
-			'_builtin'         => true, /* internal use only. don't use this when registering your own post type. */
-			'hierarchical'     => false,
-			'rewrite'          => false,
-			'query_var'        => false,
-			'can_export'       => false,
-			'delete_with_user' => false,
-			'supports'         => array(),
-		)
-	);
+	register_post_status( 'publish', array(
+		'label'       => _x( 'Published', 'post status' ),
+		'public'      => true,
+		'_builtin'    => true, /* internal use only. */
+		'label_count' => _n_noop( 'Published <span class="count">(%s)</span>', 'Published <span class="count">(%s)</span>' ),
+	) );
 
-	register_post_status(
-		'publish',
-		array(
-			'label'       => _x( 'Published', 'post status' ),
-			'public'      => true,
-			'_builtin'    => true, /* internal use only. */
-			'label_count' => _n_noop( 'Published <span class="count">(%s)</span>', 'Published <span class="count">(%s)</span>' ),
-		)
-	);
+	register_post_status( 'future', array(
+		'label'       => _x( 'Scheduled', 'post status' ),
+		'protected'   => true,
+		'_builtin'    => true, /* internal use only. */
+		'label_count' => _n_noop('Scheduled <span class="count">(%s)</span>', 'Scheduled <span class="count">(%s)</span>' ),
+	) );
 
-	register_post_status(
-		'future',
-		array(
-			'label'       => _x( 'Scheduled', 'post status' ),
-			'protected'   => true,
-			'_builtin'    => true, /* internal use only. */
-			'label_count' => _n_noop( 'Scheduled <span class="count">(%s)</span>', 'Scheduled <span class="count">(%s)</span>' ),
-		)
-	);
+	register_post_status( 'draft', array(
+		'label'       => _x( 'Draft', 'post status' ),
+		'protected'   => true,
+		'_builtin'    => true, /* internal use only. */
+		'label_count' => _n_noop( 'Draft <span class="count">(%s)</span>', 'Drafts <span class="count">(%s)</span>' ),
+	) );
 
-	register_post_status(
-		'draft',
-		array(
-			'label'       => _x( 'Draft', 'post status' ),
-			'protected'   => true,
-			'_builtin'    => true, /* internal use only. */
-			'label_count' => _n_noop( 'Draft <span class="count">(%s)</span>', 'Drafts <span class="count">(%s)</span>' ),
-		)
-	);
+	register_post_status( 'pending', array(
+		'label'       => _x( 'Pending', 'post status' ),
+		'protected'   => true,
+		'_builtin'    => true, /* internal use only. */
+		'label_count' => _n_noop( 'Pending <span class="count">(%s)</span>', 'Pending <span class="count">(%s)</span>' ),
+	) );
 
-	register_post_status(
-		'pending',
-		array(
-			'label'       => _x( 'Pending', 'post status' ),
-			'protected'   => true,
-			'_builtin'    => true, /* internal use only. */
-			'label_count' => _n_noop( 'Pending <span class="count">(%s)</span>', 'Pending <span class="count">(%s)</span>' ),
-		)
-	);
+	register_post_status( 'private', array(
+		'label'       => _x( 'Private', 'post status' ),
+		'private'     => true,
+		'_builtin'    => true, /* internal use only. */
+		'label_count' => _n_noop( 'Private <span class="count">(%s)</span>', 'Private <span class="count">(%s)</span>' ),
+	) );
 
-	register_post_status(
-		'private',
-		array(
-			'label'       => _x( 'Private', 'post status' ),
-			'private'     => true,
-			'_builtin'    => true, /* internal use only. */
-			'label_count' => _n_noop( 'Private <span class="count">(%s)</span>', 'Private <span class="count">(%s)</span>' ),
-		)
-	);
+	register_post_status( 'trash', array(
+		'label'       => _x( 'Trash', 'post status' ),
+		'internal'    => true,
+		'_builtin'    => true, /* internal use only. */
+		'label_count' => _n_noop( 'Trash <span class="count">(%s)</span>', 'Trash <span class="count">(%s)</span>' ),
+		'show_in_admin_status_list' => true,
+	) );
 
-	register_post_status(
-		'trash',
-		array(
-			'label'                     => _x( 'Trash', 'post status' ),
-			'internal'                  => true,
-			'_builtin'                  => true, /* internal use only. */
-			'label_count'               => _n_noop( 'Trash <span class="count">(%s)</span>', 'Trash <span class="count">(%s)</span>' ),
-			'show_in_admin_status_list' => true,
-		)
-	);
+	register_post_status( 'auto-draft', array(
+		'label'    => 'auto-draft',
+		'internal' => true,
+		'_builtin' => true, /* internal use only. */
+	) );
 
-	register_post_status(
-		'auto-draft',
-		array(
-			'label'    => 'auto-draft',
-			'internal' => true,
-			'_builtin' => true, /* internal use only. */
-		)
-	);
+	register_post_status( 'inherit', array(
+		'label'    => 'inherit',
+		'internal' => true,
+		'_builtin' => true, /* internal use only. */
+		'exclude_from_search' => false,
+	) );
 
-	register_post_status(
-		'inherit',
-		array(
-			'label'               => 'inherit',
-			'internal'            => true,
-			'_builtin'            => true, /* internal use only. */
-			'exclude_from_search' => false,
-		)
-	);
+	register_post_status( 'request-pending', array(
+		'label'               => _x( 'Pending', 'request status' ),
+		'internal'            => true,
+		'_builtin'            => true, /* internal use only. */
+		'exclude_from_search' => false,
+	) );
 
-	register_post_status(
-		'request-pending',
-		array(
-			'label'               => _x( 'Pending', 'request status' ),
-			'internal'            => true,
-			'_builtin'            => true, /* internal use only. */
-			'exclude_from_search' => false,
-		)
-	);
+	register_post_status( 'request-confirmed', array(
+		'label'               => _x( 'Confirmed', 'request status' ),
+		'internal'            => true,
+		'_builtin'            => true, /* internal use only. */
+		'exclude_from_search' => false,
+	) );
 
-	register_post_status(
-		'request-confirmed',
-		array(
-			'label'               => _x( 'Confirmed', 'request status' ),
-			'internal'            => true,
-			'_builtin'            => true, /* internal use only. */
-			'exclude_from_search' => false,
-		)
-	);
+	register_post_status( 'request-failed', array(
+		'label'               => _x( 'Failed', 'request status' ),
+		'internal'            => true,
+		'_builtin'            => true, /* internal use only. */
+		'exclude_from_search' => false,
+	) );
 
-	register_post_status(
-		'request-failed',
-		array(
-			'label'               => _x( 'Failed', 'request status' ),
-			'internal'            => true,
-			'_builtin'            => true, /* internal use only. */
-			'exclude_from_search' => false,
-		)
-	);
-
-	register_post_status(
-		'request-completed',
-		array(
-			'label'               => _x( 'Completed', 'request status' ),
-			'internal'            => true,
-			'_builtin'            => true, /* internal use only. */
-			'exclude_from_search' => false,
-		)
-	);
+	register_post_status( 'request-completed', array(
+		'label'               => _x( 'Completed', 'request status' ),
+		'internal'            => true,
+		'_builtin'            => true, /* internal use only. */
+		'exclude_from_search' => false,
+	) );
 }
 
 /**
@@ -859,7 +859,7 @@ function get_page_statuses() {
 /**
  * Return statuses for privacy requests.
  *
- * @since 5.0.0
+ * @since 4.9.6
  *
  * @return array
  */
@@ -1062,9 +1062,9 @@ function is_post_type_hierarchical( $post_type ) {
 
 /**
  * Determines whether a post type is registered.
- *
+ * 
  * For more information on this and similar theme functions, check out
- * the {@link https://developer.wordpress.org/themes/basics/conditional-tags/
+ * the {@link https://developer.wordpress.org/themes/basics/conditional-tags/ 
  * Conditional Tags} article in the Theme Developer Handbook.
  *
  * @since 3.0.0
@@ -1526,6 +1526,14 @@ function _post_type_meta_capabilities( $capabilities = null ) {
  * - `items_list_navigation` - Label for the table pagination hidden heading. Default is 'Posts list navigation' /
  *                           'Pages list navigation'.
  * - `items_list` - Label for the table hidden heading. Default is 'Posts list' / 'Pages list'.
+ * - `item_published` - Label used when an item is published. Default is 'Post published.' / 'Page published.'
+ * - `item_published_privately` - Label used when an item is published with private visibility.
+ *                              Default is 'Post published privately.' / 'Page published privately.'
+ * - `item_reverted_to_draft` - Label used when an item is switched to a draft.
+ *                            Default is 'Post reverted to draft.' / 'Page reverted to draft.'
+ * - `item_scheduled` - Label used when an item is scheduled for publishing. Default is 'Post scheduled.' /
+ *                    'Page scheduled.'
+ * - `item_updated` - Label used when an item is updated. Default is 'Post updated.' / 'Page updated.'
  *
  * Above, the first default value is for non-hierarchical post types (like posts)
  * and the second one is for hierarchical post types (like pages).
@@ -1539,6 +1547,8 @@ function _post_type_meta_capabilities( $capabilities = null ) {
  *              `items_list_navigation`, and `items_list` labels.
  * @since 4.6.0 Converted the `$post_type` parameter to accept a `WP_Post_Type` object.
  * @since 4.7.0 Added the `view_items` and `attributes` labels.
+ * @since 5.0.0 Added the `item_published`, `item_published_privately`, `item_reverted_to_draft`,
+ *              `item_scheduled`, and `item_updated` labels.
  *
  * @access private
  *
@@ -1570,7 +1580,12 @@ function get_post_type_labels( $post_type_object ) {
 		'use_featured_image'    => array( _x( 'Use as featured image', 'post' ), _x( 'Use as featured image', 'page' ) ),
 		'filter_items_list'     => array( __( 'Filter posts list' ), __( 'Filter pages list' ) ),
 		'items_list_navigation' => array( __( 'Posts list navigation' ), __( 'Pages list navigation' ) ),
-		'items_list'            => array( __( 'Posts list' ), __( 'Pages list' ) ),
+		'items_list' => array( __( 'Posts list' ), __( 'Pages list' ) ),
+		'item_published' => array( __( 'Post published.' ), __( 'Page published.' ) ),
+		'item_published_privately' => array( __( 'Post published privately.' ), __( 'Page published privately.' ) ),
+		'item_reverted_to_draft' => array( __( 'Post reverted to draft.' ), __( 'Page reverted to draft.' ) ),
+		'item_scheduled' => array( __( 'Post scheduled.' ), __( 'Page scheduled.' ) ),
+		'item_updated' => array( __( 'Post updated.' ), __( 'Page updated.' ) ),
 	);
 	$nohier_vs_hier_defaults['menu_name'] = $nohier_vs_hier_defaults['name'];
 
@@ -1906,15 +1921,12 @@ function get_posts( $args = null ) {
  */
 function add_post_meta( $post_id, $meta_key, $meta_value, $unique = false ) {
 	// Make sure meta is added to the post, not a revision.
-	if ( $the_post = wp_is_post_revision( $post_id ) ) {
+	$the_post = wp_is_post_revision( $post_id );
+	if ( $the_post ) {
 		$post_id = $the_post;
 	}
 
-	$added = add_metadata( 'post', $post_id, $meta_key, $meta_value, $unique );
-	if ( $added ) {
-		wp_cache_set( 'last_changed', microtime(), 'posts' );
-	}
-	return $added;
+	return add_metadata( 'post', $post_id, $meta_key, $meta_value, $unique );
 }
 
 /**
@@ -1934,15 +1946,12 @@ function add_post_meta( $post_id, $meta_key, $meta_value, $unique = false ) {
  */
 function delete_post_meta( $post_id, $meta_key, $meta_value = '' ) {
 	// Make sure meta is added to the post, not a revision.
-	if ( $the_post = wp_is_post_revision( $post_id ) ) {
+	$the_post = wp_is_post_revision( $post_id );
+	if ( $the_post ) {
 		$post_id = $the_post;
 	}
 
-	$deleted = delete_metadata( 'post', $post_id, $meta_key, $meta_value );
-	if ( $deleted ) {
-		wp_cache_set( 'last_changed', microtime(), 'posts' );
-	}
-	return $deleted;
+	return delete_metadata( 'post', $post_id, $meta_key, $meta_value );
 }
 
 /**
@@ -1981,15 +1990,12 @@ function get_post_meta( $post_id, $key = '', $single = false ) {
  */
 function update_post_meta( $post_id, $meta_key, $meta_value, $prev_value = '' ) {
 	// Make sure meta is added to the post, not a revision.
-	if ( $the_post = wp_is_post_revision( $post_id ) ) {
+	$the_post = wp_is_post_revision( $post_id );
+	if ( $the_post ) {
 		$post_id = $the_post;
 	}
 
-	$updated = update_metadata( 'post', $post_id, $meta_key, $meta_value, $prev_value );
-	if ( $updated ) {
-		wp_cache_set( 'last_changed', microtime(), 'posts' );
-	}
-	return $updated;
+	return update_metadata( 'post', $post_id, $meta_key, $meta_value, $prev_value );
 }
 
 /**
@@ -2001,11 +2007,40 @@ function update_post_meta( $post_id, $meta_key, $meta_value, $prev_value = '' ) 
  * @return bool Whether the post meta key was deleted from the database.
  */
 function delete_post_meta_by_key( $post_meta_key ) {
-	$deleted = delete_metadata( 'post', null, $post_meta_key, '', true );
-	if ( $deleted ) {
-		wp_cache_set( 'last_changed', microtime(), 'posts' );
-	}
-	return $deleted;
+	return delete_metadata( 'post', null, $post_meta_key, '', true );
+}
+
+/**
+ * Registers a meta key for posts.
+ *
+ * @since 4.9.8
+ *
+ * @param string $post_type Post type to register a meta key for. Pass an empty string
+ *                          to register the meta key across all existing post types.
+ * @param string $meta_key  The meta key to register.
+ * @param array  $args      Data used to describe the meta key when registered. See
+ *                          {@see register_meta()} for a list of supported arguments.
+ * @return bool True if the meta key was successfully registered, false if not.
+ */
+function register_post_meta( $post_type, $meta_key, array $args ) {
+	$args['object_subtype'] = $post_type;
+
+	return register_meta( 'post', $meta_key, $args );
+}
+
+/**
+ * Unregisters a meta key for posts.
+ *
+ * @since 4.9.8
+ *
+ * @param string $post_type Post type the meta key is currently registered for. Pass
+ *                          an empty string if the meta key is registered across all
+ *                          existing post types.
+ * @param string $meta_key  The meta key to unregister.
+ * @return bool True on success, false if the meta key was not previously registered.
+ */
+function unregister_post_meta( $post_type, $meta_key ) {
+	return unregister_meta_key( 'post', $meta_key, $post_type );
 }
 
 /**
@@ -2110,11 +2145,11 @@ function get_post_custom_values( $key = '', $post_id = 0 ) {
  *
  * Sticky posts should remain at the top of The Loop. If the post ID is not
  * given, then The Loop ID for the current post will be used.
- *
+ * 
  * For more information on this and similar theme functions, check out
- * the {@link https://developer.wordpress.org/themes/basics/conditional-tags/
+ * the {@link https://developer.wordpress.org/themes/basics/conditional-tags/ 
  * Conditional Tags} article in the Theme Developer Handbook.
- *
+ * 
  * @since 2.7.0
  *
  * @param int $post_id Optional. Post ID. Default is ID of the global $post.
@@ -3565,6 +3600,13 @@ function wp_insert_post( $postarr, $wp_error = false ) {
 		$post_parent = 0;
 	}
 
+	$new_postarr = array_merge(
+		array(
+			'ID' => $post_ID,
+		),
+		compact( array_diff( array_keys( $defaults ), array( 'context', 'filter' ) ) )
+	);
+
 	/**
 	 * Filters the post parent -- used to check for and prevent hierarchy loops.
 	 *
@@ -3575,7 +3617,7 @@ function wp_insert_post( $postarr, $wp_error = false ) {
 	 * @param array $new_postarr Array of parsed post data.
 	 * @param array $postarr     Array of sanitized, but otherwise unmodified post data.
 	 */
-	$post_parent = apply_filters( 'wp_insert_post_parent', $post_parent, $post_ID, compact( array_keys( $postarr ) ), $postarr );
+	$post_parent = apply_filters( 'wp_insert_post_parent', $post_parent, $post_ID, $new_postarr, $postarr );
 
 	/*
 	 * If the post is being untrashed and it has a desired slug stored in post meta,
@@ -4049,7 +4091,7 @@ function check_and_publish_future_post( $post_id ) {
  * @return string Unique slug for the post, based on $post_name (with a -1, -2, etc. suffix)
  */
 function wp_unique_post_slug( $slug, $post_ID, $post_status, $post_type, $post_parent ) {
-	if ( in_array( $post_status, array( 'draft', 'pending', 'auto-draft' ) ) || ( 'inherit' == $post_status && 'revision' == $post_type ) || 'user_request' === $post_type ) {
+	if ( in_array( $post_status, array( 'draft', 'pending', 'auto-draft' ) ) || ( 'inherit' == $post_status && 'revision' == $post_type ) || 'user_request' === $post_type )
 		return $slug;
 	}
 
@@ -5195,11 +5237,11 @@ function get_pages( $args = array() ) {
 
 /**
  * Determines whether an attachment URI is local and really an attachment.
- *
+ * 
  * For more information on this and similar theme functions, check out
- * the {@link https://developer.wordpress.org/themes/basics/conditional-tags/
+ * the {@link https://developer.wordpress.org/themes/basics/conditional-tags/ 
  * Conditional Tags} article in the Theme Developer Handbook.
- *
+ * 
  * @since 2.0.0
  *
  * @param string $url URL to check
@@ -5711,9 +5753,9 @@ function wp_attachment_is( $type, $post = null ) {
 
 /**
  * Determines whether an attachment is an image.
- *
+ * 
  * For more information on this and similar theme functions, check out
- * the {@link https://developer.wordpress.org/themes/basics/conditional-tags/
+ * the {@link https://developer.wordpress.org/themes/basics/conditional-tags/ 
  * Conditional Tags} article in the Theme Developer Handbook.
  *
  * @since 2.1.0
@@ -5924,7 +5966,7 @@ function wp_check_for_changed_slugs( $post_id, $post, $post_before ) {
  */
 function wp_check_for_changed_dates( $post_id, $post, $post_before ) {
 	$previous_date = date( 'Y-m-d', strtotime( $post_before->post_date ) );
-	$new_date      = date( 'Y-m-d', strtotime( $post->post_date ) );
+	$new_date = date( 'Y-m-d', strtotime( $post->post_date ) );
 	// Don't bother if it hasn't changed.
 	if ( $new_date == $previous_date ) {
 		return;
@@ -6784,4 +6826,13 @@ function _filter_query_attachment_filenames( $clauses ) {
 	);
 
 	return $clauses;
+}
+
+/**
+ * Sets the last changed time for the 'posts' cache group.
+ *
+ * @since 5.0.0
+ */
+function wp_cache_set_posts_last_changed() {
+	wp_cache_set( 'last_changed', microtime(), 'posts' );
 }

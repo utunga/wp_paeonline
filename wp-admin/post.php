@@ -16,13 +16,14 @@ $submenu_file = 'edit.php';
 
 wp_reset_vars( array( 'action' ) );
 
-if ( isset( $_GET['post'] ) ) {
-	$post_id = $post_ID = (int) $_GET['post'];
-} elseif ( isset( $_POST['post_ID'] ) ) {
-	$post_id = $post_ID = (int) $_POST['post_ID'];
-} else {
-	$post_id = $post_ID = 0;
-}
+if ( isset( $_GET['post'] ) && isset( $_POST['post_ID'] ) && (int) $_GET['post'] !== (int) $_POST['post_ID'] )
+	wp_die( __( 'A post ID mismatch has been detected.' ), __( 'Sorry, you are not allowed to edit this item.' ), 400 );
+elseif ( isset( $_GET['post'] ) )
+ 	$post_id = $post_ID = (int) $_GET['post'];
+elseif ( isset( $_POST['post_ID'] ) )
+ 	$post_id = $post_ID = (int) $_POST['post_ID'];
+else
+ 	$post_id = $post_ID = 0;
 
 /**
  * @global string  $post_type
@@ -40,7 +41,11 @@ if ( $post ) {
 	$post_type_object = get_post_type_object( $post_type );
 }
 
-if ( isset( $_POST['deletepost'] ) ) {
+if ( isset( $_POST['post_type'] ) && $post && $post_type !== $_POST['post_type'] ) {
+	wp_die( __( 'A post type mismatch has been detected.' ), __( 'Sorry, you are not allowed to edit this item.' ), 400 );
+}
+
+if ( isset( $_POST['deletepost'] ) )
 	$action = 'delete';
 } elseif ( isset( $_POST['wp-preview'] ) && 'dopreview' == $_POST['wp-preview'] ) {
 	$action = 'preview';
@@ -128,31 +133,27 @@ switch ( $action ) {
 			wp_die( __( 'You can&#8217;t edit this item because it is in the Trash. Please restore it and try again.' ) );
 		}
 
-		if ( ! empty( $_GET['get-post-lock'] ) ) {
-			check_admin_referer( 'lock-post_' . $post_id );
-			wp_set_post_lock( $post_id );
-			wp_redirect( get_edit_post_link( $post_id, 'url' ) );
-			exit();
-		}
+	$title = $post_type_object->labels->edit_item;
 
-		$post_type = $post->post_type;
-		if ( 'post' == $post_type ) {
-			$parent_file   = 'edit.php';
-			$submenu_file  = 'edit.php';
-			$post_new_file = 'post-new.php';
-		} elseif ( 'attachment' == $post_type ) {
-			$parent_file   = 'upload.php';
-			$submenu_file  = 'upload.php';
-			$post_new_file = 'media-new.php';
-		} else {
-			if ( isset( $post_type_object ) && $post_type_object->show_in_menu && $post_type_object->show_in_menu !== true ) {
-				$parent_file = $post_type_object->show_in_menu;
-			} else {
-				$parent_file = "edit.php?post_type=$post_type";
-			}
-			$submenu_file  = "edit.php?post_type=$post_type";
-			$post_new_file = "post-new.php?post_type=$post_type";
-		}
+	/**
+	 * Allows replacement of the editor.
+	 *
+	 * @since 4.9.0
+	 *
+	 * @param boolean      Whether to replace the editor. Default false.
+	 * @param object $post Post object.
+	 */
+	if ( apply_filters( 'replace_editor', false, $post ) === true ) {
+		break;
+	}
+
+	if ( use_block_editor_for_post( $post ) ) {
+		include( ABSPATH . 'wp-admin/edit-form-blocks.php' );
+		break;
+	}
+
+	if ( ! wp_check_post_lock( $post->ID ) ) {
+		$active_post_lock = wp_set_post_lock( $post->ID );
 
 		/**
 		 * Allows replacement of the editor.
@@ -166,8 +167,7 @@ switch ( $action ) {
 			break;
 		}
 
-		if ( ! wp_check_post_lock( $post->ID ) ) {
-			$active_post_lock = wp_set_post_lock( $post->ID );
+	$post = get_post( $post_id, OBJECT, 'edit' );
 
 			if ( 'attachment' !== $post_type ) {
 				wp_enqueue_script( 'autosave' );
@@ -186,8 +186,9 @@ switch ( $action ) {
 
 		break;
 
-	case 'editattachment':
-		check_admin_referer( 'update-post_' . $post_id );
+	// Update the thumbnail filename
+	$newmeta = wp_get_attachment_metadata( $post_id, true );
+	$newmeta['thumb'] = wp_basename( $_POST['thumb'] );
 
 		// Don't let these be changed
 		unset( $_POST['guid'] );
@@ -302,7 +303,29 @@ switch ( $action ) {
 	case 'preview':
 		check_admin_referer( 'update-post_' . $post_id );
 
-		$url = post_preview();
+case 'toggle-custom-fields':
+	check_admin_referer( 'toggle-custom-fields' );
+
+	$current_user_id = get_current_user_id();
+	if ( $current_user_id ) {
+		$enable_custom_fields = (bool) get_user_meta( $current_user_id, 'enable_custom_fields', true );
+		update_user_meta( $current_user_id, 'enable_custom_fields', ! $enable_custom_fields );
+	}
+
+	wp_safe_redirect( wp_get_referer() );
+	exit();
+
+default:
+	/**
+	 * Fires for a given custom post action request.
+	 *
+	 * The dynamic portion of the hook name, `$action`, refers to the custom post action.
+	 *
+	 * @since 4.6.0
+	 *
+	 * @param int $post_id Post ID sent with the request.
+	 */
+	do_action( "post_action_{$action}", $post_id );
 
 		wp_redirect( $url );
 		exit();

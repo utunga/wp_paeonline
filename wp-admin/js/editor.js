@@ -285,7 +285,7 @@ window.wp = window.wp || {};
 		}
 
 		/**
-		 * Gets all shortcodes and their positions in the content
+		 * @summary Get all shortcodes and their positions in the content
 		 *
 		 * This function returns all the shortcodes that could be found in the textarea content
 		 * along with their character positions and boundaries.

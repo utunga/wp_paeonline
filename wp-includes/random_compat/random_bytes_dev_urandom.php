@@ -30,7 +30,23 @@ if (!defined('RANDOM_COMPAT_READ_BUFFER')) {
     define('RANDOM_COMPAT_READ_BUFFER', 8);
 }
 
-if (!is_callable('random_bytes')) {
+if ( ! is_callable( 'random_bytes' ) ):
+/**
+ * Unless open_basedir is enabled, use /dev/urandom for
+ * random numbers in accordance with best practices
+ * 
+ * Why we use /dev/urandom and not /dev/random
+ * @ref http://sockpuppet.org/blog/2014/02/25/safely-generate-random-numbers
+ * 
+ * @param int $bytes
+ * 
+ * @throws Exception
+ * 
+ * @return string
+ */
+function random_bytes($bytes)
+{
+    static $fp = null;
     /**
      * Unless open_basedir is enabled, use /dev/urandom for
      * random numbers in accordance with best practices
@@ -165,3 +181,4 @@ if (!is_callable('random_bytes')) {
         );
     }
 }
+endif;

@@ -87,14 +87,7 @@ if ( isset( $_REQUEST['action'] ) && 'adduser' == $_REQUEST['action'] ) {
 			}
 		} else {
 			$newuser_key = wp_generate_password( 20, false );
-			add_option(
-				'new_user_' . $newuser_key,
-				array(
-					'user_id' => $user_id,
-					'email'   => $user_details->user_email,
-					'role'    => $_REQUEST['role'],
-				)
-			);
+			add_option( 'new_user_' . $newuser_key, array( 'user_id' => $user_id, 'email' => $user_details->user_email, 'role' => $_REQUEST[ 'role' ] ) );
 
 			$roles = get_editable_roles();
 			$role  = $roles[ $_REQUEST['role'] ];

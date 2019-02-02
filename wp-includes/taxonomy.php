@@ -272,6 +272,10 @@ function get_taxonomy( $taxonomy ) {
  * Determines whether the taxonomy name exists.
  *
  * Formerly is_taxonomy(), introduced in 2.3.0.
+ * 
+ * For more information on this and similar theme functions, check out
+ * the {@link https://developer.wordpress.org/themes/basics/conditional-tags/ 
+ * Conditional Tags} article in the Theme Developer Handbook.
  *
  * For more information on this and similar theme functions, check out
  * the {@link https://developer.wordpress.org/themes/basics/conditional-tags/
@@ -297,6 +301,10 @@ function taxonomy_exists( $taxonomy ) {
  * object, and finally returns the hierarchical value in the object.
  *
  * A false return value might also mean that the taxonomy does not exist.
+ * 
+ * For more information on this and similar theme functions, check out
+ * the {@link https://developer.wordpress.org/themes/basics/conditional-tags/ 
+ * Conditional Tags} article in the Theme Developer Handbook.
  *
  * For more information on this and similar theme functions, check out
  * the {@link https://developer.wordpress.org/themes/basics/conditional-tags/
@@ -1211,23 +1219,11 @@ function get_terms( $args = array(), $deprecated = '' ) {
  *                           False on failure.
  */
 function add_term_meta( $term_id, $meta_key, $meta_value, $unique = false ) {
-	// Bail if term meta table is not installed.
-	if ( get_option( 'db_version' ) < 34370 ) {
-		return false;
-	}
-
 	if ( wp_term_is_shared( $term_id ) ) {
 		return new WP_Error( 'ambiguous_term_id', __( 'Term meta cannot be added to terms that are shared between taxonomies.' ), $term_id );
 	}
 
-	$added = add_metadata( 'term', $term_id, $meta_key, $meta_value, $unique );
-
-	// Bust term query cache.
-	if ( $added ) {
-		wp_cache_set( 'last_changed', microtime(), 'terms' );
-	}
-
-	return $added;
+	return add_metadata( 'term', $term_id, $meta_key, $meta_value, $unique );
 }
 
 /**
@@ -1241,19 +1237,7 @@ function add_term_meta( $term_id, $meta_key, $meta_value, $unique = false ) {
  * @return bool True on success, false on failure.
  */
 function delete_term_meta( $term_id, $meta_key, $meta_value = '' ) {
-	// Bail if term meta table is not installed.
-	if ( get_option( 'db_version' ) < 34370 ) {
-		return false;
-	}
-
-	$deleted = delete_metadata( 'term', $term_id, $meta_key, $meta_value );
-
-	// Bust term query cache.
-	if ( $deleted ) {
-		wp_cache_set( 'last_changed', microtime(), 'terms' );
-	}
-
-	return $deleted;
+	return delete_metadata( 'term', $term_id, $meta_key, $meta_value );
 }
 
 /**
@@ -1268,11 +1252,6 @@ function delete_term_meta( $term_id, $meta_key, $meta_value = '' ) {
  * @return mixed If `$single` is false, an array of metadata values. If `$single` is true, a single metadata value.
  */
 function get_term_meta( $term_id, $key = '', $single = false ) {
-	// Bail if term meta table is not installed.
-	if ( get_option( 'db_version' ) < 34370 ) {
-		return false;
-	}
-
 	return get_metadata( 'term', $term_id, $key, $single );
 }
 
@@ -1293,23 +1272,11 @@ function get_term_meta( $term_id, $key = '', $single = false ) {
  *                           WP_Error when term_id is ambiguous between taxonomies. False on failure.
  */
 function update_term_meta( $term_id, $meta_key, $meta_value, $prev_value = '' ) {
-	// Bail if term meta table is not installed.
-	if ( get_option( 'db_version' ) < 34370 ) {
-		return false;
-	}
-
 	if ( wp_term_is_shared( $term_id ) ) {
 		return new WP_Error( 'ambiguous_term_id', __( 'Term meta cannot be added to terms that are shared between taxonomies.' ), $term_id );
 	}
 
-	$updated = update_metadata( 'term', $term_id, $meta_key, $meta_value, $prev_value );
-
-	// Bust term query cache.
-	if ( $updated ) {
-		wp_cache_set( 'last_changed', microtime(), 'terms' );
-	}
-
-	return $updated;
+	return update_metadata( 'term', $term_id, $meta_key, $meta_value, $prev_value );
 }
 
 /**
@@ -1324,11 +1291,6 @@ function update_term_meta( $term_id, $meta_key, $meta_value, $prev_value = '' ) 
  * @return array|false Returns false if there is nothing to update. Returns an array of metadata on success.
  */
 function update_termmeta_cache( $term_ids ) {
-	// Bail if term meta table is not installed.
-	if ( get_option( 'db_version' ) < 34370 ) {
-		return;
-	}
-
 	return update_meta_cache( 'term', $term_ids );
 }
 
@@ -1343,9 +1305,9 @@ function update_termmeta_cache( $term_ids ) {
  * @return array|false Array with meta data, or false when the meta table is not installed.
  */
 function has_term_meta( $term_id ) {
-	// Bail if term meta table is not installed.
-	if ( get_option( 'db_version' ) < 34370 ) {
-		return false;
+	$check = wp_check_term_meta_support_prefilter( null );
+	if ( null !== $check ) {
+		return $check;
 	}
 
 	global $wpdb;
@@ -1390,6 +1352,10 @@ function unregister_term_meta( $taxonomy, $meta_key ) {
  * Determines whether a term exists.
  *
  * Formerly is_term(), introduced in 2.3.0.
+ * 
+ * For more information on this and similar theme functions, check out
+ * the {@link https://developer.wordpress.org/themes/basics/conditional-tags/ 
+ * Conditional Tags} article in the Theme Developer Handbook.
  *
  * For more information on this and similar theme functions, check out
  * the {@link https://developer.wordpress.org/themes/basics/conditional-tags/
@@ -4615,20 +4581,26 @@ function wp_check_term_hierarchy_for_loops( $parent, $term_id, $taxonomy ) {
 }
 
 /**
- * Determines whether a taxonomy is considered "viewable".
+ * Sets the last changed time for the 'terms' cache group.
+ *
+ * @since 5.0.0
+ */
+function wp_cache_set_terms_last_changed() {
+	wp_cache_set( 'last_changed', microtime(), 'terms' );
+}
+
+/**
+ * Aborts calls to term meta if it is not supported.
  *
  * @since 5.0.0
  *
- * @param string|WP_Taxonomy $taxonomy Taxonomy name or object.
- * @return bool Whether the taxonomy should be considered viewable.
+ * @param mixed $check Skip-value for whether to proceed term meta function execution.
+ * @return mixed Original value of $check, or false if term meta is not supported.
  */
-function is_taxonomy_viewable( $taxonomy ) {
-	if ( is_scalar( $taxonomy ) ) {
-		$taxonomy = get_taxonomy( $taxonomy );
-		if ( ! $taxonomy ) {
-			return false;
-		}
+function wp_check_term_meta_support_prefilter( $check ) {
+	if ( get_option( 'db_version' ) < 34370 ) {
+		return false;
 	}
 
-	return $taxonomy->publicly_queryable;
+	return $check;
 }

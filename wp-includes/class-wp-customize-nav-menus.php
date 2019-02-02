@@ -327,14 +327,12 @@ final class WP_Customize_Nav_Menus {
 		// Prepend list of posts with nav_menus_created_posts search results on first page.
 		$nav_menus_created_posts_setting = $this->manager->get_setting( 'nav_menus_created_posts' );
 		if ( 1 === $args['pagenum'] && $nav_menus_created_posts_setting && count( $nav_menus_created_posts_setting->value() ) > 0 ) {
-			$stub_post_query = new WP_Query(
-				array_merge(
-					$query,
-					array(
-						'post_status'    => 'auto-draft',
-						'post__in'       => $nav_menus_created_posts_setting->value(),
-						'posts_per_page' => -1,
-					)
+			$stub_post_query = new WP_Query( array_merge(
+				$query,
+				array(
+					'post_status' => 'auto-draft',
+					'post__in' => $nav_menus_created_posts_setting->value(),
+					'posts_per_page' => -1,
 				)
 			);
 			$posts           = array_merge( $posts, $stub_post_query->posts );
@@ -390,7 +388,7 @@ final class WP_Customize_Nav_Menus {
 
 		// Add "Home" link if search term matches. Treat as a page, but switch to custom on add.
 		if ( isset( $args['s'] ) ) {
-			$title   = _x( 'Home', 'nav menu home label' );
+			$title = _x( 'Home', 'nav menu home label' );
 			$matches = function_exists( 'mb_stripos' ) ? false !== mb_stripos( $title, $args['s'] ) : false !== stripos( $title, $args['s'] );
 			if ( $matches ) {
 				$items[] = array(
