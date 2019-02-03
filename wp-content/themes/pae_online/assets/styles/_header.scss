@@ -1,0 +1,378 @@
+/* ## Site Header
+--------------------------------------------- */
+
+.top-header {
+	background-color: $white;
+
+	@include breakpoint(sm) {
+		color: $white;
+		background-color: $accent;
+	}
+
+	width: 100%;
+	z-index: 300;
+	color: $white;
+
+	button.menu-toggle {
+		padding: 1rem;
+		position: absolute;
+		right: 1.3rem;
+		top: 2.4rem;
+	}
+
+	.title-area {
+		padding: 0;
+		margin: 0 auto;
+		height: 90px;
+
+		@include breakpoint(lg) {
+			height: 100px;
+		}
+
+		@include breakpoint(sm) {
+			margin: 0;
+		}
+
+		.site-title {
+			.title-text {
+				display: none;
+			}
+		}
+
+		p.site-description {
+			display: none;
+		}
+
+		height: 90px;
+		width: 200px;
+
+		img.logo_mobile {
+			display: inline-block;
+			width: 200px;
+		}
+
+		img.logo_desktop {
+			display: none;
+		}
+
+		@include breakpoint(sm) {
+			img.logo_mobile {
+				display: none;
+			}
+
+			img.logo_desktop {
+				display: inline-block;
+				/*
+				width: 200px;
+					*/
+			}
+		}
+		/*@include breakpoint(md) {
+			height: 100px;
+			width: 312px;
+
+			img.logo_desktop {
+				width: 312px;
+			}
+		}*/
+	}
+
+	> .wrap {
+		position: relative;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		flex-wrap: wrap;
+		padding-left: 1px;
+		padding-right: 1px;
+
+		@include breakpoint(md) {
+			padding: 0;
+			flex-wrap: nowrap;
+			flex-direction: row;
+			justify-content: space-between;
+		}
+
+		@include breakpoint(sm) {
+			.title-area {
+				margin-right: auto;
+				align-self: flex-start;
+			}
+		}
+	}
+}
+
+.admin-bar header.site-header {
+	margin-top: 32px;
+}
+
+.pae_online_banner_header {
+	height: 230px;
+	margin: 0 auto;
+	padding-left: 5%;
+	padding-right: 5%;
+
+	img.wpsmartcrop-image {
+		height: 230px;
+		width: 100%;
+		top: 0px !important;
+	}
+
+	@include breakpoint(xs) {
+		height: 420px !important;
+
+		img.wpsmartcrop-image {
+			height: 420px !important;
+		}
+	}
+
+	@include breakpoint(sm) {
+		width: 90%;
+		max-width: map-get($breakpoints, xl);
+		padding-left: 0;
+		padding-right: 0;
+	
+		height: 520px !important;
+
+		img.wpsmartcrop-image {
+			height: 520px !important;
+		}
+	}
+
+	@include breakpoint(md) {
+		display:none;
+	}
+}
+
+.pae_online_banner_header_wide {
+	display: none;
+	margin: 0 auto;
+	padding-left: 5%;
+	padding-right: 5%;
+
+	img.wpsmartcrop-image {
+		display: none;
+		width: 100%;
+		top: 0px !important;
+	}
+
+	@include breakpoint(md) {
+		display: block;
+		width: 90%;
+		max-width: map-get($breakpoints, xl);
+		padding-left: 0;
+		padding-right: 0;
+		height: 515px !important;
+
+		img.wpsmartcrop-image {
+			display: block;
+			height: 515px !important;
+		}
+	}
+
+}
+
+
+.top-home {
+	img.wpsmartcrop-image {
+		height: 230px !important;
+
+		@include breakpoint(sm) {
+			height: 250px !important;
+		}
+
+		@include breakpoint(md) {
+			height: 400px !important;
+		}
+		margin: 0;
+	}
+
+	.widget,
+	.alignnone {
+		margin: 0 !important;
+	}
+
+	figcaption {
+		display: none;
+	}
+}
+
+header.site-header {
+	width: 100%;
+	z-index: 100;
+	top: 0px;
+
+	@include breakpoint(sm) {
+		position: fixed;
+	}
+
+	.a_to_z_searchbar {
+		background: black;
+		width: 100%;
+		margin: 0px auto;
+		padding: 5px 12px;
+
+		@include breakpoint(sm) {
+			width: inherit;		
+			padding: inherit;
+		}
+
+		input {
+			float: left;
+			width: 250px;
+			margin-bottom: 5px;
+			margin-top: 5px;
+
+			@include breakpoint(sm) {
+				height: 4rem;
+				margin-bottom: 10px;
+				margin-top: 0;
+			}
+		}
+
+		input.search_button {
+			width: 100px;
+			padding: 1rem;
+		}
+	}
+}
+
+.site-container {
+	top: 0px !important;
+}
+
+
+/*.site-inner {
+	margin-top: 205px;
+}*/
+
+/* ## Title Area
+--------------------------------------------- */
+.title-area {
+	margin: 0 auto 0 0;
+	position: relative;
+	height: 100%;
+	display: block;
+	flex: 1;
+	padding: 0.618em 0;
+	max-width: 18rem;
+	@include transition;
+
+	@include breakpoint(md) {
+		padding: 1.382em 0;
+		max-width: 24rem;
+	}
+
+	@include breakpoint(lg) {
+		padding: 1.618em 0;
+		max-width: 30rem;
+	}
+
+	.fixed-header .shrink & {
+		padding: 0.382em 0;
+	}
+}
+
+.shrink .title-area {
+	padding: 0.218em 0;
+}
+
+.shrink .nav-secondary {
+	a {
+		@include breakpoint(lg) {
+			padding-top: 1em;
+			padding-bottom: 1em;
+		}
+	}
+}
+
+
+.site-title {
+    font-size: 2.4rem;
+    font-family: $font-heading;
+    font-weight: $bold;
+    line-height: 1;
+    margin-bottom: 0;
+    @include breakpoint(sm) {
+        font-size: 3rem;
+    }
+    a {
+        color: $dark;
+        text-decoration: none;
+    }
+}
+
+.site-description {
+    font-size: 1.4rem;
+    margin-bottom: 0;
+    line-height: 1;
+    @include breakpoint(sm) {
+        text-align: left;
+        font-size: 1.6rem;
+        line-height: 1.382;
+    }
+}
+
+
+/* ## Header Right
+--------------------------------------------- */
+
+.header-widget-area {
+    .widget {
+        &:last-of-type {
+            margin-bottom: 0;
+        }
+    }
+}
+
+
+/* ## Page Header
+--------------------------------------------- */
+
+.page-header {
+    width: 100%;
+    margin: 0 auto;
+    padding: calc(2vw + 5rem) 0 6vw;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    @include breakpoint(sm) {
+        padding: 4rem 0 6rem;
+    }
+    @include breakpoint(lg) {
+        padding: 4rem 0 6rem;
+    }
+    &:before {
+        content: "";
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba($white, 0.95);
+    }
+    .has-nav-secondary & {
+        @include breakpoint(md) {
+            padding-top: 7rem;
+        }
+        @include breakpoint(lg) {
+            padding-top: 7rem;
+        }
+    }
+    .wrap {
+        position: relative;
+    }
+    h1 {
+        width: 100%;
+        margin-bottom: 0;
+    }
+    p {
+        width: 100%;
+        margin: 1em 0 0;
+    }
+    .widget {
+        background: transparent;
+    }
+}
+

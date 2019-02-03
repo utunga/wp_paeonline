@@ -1,0 +1,114 @@
+/* ## Widgets
+--------------------------------------------- */
+
+.widget {
+    margin-bottom: 6vw;
+    word-wrap: break-word;
+    background-color: $white;
+    @include breakpoint(md) {
+        margin-bottom: 4rem;
+    }
+    &:last-of-type {
+        margin-bottom: 0;
+        @include breakpoint(md) {
+            margin-bottom: 4rem;
+        }
+    }
+    .sidebar & {
+        margin-bottom: 0;
+        margin-top: 5vw;
+		font-size: 1.6rem;
+        padding: 6vw;
+        @include breakpoint(sm) {
+            margin-top: 4rem;
+            padding: 4rem;
+        }
+        &:first-of-type {
+            @include breakpoint(md) {
+                margin-top: 0;
+            }
+		}
+    }
+    p {
+         &:last-of-type {
+            margin-bottom: 0;
+        }
+    }
+    ul>li:last-of-type:not(.gfield) {
+        margin-bottom: 0;
+    }
+    ul>li {
+        margin-bottom: 0.5em;
+        padding-bottom: 0.5em;
+    }
+    ul>li:last-of-type {
+        padding-bottom: 0;
+    }
+    ol>li {
+        list-style-position: inside;
+        list-style-type: decimal;
+        padding-left: 1em;
+        text-indent: -1em;
+    }
+    li li {
+        border: 0;
+        margin: 0 0 0 1em;
+        padding: 0;
+    }
+}
+
+.widget-title {
+    font-family: $font-heading;
+    font-size: 2rem;
+}
+
+.widget_calendar {
+    table {
+        width: 100%;
+    }
+    td,
+    th {
+        text-align: center;
+    }
+}
+
+.widget-area.official-stuff-sidebar {
+	section {
+		font-size: 1.2rem;
+		padding: 1rem;
+		@include breakpoint(sm) {
+			font-size: 1.6rem;
+		}
+	}
+}
+
+.widget-area.official-stuff-lower-sidebar,
+.widget-area.official-stuff-lower-sidebar-2 {
+	flex-flow: column nowrap;
+	align-items: stretch;
+	display: flex;
+	align-content: space-between;
+
+	@include breakpoint(sm) {
+		flex-flow: row nowrap;
+	}
+
+	section {
+		display: flex;
+		padding: 1rem;
+		flex-grow: 1;
+		margin-top: 1rem;
+
+		@include breakpoint(sm) {
+			margin-left: 1rem;
+		}
+	}
+
+	section:first-child {
+		margin-left: 0rem;
+	}
+
+	.widget {
+		margin-bottom: 0;
+	}
+}

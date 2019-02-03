@@ -1,0 +1,540 @@
+
+/* ## Directory Of Everything 
+--------------------------------------------- */
+
+.directory-item,
+.directory-widget,
+.directory-row {
+	font-family: $font-directory-body;
+
+	a {
+		color: $accent;
+		font-weight: 900;
+
+		&:hover,
+		&:focus {
+			color: $dark;		
+			text-decoration-color: $accent;
+		}
+	}
+
+	img {
+		height: auto;
+		width: 100%;
+		display: block;
+	}
+}
+
+.foldable .directory-widget div.directory-widget-header {
+	background-color: $accent;
+	height: 4.6rem;
+
+	h2 {
+		font-family: $font-directory-heading;
+		font-variant: normal;
+		font-variant-caps: normal;
+	}
+}
+
+.directory-widget {
+	flex-flow: column nowrap;
+	align-items: flex-start;
+	width: 100%;
+
+	.directory-widget-header {
+		border-bottom: solid 1px $dark;
+		padding: 1rem;
+
+		h2 {
+			font-family: $font-directory-heading;
+			font-size: 2.4rem;
+
+			@include breakpoint(md) {
+				font-size: 3rem;
+			}
+		}
+
+		.intro-text {
+			padding-bottom: 1rem;
+		}
+	}
+}
+
+
+.directory-sidebar {
+	flex-flow: column nowrap;
+	align-items: flex-start;
+	justify-content: space-around;
+	width: 100%;
+
+	div {
+		margin: 0px;
+		text-align: left;
+		margin: 0 0 0.5rem 0;
+	}
+
+	.taxonomy {
+
+		span.tag {
+			margin-right: 0.5rem;
+			font-size: 1rem;
+			font-weight: bolder;
+			text-decoration: none;
+		}
+	}
+}
+
+.directory-item {
+	justify-content: space-between;
+	padding: 0 0.5rem 0.5rem 0.5rem;
+	flex-flow: column nowrap;
+
+	@include breakpoint(sm) {
+		padding: 0;
+	}
+
+	.title {
+		font-weight: bold;
+		font-size: 1.2em;
+		margin-top: 1rem;
+		margin-bottom: 0rem;
+
+		@include breakpoint(sm) {
+			float: left;
+		}
+
+		a {
+			text-decoration: none;
+			color: inherit;
+		}
+	}
+}
+
+.a_to_z_section {
+	flex: 1;
+	flex-flow: row nowrap;
+	background-color: $light;
+
+	.a_to_z_letter_heading {
+		padding-top: 2rem;
+
+		@include breakpoint(sm) {
+			width: 5rem;
+			position: relative;
+			top: 3.9rem;
+		}
+
+		h3 {
+			margin: auto;
+			width: 1rem;
+			@include media("<=sm") {
+				margin-bottom:2rem;
+				margin-top:2rem;
+			}
+		}
+	}
+
+	.a_to_z_listings {
+		background-color: $white;
+	}
+}
+
+.directory-item-container {
+	display: flex;
+	flex-flow: column wrap;
+
+	@include breakpoint(sm) {
+		margin-left: 5rem;
+		margin-right: 2rem;
+		flex-flow: row nowrap;
+	}
+
+	.directory-logo {
+		display: none; /* not that this happens anyway */
+	}
+
+	border-bottom: solid 1px $accent;
+}
+
+.directory-item-container:first-child {
+	border-top: solid 1px $accent;
+}
+
+.directory-item-container.supporter {
+	background: $featured_bg;
+
+	@include media("<=sm") {
+		flex-flow: unset;
+		position: relative;
+		width: 100%;
+
+		.directory-item {
+			.more-button {
+				display: none;
+			}
+		}
+
+		.directory-logo {
+			display: block;
+			position: absolute;
+			top: 1.2rem;
+			right: 1.2rem;
+			width: 96px !important;
+			height: 88px !important;
+			padding: 0rem;
+			margin: 0px;
+			width: 0px;
+
+			img.sponsor-thumb-mobile-size {
+				display: none; /* DAMN it its not working */
+				vertical-align: top;
+				width: 96px !important;
+				height: 88px !important;
+			}
+
+			.sponsor-thumb-size {
+				display: none;
+			}
+		}
+	}
+
+	.directory-item {
+		width: inherit;
+		flex-grow: 1;
+		max-width: 965px;
+
+		.directory-row {
+
+			.item {
+				@include breakpoint(sm) {
+					//min-width: inherit;
+					flex-grow: 1;
+				}
+			}
+
+			.item-sm {
+				@include breakpoint(sm) {
+					//min-width: inherit;
+					flex-grow: 1;
+				}
+			}
+
+			.item-lg {
+				@include breakpoint(sm) {
+					align-self: flex-end;
+					//min-width: inherit;
+					flex-grow: 2;
+					margin-left: auto;
+				}
+			}
+		}
+	}
+
+	.directory-logo {
+
+		@include breakpoint(lg) {
+			display: block;
+			width: 260px;
+			padding: 2rem;
+			align-self: stretch;
+			vertical-align: top;
+			margin-left: auto;
+			flex-grow: 0;
+
+			img.sponsor-thumb-size {
+				vertical-align: top;
+				width: 240px !important;
+				height: 220px !important;
+			}
+
+			.sponsor-thumb-mobile-size {
+				display: none;
+			}
+		}
+	}
+}
+
+.directory-row {
+	display: inline-flex;
+	flex-flow: column nowrap;
+	justify-content: flex-start;
+	margin-bottom: 1rem;
+
+	&.taxonomy {
+		width: 100%;
+		flex-flow: row nowrap;
+		justify-content: space-between;
+
+		span.tag {
+			margin-right: 0.5rem;
+			font-size: 1rem;
+			font-weight: bolder;
+			text-decoration: none;
+		}
+	}
+
+	@include breakpoint(sm) {
+		flex-flow: row nowrap;
+		justify-content: space-between;
+	}
+
+	> div {
+		margin: 12px;
+		text-align: left;
+		margin: 0 0 0.2vw 0;
+		word-wrap: normal;
+		text-wrap: avoid;
+
+		@include breakpoint(sm) {
+			margin: 1rem;
+		}
+	}
+
+	.item {
+		@include breakpoint(sm) {
+			//min-width: 30rem;
+			flex-grow: 1;
+		}
+	}
+
+	.item-sm {
+		@include breakpoint(sm) {
+			//min-width: 23rem;
+			flex-grow: 1;
+		}
+	}
+
+	.item-lg {
+		@include breakpoint(sm) {
+			align-self: flex-end;
+			//min-width: 10rem;
+			flex-grow: 2;
+			margin-left: auto;
+		}
+	}
+
+	&.title-row {
+		width: 100%;
+		flex-flow: column nowrap;
+
+		.website {
+			.website-link {
+
+				a {
+					text-wrap: avoid;
+					text-decoration: none;
+					margin: 0;
+
+					&:hover, &:focus {
+						text-decoration: none;
+					}
+				}
+			}
+		}
+	}
+
+	a {
+		text-decoration-color: $dark;
+
+		&:hover, &:focus {
+			color: $dark;
+			text-decoration-color: $accent;
+			text-decoration: underline;
+		}
+
+		.website-link {
+			color: $accent;
+		}
+	}
+}
+
+.more-button {
+	border: solid 1px $accent;
+	text-align: center;
+
+	a {
+		text-decoration: none;
+		color: $accent;
+		display: block;
+		width: 100%;
+		height: 100%;
+
+		.arrows {
+			color: transparent;
+			padding-right: 1rem;
+		}
+	}
+
+	a:hover {
+		text-decoration: none;
+		color: $accent;
+
+		.arrows {
+			color: $accent;
+		}
+	}
+}
+
+#a_to_z_widget {
+
+	.a_to_z_searchbar {
+		padding-top: 2rem;
+		margin-top: 2rem;
+		width: 100%;
+	}
+
+	.a_to_z_jumplinks {
+		width: 100%;
+		margin-top: 1rem;
+		margin-bottom: 4rem;
+	}
+
+	.a_to_z_searchbar {
+
+		.wrap {
+			width: 80%;
+			display: flex;
+			flex-flow: row nowrap;
+
+			.search {
+				width: 66%;
+				border: 1px solid $dark;
+			}
+
+			.search_button {
+				width: 33%;
+			}
+		}
+	}
+
+	.a_to_z_jumplinks {
+		text-align: center;
+
+		ul {
+			display: flex;
+			flex-flow: row nowrap;
+			width: 100%;
+
+			li {
+				width: 30%;
+				flex-grow: 4;
+
+				a {
+					font-size: 3rem;
+					text-decoration: none;
+					color: $dark;
+					width: 100%;
+					display: inline-block;
+				}
+			}
+		}
+	}
+}
+
+#a_to_z_widget.extra-padding {
+	padding-bottom: 1000px;
+}
+
+.a_to_z_searchbar.fixed-at-top {
+	position:fixed;
+	top:0px;
+}
+
+.directory_category_list {
+
+	.wrap {
+		display: flex;
+		justify-content: space-around;
+		flex-flow: column;
+
+		@include breakpoint(sm) {
+			flex-flow: row wrap;
+		}
+	}
+
+	.intro_area {
+		width: 100%;
+		padding: .5rem;
+
+		@include breakpoint(lg) {
+			width: 40rem;
+		}
+
+		h2 {
+			font-size: 3rem;
+		}
+	}
+
+	.category_list_container {
+		padding: 0;
+		margin: 0;
+		list-style: none;
+		justify-content: space-around;
+		display: flex;
+		display: -webkit-box;
+		display: -moz-box;
+		display: -ms-flexbox;
+		display: -webkit-flex;
+		flex-flow: row wrap;
+		/*width: 32rem;*/
+
+		@include breakpoint(sm) {
+			width: 64rem;
+			-webkit-flex-flow: row wrap;
+		}
+	}
+
+
+	.category_item,
+	.category_item a {
+		/*width: 10rem;
+		height: 4.5rem;*/
+
+		@include breakpoint(sm) {
+			width: 20rem;
+			height: 17.5rem;
+		}
+	}
+
+	.category_item {
+		padding: 0;
+		margin-top: 1rem;
+		position: relative;
+		width: 100%; /* for IE 6 */
+		text-align: center;
+
+		a {
+			.category_title {
+				position: absolute;
+				bottom: 0;
+				left: 0;
+				width: 100%;
+				height: 2.5em;
+				line-height: 2.5em;
+				font-weight: 500;
+				font-size: 1.7rem;
+				color: white;
+				background: $dark;
+				opacity: 0.9;
+			}
+
+			&:hover,
+			&:focus {
+				.category_title {
+					background: $accent;
+				}
+			}
+		}
+	}
+	/* special handling for a_z*/
+	.a_z {
+		order: 99;
+		width: 100%;
+
+		@include breakpoint(sm) {
+			order: -1;
+			width: 20rem;
+		}
+	}
+}
+

@@ -1,0 +1,611 @@
+/* ## Menus
+--------------------------------------------- */
+
+.menu {
+    width: 100%;
+    font-weight: $bolder;
+    font-size: 1.6rem;
+    line-height: 1;
+    text-align: left;
+    display: flex;
+    flex-wrap: wrap;
+    @include clearfix;
+}
+
+.menu-item {
+    display: block;
+    padding: 0.5rem 0;
+    width: 100%;
+    position: relative;
+    @include breakpoint(sm) {
+        display: inline-block;
+        padding: 0;
+        width: auto;
+        &:first-of-type>a {
+            padding-left: 0;
+        }
+        &:last-of-type a {
+            padding-right: 0;
+        }
+    }
+    &.right {
+        margin-left: auto;
+    }
+    a {
+        text-decoration: none;
+        display: block;
+        padding: 0.5em 0;
+        color: $dark;
+        @include breakpoint(md) {
+            padding: 1.6em 1em;
+        }
+        @include breakpoint(lg) {
+            padding: 1.82em 1.25em;
+        }
+    }
+}
+
+
+.widget_nav_menu {
+
+	ul.menu {
+		flex-flow: column nowrap;
+		li.menu-item {
+			padding: 0;
+			margin-top:0.5rem;
+			a {
+				color: $accent;
+				text-decoration: underline;
+				padding: 0;
+			}
+			a:hover {
+				text-decoration:none;
+			}
+		}
+	}
+}
+
+/* ## Sub Menus
+--------------------------------------------- */
+.sub-menu {
+	display: none;
+	font-size: 1.4rem;
+	@include clearfix;
+
+	@include breakpoint(md) {
+		top: 100%;
+		position: absolute;
+		width: 20rem;
+		z-index: 99;
+		background-color: $white;
+		border: $site-border;
+		padding: 0.5em 0;
+	}
+
+	li {
+		width: 100%;
+
+		&:first-of-type {
+			margin-top: 0.5em; // Slide toggle fix.
+			@include breakpoint(md) {
+				margin-top: 0;
+			}
+
+			a {
+				padding-left: 1em;
+			}
+		}
+	}
+
+	a {
+		padding-left: 1em;
+
+		@include breakpoint(md) {
+			padding: 1em;
+			position: relative;
+			word-wrap: break-word;
+		}
+
+		@include breakpoint(xl) {
+			padding: 1em;
+		}
+	}
+
+	.sub-menu {
+		padding-left: 1em;
+
+		@include breakpoint(md) {
+			margin: -0.1rem 0 0 19.9rem;
+			padding-left: 0;
+			left: -0.1rem;
+			top: -0.5em;
+			border: $site-border;
+		}
+	}
+}
+
+
+/* ## Specific Menus
+--------------------------------------------- */
+.nav-primary,
+.nav-secondary {
+	width: 100vw;
+	background-color: $white;
+	
+	top: 0px;
+	@include breakpoint(sm) {
+		margin: 0;
+		position: absolute;
+	}
+	left: 0;
+	top: 100%;
+	z-index: 200;
+
+	/*@include breakpoint(sm) {
+		margin: 0 -5vw;
+	}*/
+
+	@include breakpoint(md) {
+		border: none;
+		position: relative;
+		left: auto;
+		width: auto;
+		display: block;
+	}
+
+	.no-js & {
+		width: 100%;
+		position: relative;
+		display: block;
+
+		@include breakpoint(md) {
+			display: block;
+			width: auto;
+		}
+
+		.wrap {
+			padding: 0 5%;
+		}
+
+		.menu-item {
+			display: inline-block;
+			width: auto;
+			margin: 0 0.5em;
+		}
+	}
+
+	.menu {
+		padding: 0.5em 0;
+
+		@include breakpoint(md) {
+			padding: 0;
+		}
+	}
+}
+
+.nav-secondary {
+	background: $black !important;
+	text-align: center;
+
+	a, a:hover {
+		color: $white;
+	}
+
+	.sub-menu {
+		a, a:hover {
+			color: $dark;
+		}
+	}
+
+	@include breakpoint(md) {
+		
+		border-top: $black;
+	}
+}
+
+.nav-primary {
+	background: $accent;
+
+	a, a:hover {
+		color: $white;
+	}
+
+	@include media("<sm") {
+		.menu-item {
+			width: auto;
+			padding: 1em;
+		}
+	}
+}
+
+.nav-footer {
+	.menu {
+		justify-content: center;
+		margin-bottom: 1em;
+
+		@include breakpoint(sm) {
+			margin-bottom: 1.5em;
+		}
+	}
+
+	.menu-item {
+		width: auto;
+
+		a {
+			padding: 0;
+			margin: 0 1em;
+		}
+	}
+}
+
+.nav-secondary {
+	ul.quadmenu-navbar-nav {
+		max-width: map-get($breakpoints, xl) !important;
+
+		@include breakpoint(sm) {
+			margin-left: 8rem !important;
+		}
+
+		@include breakpoint(sm) {
+			display: flex !important;
+			flex-flow: row nowrap !important;
+			justify-content: space-between !important;
+
+			li.search {
+				margin-top: 1.2rem !important;
+				margin: 0;
+				margin-left: auto !important;
+			}
+		}
+
+		li.search {
+			color: $accent;
+			/** customizations of google search box */
+			.gsc-search-box {
+				margin-top: 1.8rem;
+				height: 2.6rem;
+
+				@include media("<=sm") {
+					height: 4.2rem;
+					margin-top: 0rem;
+					margin-bottom: 1.5rem;
+					margin-left: .5rem;
+					margin-right: .5rem;
+					width: -webkit-fill-available;
+					width: -moz-available;
+					width: fill-available;
+				}
+
+				.gsc-input-box {
+
+
+					table {
+						margin-bottom: 0;
+
+
+						input {
+							height: 2.6rem !important;
+							color: $dark !important;
+							margin: 0;
+							padding: 0 5px !important;
+
+							@include media("<=sm") {
+								padding: 0 3rem !important;
+							}
+						}
+
+						.gsib_b {
+							padding-top: .6rem;
+							padding-right: 1rem !important;
+						}
+					}
+				}
+
+				td.gsc-search-button {
+					background: black;
+
+					button.gsc-search-button {
+						padding: .25rem 1rem;
+						height: 2.6rem !important;
+
+						@include media("<=sm") {
+							height: 4.2rem !important;
+						}
+
+						border: none;
+						margin: 0;
+					}
+				}
+			}
+		}
+	}
+}
+
+/* ## Menu Toggles
+--------------------------------------------- */
+.menu-toggle {
+	padding: 2.7rem 0;
+	cursor: pointer;
+	background-color: transparent;
+	display: block;
+	position: relative;
+	line-height: 1;
+	color: $dark;
+
+	&:hover,
+	&:focus {
+		background: none;
+		outline: none;
+		box-shadow: none;
+		color: $dark;
+	}
+
+	&:focus {
+		outline: $site-border;
+		background: none;
+	}
+
+	@include breakpoint(md) {
+		display: none;
+	}
+
+	span {
+		display: block;
+		float: right;
+		position: relative;
+		height: 0.2rem;
+		background: $dark;
+		transition: background 0s 0.2s;
+		width: 2.5rem;
+		margin-left: 0.236em;
+		margin-top: 0.8rem;
+		border-radius: $site-radius;
+
+		&::before,
+		&::after {
+			position: absolute;
+			display: block;
+			left: 0;
+			width: 100%;
+			height: 0.2rem;
+			background-color: $dark;
+			border-radius: $site-radius;
+			content: " ";
+		}
+
+		&::before {
+			top: -0.7rem;
+			transition: top 0.2s 0.2s, transform 0.2s 0s;
+		}
+
+		&::after {
+			bottom: -0.7rem;
+			transition: bottom 0.2s 0.2s, transform 0.2s 0s;
+		}
+	}
+
+	&.activated span {
+		background: none;
+
+		&::before {
+			top: 0;
+			transform: rotate(45deg);
+			transition: top 0.2s 0s, transform 0.2s 0.2s;
+		}
+
+		&::after {
+			bottom: 0;
+			transform: rotate(-45deg);
+			transition: bottom 0.2s 0s, transform 0.2s 0.2s;
+		}
+	}
+}
+
+.sub-menu-toggle {
+	position: absolute;
+	right: 0;
+	top: 0.25em;
+	background: none;
+	padding: 0.75em;
+	margin: 0 -0.75em;
+
+	@include breakpoint(md) {
+		display: none;
+	}
+
+	&:hover,
+	&:focus {
+		background: none;
+	}
+
+	&:before {
+		content: "";
+		display: block;
+		margin: 0.2rem 0 -0.2rem;
+		border: 0.4rem solid transparent;
+		border-top-color: $dark;
+	}
+
+	&.activated {
+		&:before {
+			transform: rotate(180deg);
+			margin: -0.2rem 0 0.2rem;
+		}
+	}
+}
+
+
+ul#menu-secondary-menu {
+	@include media("<=sm") {
+		margin: auto;
+		width: 340px;
+
+		.menu-item {
+			border-left: 1px solid white;
+			padding-top: 0;
+			padding-bottom: 0;
+			margin-top: 1.5rem;
+			margin-bottom: 1.5rem;
+
+			&:first-child {
+				border-left: none;
+			}
+		}
+	}
+}
+
+.nav-secondary {
+	#quadmenu {
+		@include breakpoint("sm") {
+			width: 90% !important;
+			margin: auto !important;
+			max-width: map-get($breakpoints, xl) !important;
+		}
+
+		.quadmenu-navbar-nav li.search {
+			margin: 0;
+			width: 100%;
+
+			@include breakpoint(sm) {
+				margin-right: 7rem;
+				width: 20rem;
+			}
+
+			input[type="search"] {
+				width: 100%;
+				height: 4rem;
+
+				@include breakpoint(sm) {
+					height: 3.2rem;
+				}
+			}
+		}
+	}
+}
+
+
+
+
+/* ## Overrides for the expando quadmenu bits 
+--------------------------------------------- */
+
+.nav-secondary #quadmenu {
+
+	@include breakpoint(sm) {
+		.quadmenu-navbar-nav > li {
+			height: 7.2rem !important;
+			padding-top: 1.2rem;
+			padding-bottom: 1.2rem;
+			margin-top: 1rem;
+		}
+
+		.quadmenu-navbar-nav > li.right.search {
+			padding-top: 0rem !important;
+		}
+	}
+
+	.quadmenu-dropdown {
+		// ridiculousness needed to override the quadmenu defaults
+		.quadmenu-dropdown-menu li.quadmenu-item > a > .quadmenu-item-content {
+			font: $font-body !important;
+			font-weight: 300 !important;
+			color: $dark !important;
+			background: $white !important;
+
+			@include breakpoint(sm) {
+				color: $white !important;
+				background: $accent !important;
+			}
+
+			img {
+				margin-bottom:1rem;
+			}
+		}
+
+		@include breakpoint(sm) {
+
+			.col-sm-4 {
+				margin-right: auto;
+				margin-top: 2rem !important;
+				margin-bottom: 2rem !important;
+				padding-top: 0 !important;
+				padding-bottom: 0 !important;
+
+				ul {
+					padding-top: 0 !important;
+					padding-bottom: 0 !important;
+
+					li {
+						a:hover {
+							background: $accent !important;
+						}
+					}
+
+					li:first-child {
+						span.quadmenu-item-content {
+							padding-top: 0 !important;
+						}
+					}
+
+					li:last-child {
+						span.quadmenu-item-content {
+							padding-bottom: 0 !important;
+						}
+					}
+				}
+			}
+			/* special override for a-z */
+			#menu-item-349 {
+				span.quadmenu-item-content {
+					text-align: right;
+					padding-right: 4rem;
+				}
+			}
+			/* hack for third col in our village */
+			#menu-item-5561,
+			#menu-item-545 {
+				border-left: none;
+			}
+
+			.quadmenu-dropdown-menu {
+				position: relative;
+				background: $accent !important;
+
+				ul.quadmenu-row {
+					width: 767px !important;
+					margin-left: -19.5rem !important;
+
+					li.quadmenu-item-type-column {
+						margin-top: 0px;
+						min-width: 0;
+						border-left: solid 1px white;
+					}
+
+					li.quadmenu-item-type-column:first-child {
+						border-left: none;
+					}
+				}
+			}
+			/* hack for full width turquoise */
+			.quadmenu-dropdown-menu:before, .quadmenu-dropdown-menu:after {
+				content: "";
+				position: absolute;
+				/* fill vertically */
+				top: 0;
+				bottom: 0;
+				width: 9600px;
+				right: 100%;
+				background: $accent;
+			}
+
+			.quadmenu-dropdown-menu:after {
+				width: 9600px;
+				left: 100%;
+				/* you're free to do something totally different here */
+				background: $accent;
+			}
+		}
+	}
+}
+
+
