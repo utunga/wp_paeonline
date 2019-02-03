@@ -93,9 +93,9 @@ function set_query_var( $var, $value ) {
  * @param array|string $query Array or string of WP_Query arguments.
  * @return array List of post objects.
  */
-function query_posts( $query ) {
+function query_posts($query) {
 	$GLOBALS['wp_query'] = new WP_Query();
-	return $GLOBALS['wp_query']->query( $query );
+	return $GLOBALS['wp_query']->query($query);
 }
 
 /**
@@ -277,10 +277,6 @@ function is_category( $category = '' ) {
  * the {@link https://developer.wordpress.org/themes/basics/conditional-tags/ 
  * Conditional Tags} article in the Theme Developer Handbook.
  *
- * For more information on this and similar theme functions, check out
- * the {@link https://developer.wordpress.org/themes/basics/conditional-tags/
- * Conditional Tags} article in the Theme Developer Handbook.
- *
  * @since 2.3.0
  *
  * @global WP_Query $wp_query Global WP_Query instance.
@@ -311,10 +307,6 @@ function is_tag( $tag = '' ) {
  * 
  * For more information on this and similar theme functions, check out
  * the {@link https://developer.wordpress.org/themes/basics/conditional-tags/ 
- * Conditional Tags} article in the Theme Developer Handbook.
- *
- * For more information on this and similar theme functions, check out
- * the {@link https://developer.wordpress.org/themes/basics/conditional-tags/
  * Conditional Tags} article in the Theme Developer Handbook.
  *
  * @since 2.5.0
@@ -1000,7 +992,7 @@ function wp_old_slug_redirect() {
 
 		if ( get_query_var( 'paged' ) > 1 ) {
 			$link = user_trailingslashit( trailingslashit( $link ) . 'page/' . get_query_var( 'paged' ) );
-		} elseif ( is_embed() ) {
+		} elseif( is_embed() ) {
 			$link = user_trailingslashit( trailingslashit( $link ) . 'embed' );
 		}
 

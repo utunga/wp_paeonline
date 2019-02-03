@@ -61,13 +61,11 @@ function wp_embed_unregister_handler( $id, $priority = 10 ) {
  * @return array Default embed parameters.
  */
 function wp_embed_defaults( $url = '' ) {
-	if ( ! empty( $GLOBALS['content_width'] ) ) {
+	if ( ! empty( $GLOBALS['content_width'] ) )
 		$width = (int) $GLOBALS['content_width'];
-	}
 
-	if ( empty( $width ) ) {
+	if ( empty( $width ) )
 		$width = 500;
-	}
 
 	$height = min( ceil( $width * 1.5 ), 1000 );
 
@@ -76,7 +74,7 @@ function wp_embed_defaults( $url = '' ) {
 	 *
 	 * @since 2.9.0
 	 *
-	 * @param int[]  $size An array of embed width and height values
+	 * @param array  $size An array of embed width and height values
 	 *                     in pixels (in that order).
 	 * @param string $url  The URL that should be embedded.
 	 */
@@ -133,8 +131,8 @@ function _wp_oembed_get_object() {
  */
 function wp_oembed_add_provider( $format, $provider, $regex = false ) {
 	if ( did_action( 'plugins_loaded' ) ) {
-		$oembed                       = _wp_oembed_get_object();
-		$oembed->providers[ $format ] = array( $provider, $regex );
+		$oembed = _wp_oembed_get_object();
+		$oembed->providers[$format] = array( $provider, $regex );
 	} else {
 		WP_oEmbed::_add_provider_early( $format, $provider, $regex );
 	}
@@ -228,7 +226,7 @@ function wp_maybe_load_embeds() {
  */
 function wp_embed_handler_youtube( $matches, $attr, $url, $rawattr ) {
 	global $wp_embed;
-	$embed = $wp_embed->autoembed( sprintf( 'https://youtube.com/watch?v=%s', urlencode( $matches[2] ) ) );
+	$embed = $wp_embed->autoembed( sprintf( "https://youtube.com/watch?v=%s", urlencode( $matches[2] ) ) );
 
 	/**
 	 * Filters the YoutTube embed output.
@@ -397,13 +395,10 @@ function get_oembed_endpoint_url( $permalink = '', $format = 'json' ) {
 	$url = rest_url( 'oembed/1.0/embed' );
 
 	if ( '' !== $permalink ) {
-		$url = add_query_arg(
-			array(
-				'url'    => urlencode( $permalink ),
-				'format' => ( 'json' !== $format ) ? $format : false,
-			),
-			$url
-		);
+		$url = add_query_arg( array(
+			'url'    => urlencode( $permalink ),
+			'format' => ( 'json' !== $format ) ? $format : false,
+		), $url );
 	}
 
 	/**
@@ -522,13 +517,10 @@ function get_oembed_response_data( $post, $width ) {
 	 *     @type int $max Maximum width. Default 600.
 	 * }
 	 */
-	$min_max_width = apply_filters(
-		'oembed_min_max_width',
-		array(
-			'min' => 200,
-			'max' => 600,
-		)
-	);
+	$min_max_width = apply_filters( 'oembed_min_max_width', array(
+		'min' => 200,
+		'max' => 600
+	) );
 
 	$width  = min( max( $min_max_width['min'], $width ), $min_max_width['max'] );
 	$height = max( ceil( $width / 16 * 9 ), 200 );
@@ -655,7 +647,7 @@ function get_oembed_response_data_rich( $data, $post, $width, $height ) {
 	if ( 'attachment' === get_post_type( $post ) ) {
 		if ( wp_attachment_is_image( $post ) ) {
 			$thumbnail_id = $post->ID;
-		} elseif ( wp_attachment_is( 'video', $post ) ) {
+		} else if ( wp_attachment_is( 'video', $post ) ) {
 			$thumbnail_id = get_post_thumbnail_id( $post );
 			$data['type'] = 'video';
 		}
@@ -663,9 +655,9 @@ function get_oembed_response_data_rich( $data, $post, $width, $height ) {
 
 	if ( $thumbnail_id ) {
 		list( $thumbnail_url, $thumbnail_width, $thumbnail_height ) = wp_get_attachment_image_src( $thumbnail_id, array( $width, 99999 ) );
-		$data['thumbnail_url']                                      = $thumbnail_url;
-		$data['thumbnail_width']                                    = $thumbnail_width;
-		$data['thumbnail_height']                                   = $thumbnail_height;
+		$data['thumbnail_url']    = $thumbnail_url;
+		$data['thumbnail_width']  = $thumbnail_width;
+		$data['thumbnail_height'] = $thumbnail_height;
 	}
 
 	return $data;
@@ -802,7 +794,7 @@ function wp_filter_oembed_result( $result, $data, $url ) {
 
 	$allowed_html = array(
 		'a'          => array(
-			'href' => true,
+			'href'         => true,
 		),
 		'blockquote' => array(),
 		'iframe'     => array(
@@ -832,14 +824,14 @@ function wp_filter_oembed_result( $result, $data, $url ) {
 		$secret = wp_generate_password( 10, false );
 
 		$url = esc_url( "{$results[2]}#?secret=$secret" );
-		$q   = $results[1];
+		$q = $results[1];
 
 		$html = str_replace( $results[0], ' src=' . $q . $url . $q . ' data-secret=' . $q . $secret . $q, $html );
 		$html = str_replace( '<blockquote', "<blockquote data-secret=\"$secret\"", $html );
 	}
 
 	$allowed_html['blockquote']['data-secret'] = true;
-	$allowed_html['iframe']['data-secret']     = true;
+	$allowed_html['iframe']['data-secret'] = true;
 
 	$html = wp_kses( $html, $allowed_html );
 
@@ -870,8 +862,7 @@ function wp_embed_excerpt_more( $more_string ) {
 		return $more_string;
 	}
 
-	$link = sprintf(
-		'<a href="%1$s" class="wp-embed-more" target="_top">%2$s</a>',
+	$link = sprintf( '<a href="%1$s" class="wp-embed-more" target="_top">%2$s</a>',
 		esc_url( get_permalink() ),
 		/* translators: %s: Name of current post */
 		sprintf( __( 'Continue reading %s' ), '<span class="screen-reader-text">' . get_the_title() . '</span>' )
@@ -978,23 +969,23 @@ function print_embed_scripts() {
 	?>
 	<script type="text/javascript">
 	<?php
-	if ( SCRIPT_DEBUG ) {
-		readfile( ABSPATH . WPINC . '/js/wp-embed-template.js' );
-	} else {
-		/*
-		 * If you're looking at a src version of this file, you'll see an "include"
-		 * statement below. This is used by the `grunt build` process to directly
-		 * include a minified version of wp-embed-template.js, instead of using the
-		 * readfile() method from above.
-		 *
-		 * If you're looking at a build version of this file, you'll see a string of
-		 * minified JavaScript. If you need to debug it, please turn on SCRIPT_DEBUG
-		 * and edit wp-embed-template.js directly.
-		 */
-		?>
-		!function(a,b){"use strict";function c(b,c){a.parent.postMessage({message:b,value:c,secret:g},"*")}function d(){function d(){l.className=l.className.replace("hidden",""),b.querySelector('.wp-embed-share-tab-button [aria-selected="true"]').focus()}function e(){l.className+=" hidden",b.querySelector(".wp-embed-share-dialog-open").focus()}function f(a){var c=b.querySelector('.wp-embed-share-tab-button [aria-selected="true"]');c.setAttribute("aria-selected","false"),b.querySelector("#"+c.getAttribute("aria-controls")).setAttribute("aria-hidden","true"),a.target.setAttribute("aria-selected","true"),b.querySelector("#"+a.target.getAttribute("aria-controls")).setAttribute("aria-hidden","false")}function g(a){var c,d,e=a.target,f=e.parentElement.previousElementSibling,g=e.parentElement.nextElementSibling;if(37===a.keyCode)c=f;else{if(39!==a.keyCode)return!1;c=g}"rtl"===b.documentElement.getAttribute("dir")&&(c=c===f?g:f),c&&(d=c.firstElementChild,e.setAttribute("tabindex","-1"),e.setAttribute("aria-selected",!1),b.querySelector("#"+e.getAttribute("aria-controls")).setAttribute("aria-hidden","true"),d.setAttribute("tabindex","0"),d.setAttribute("aria-selected","true"),d.focus(),b.querySelector("#"+d.getAttribute("aria-controls")).setAttribute("aria-hidden","false"))}function h(a){var c=b.querySelector('.wp-embed-share-tab-button [aria-selected="true"]');n!==a.target||a.shiftKey?c===a.target&&a.shiftKey&&(n.focus(),a.preventDefault()):(c.focus(),a.preventDefault())}function i(a){var b,d=a.target;b=d.hasAttribute("href")?d.getAttribute("href"):d.parentElement.getAttribute("href"),b&&(c("link",b),a.preventDefault())}if(!k){k=!0;var j,l=b.querySelector(".wp-embed-share-dialog"),m=b.querySelector(".wp-embed-share-dialog-open"),n=b.querySelector(".wp-embed-share-dialog-close"),o=b.querySelectorAll(".wp-embed-share-input"),p=b.querySelectorAll(".wp-embed-share-tab-button button"),q=b.querySelector(".wp-embed-featured-image img");if(o)for(j=0;j<o.length;j++)o[j].addEventListener("click",function(a){a.target.select()});if(m&&m.addEventListener("click",function(){d()}),n&&n.addEventListener("click",function(){e()}),p)for(j=0;j<p.length;j++)p[j].addEventListener("click",f),p[j].addEventListener("keydown",g);b.addEventListener("keydown",function(a){27===a.keyCode&&-1===l.className.indexOf("hidden")?e():9===a.keyCode&&h(a)},!1),a.self!==a.top&&(c("height",Math.ceil(b.body.getBoundingClientRect().height)),q&&q.addEventListener("load",function(){c("height",Math.ceil(b.body.getBoundingClientRect().height))}),b.addEventListener("click",i))}}function e(){a.self!==a.top&&(clearTimeout(i),i=setTimeout(function(){c("height",Math.ceil(b.body.getBoundingClientRect().height))},100))}function f(){a.self===a.top||g||(g=a.location.hash.replace(/.*secret=([\d\w]{10}).*/,"$1"),clearTimeout(h),h=setTimeout(function(){f()},100))}var g,h,i,j=b.querySelector&&a.addEventListener,k=!1;j&&(f(),b.documentElement.className=b.documentElement.className.replace(/\bno-js\b/,"")+" js",b.addEventListener("DOMContentLoaded",d,!1),a.addEventListener("load",d,!1),a.addEventListener("resize",e,!1))}(window,document);
-		<?php
-	}
+		if ( SCRIPT_DEBUG ) {
+			readfile( ABSPATH . WPINC . "/js/wp-embed-template.js" );
+		} else {
+			/*
+			 * If you're looking at a src version of this file, you'll see an "include"
+			 * statement below. This is used by the `grunt build` process to directly
+			 * include a minified version of wp-embed-template.js, instead of using the
+			 * readfile() method from above.
+			 *
+			 * If you're looking at a build version of this file, you'll see a string of
+			 * minified JavaScript. If you need to debug it, please turn on SCRIPT_DEBUG
+			 * and edit wp-embed-template.js directly.
+			 */
+			?>
+			!function(a,b){"use strict";function c(b,c){a.parent.postMessage({message:b,value:c,secret:g},"*")}function d(){function d(){l.className=l.className.replace("hidden",""),b.querySelector('.wp-embed-share-tab-button [aria-selected="true"]').focus()}function e(){l.className+=" hidden",b.querySelector(".wp-embed-share-dialog-open").focus()}function f(a){var c=b.querySelector('.wp-embed-share-tab-button [aria-selected="true"]');c.setAttribute("aria-selected","false"),b.querySelector("#"+c.getAttribute("aria-controls")).setAttribute("aria-hidden","true"),a.target.setAttribute("aria-selected","true"),b.querySelector("#"+a.target.getAttribute("aria-controls")).setAttribute("aria-hidden","false")}function g(a){var c,d,e=a.target,f=e.parentElement.previousElementSibling,g=e.parentElement.nextElementSibling;if(37===a.keyCode)c=f;else{if(39!==a.keyCode)return!1;c=g}"rtl"===b.documentElement.getAttribute("dir")&&(c=c===f?g:f),c&&(d=c.firstElementChild,e.setAttribute("tabindex","-1"),e.setAttribute("aria-selected",!1),b.querySelector("#"+e.getAttribute("aria-controls")).setAttribute("aria-hidden","true"),d.setAttribute("tabindex","0"),d.setAttribute("aria-selected","true"),d.focus(),b.querySelector("#"+d.getAttribute("aria-controls")).setAttribute("aria-hidden","false"))}function h(a){var c=b.querySelector('.wp-embed-share-tab-button [aria-selected="true"]');n!==a.target||a.shiftKey?c===a.target&&a.shiftKey&&(n.focus(),a.preventDefault()):(c.focus(),a.preventDefault())}function i(a){var b,d=a.target;b=d.hasAttribute("href")?d.getAttribute("href"):d.parentElement.getAttribute("href"),b&&(c("link",b),a.preventDefault())}if(!k){k=!0;var j,l=b.querySelector(".wp-embed-share-dialog"),m=b.querySelector(".wp-embed-share-dialog-open"),n=b.querySelector(".wp-embed-share-dialog-close"),o=b.querySelectorAll(".wp-embed-share-input"),p=b.querySelectorAll(".wp-embed-share-tab-button button"),q=b.querySelector(".wp-embed-featured-image img");if(o)for(j=0;j<o.length;j++)o[j].addEventListener("click",function(a){a.target.select()});if(m&&m.addEventListener("click",function(){d()}),n&&n.addEventListener("click",function(){e()}),p)for(j=0;j<p.length;j++)p[j].addEventListener("click",f),p[j].addEventListener("keydown",g);b.addEventListener("keydown",function(a){27===a.keyCode&&-1===l.className.indexOf("hidden")?e():9===a.keyCode&&h(a)},!1),a.self!==a.top&&(c("height",Math.ceil(b.body.getBoundingClientRect().height)),q&&q.addEventListener("load",function(){c("height",Math.ceil(b.body.getBoundingClientRect().height))}),b.addEventListener("click",i))}}function e(){a.self!==a.top&&(clearTimeout(i),i=setTimeout(function(){c("height",Math.ceil(b.body.getBoundingClientRect().height))},100))}function f(){a.self===a.top||g||(g=a.location.hash.replace(/.*secret=([\d\w]{10}).*/,"$1"),clearTimeout(h),h=setTimeout(function(){f()},100))}var g,h,i,j=b.querySelector&&a.addEventListener,k=!1;j&&(f(),b.documentElement.className=b.documentElement.className.replace(/\bno-js\b/,"")+" js",b.addEventListener("DOMContentLoaded",d,!1),a.addEventListener("load",d,!1),a.addEventListener("resize",e,!1))}(window,document);
+			<?php
+		}
 	?>
 	</script>
 	<?php
