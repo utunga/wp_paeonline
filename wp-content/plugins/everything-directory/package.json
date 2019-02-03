@@ -1,0 +1,37 @@
+{
+  "name": "everything-directory",
+  "description": "Development files for the Everything Directory plugin.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/copyblogger/everything-directory"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "grunt": "*",
+    "grunt-autoprefixer": "*",
+    "grunt-checktextdomain": "*",
+    "grunt-contrib-cssmin": "*",
+    "grunt-contrib-imagemin": "*",
+    "grunt-contrib-jshint": "*",
+    "grunt-contrib-uglify": "*",
+    "grunt-contrib-watch": "*",
+    "grunt-csscomb": "*",
+    "grunt-jsbeautifier": "*",
+    "grunt-jsvalidate": "*",
+    "grunt-phplint": "*",
+    "grunt-styledocco": "*",
+    "grunt-wp-i18n": "*",
+    "load-grunt-tasks": "*"
+  },
+  "plugin": {
+    "name": "Everything Directory",
+    "uri": "https://github.com/copyblogger/everything-directory",
+    "description": "Everything Directory is a plugin for listing all the things.",
+    "author": "StudioPress",
+    "authoruri": "http://www.studiopress.com/",
+    "version": "1.2.7",
+    "license": "GPL-2.0+",
+    "licenseuri": "http://www.gnu.org/licenses/gpl-2.0.html",
+    "textdomain": "everything-directory"
+  }
+}
