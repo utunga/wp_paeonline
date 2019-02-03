@@ -1,0 +1,1 @@
+jQuery(document).ready(function(a) {var pxcontentOffset = a('.parallax-section, .parallax-mobile').offset().left;a('.parallax-content').css('left', '-'+ pxcontentOffset + 'px');});
