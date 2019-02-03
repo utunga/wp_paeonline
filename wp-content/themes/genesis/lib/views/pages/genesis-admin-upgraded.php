@@ -7,7 +7,7 @@
  *
  * @package StudioPress\Genesis
  * @author  StudioPress
- * @license GPL-2.0+
+ * @license GPL-2.0-or-later
  * @link    https://my.studiopress.com/themes/genesis/
  */
 
@@ -15,71 +15,35 @@ $people = require GENESIS_CONFIG_DIR . '/contributors.php';
 $genesis_contributors = new Genesis_Contributors( $people );
 $genesis_allowed_code = array(
 		'code' => array(),
+		'a'    => array( 'href' => array() ),
 );
 ?>
 <div class="wrap about-wrap">
 
-<img src="<?php echo esc_attr( get_template_directory_uri() . '/lib/admin/images/whats-new.png' ); ?>" class="alignright whats-new" />
-
 <h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
 
-<p class="about-text"><?php esc_html_e( 'Genesis 2.6 includes the ability to live preview all your theme and SEO settings using the WordPress customizer, support for AdSense Auto Ads, full WordPress title tag compatibility, and much more. See below for full changelog.', 'genesis' ); ?></p>
+<p class="about-text"><?php esc_html_e( 'Genesis 2.8 provides developers with new tools to make Genesis themes with less code and better user experience!', 'genesis' ); ?></p>
 
 <div class="changelog">
-	<div class="feature-section">
+
 		<h2 class="screen-reader-text"><?php _e( 'Changes', 'genesis' ); ?></h2>
 
-		<h3><?php esc_html_e( 'Added', 'genesis' ); ?></h3>
-		<ul>
-			<li><?php esc_html_e( 'Add option to sort Featured Posts by date modified.', 'genesis' ); ?></li>
-			<li><?php echo wp_kses( __( 'Add contextual filter for <code>content</code> passed through the Markup API.', 'genesis' ), $genesis_allowed_code ); ?></li>
-			<li><?php echo wp_kses( __( 'Add <code>Genesis_Customizer</code> class.', 'genesis' ), $genesis_allowed_code ); ?></li>
-			<li><?php echo wp_kses( __( 'Add <code>Genesis_SEO_Document_Title_Parts</code> class.', 'genesis' ), $genesis_allowed_code ); ?></li>
-			<li><?php echo wp_kses( __( 'Add <code>title-tag</code> theme support by default.', 'genesis' ), $genesis_allowed_code ); ?></li>
-			<li><?php esc_html_e( 'Add class autoloader.', 'genesis' ); ?></li>
-			<li><?php esc_html_e( 'Add support for AdSense Auto Ads.', 'genesis' ); ?></li>
-			<li><?php echo wp_kses( __( 'Add <code>aria-label</code> attribute to secondary <code>nav</code> element.', 'genesis' ), $genesis_allowed_code ); ?></li>
-			<li><?php esc_html_e( 'Add allowance for extra attributes on script tags for registered scripts.', 'genesis' ); ?></li>
-		</ul>
+		<h3><?php esc_html_e( 'Child themes, now config driven', 'genesis' ); ?></h3>
+		<p><?php esc_html_e( "Child themes should be simple. But lately, they've been getting more and more complicated. So in Genesis 2.8, we're introducing a new function to locate and load config files to enable and configure Genesis features – features such as a new onboarding experience, custom header images, default editor colors, and font size selections, using the new block editor in WordPress 5.0.", 'genesis' ) ; ?></p>
+		<p><?php esc_html_e( 'This new configuration-driven approach will allow us to build more features into Genesis, while only loading the ones your child theme needs.', 'genesis' ) ; ?></p>
 
-		<h3><?php esc_html_e( 'Changed', 'genesis' ); ?></h3>
-		<ul>
-			<li><?php echo wp_kses( __( 'Change URLs to <code>https</code> wherever possible.', 'genesis' ), $genesis_allowed_code ); ?></li>
-			<li><?php echo wp_kses( __( 'Update normalize.css to <code>7.0.0</code>.', 'genesis' ), $genesis_allowed_code ); ?></li>
-			<li><?php esc_html_e( 'Duplicate all theme and SEO settings in the Customizer.', 'genesis' ); ?></li>
-			<li><?php echo wp_kses( __( 'Move all classes to their own files in <code>lib/classes</code>.', 'genesis' ), $genesis_allowed_code ); ?></li>
-			<li><?php echo wp_kses( __( 'Use Markup API for <code>entry-title-link</code>.', 'genesis' ), $genesis_allowed_code ); ?></li>
-			<li><?php esc_html_e( 'Use Markup API for 404 page title.', 'genesis' ); ?></li>
-			<li><?php esc_html_e( 'Change description for headings on archive pages to account for accessibility.', 'genesis' ); ?></li>
-			<li><?php esc_html_e( 'Improve color scheme retrieval function.', 'genesis' ); ?></li>
-		</ul>
+		<h3><?php esc_html_e( 'New child theme onboarding experience', 'genesis' ); ?></h3>
+		<p><?php esc_html_e( 'Have you ever activated a WordPress theme and been disappointed by that first impression?', 'genesis' ); ?></p>
+		<p><?php esc_html_e( 'Sometimes starting from scratch is too intimidating – or too time consuming.', 'genesis' ); ?></p>
+		<p><?php esc_html_e( 'Genesis 2.8, when running on WordPress 5.0 or later, includes a new "onboarding" tool. This allows Genesis theme users to import some homepage demo content, just to help get things started.', 'genesis' ); ?></p>
+		<p><?php esc_html_e( 'Of course, the homepage can also be built using the new block editor released with WordPress 5.0.', 'genesis' ); ?></p>
+		<p><?php esc_html_e( 'Just install the theme as you normally would, and the onboarding tool will walk you through the process.', 'genesis' ); ?></p>
+		<p><?php esc_html_e( 'This new feature only requires a config file (loaded using the new config loader), and no special code!', 'genesis' ); ?></p>
+		<p><?php printf( wp_kses( __( 'You can see the onboarding feature in action by using the <a href="%s">Genesis Sample child theme</a>, currently available on our Github.', 'genesis' ), $genesis_allowed_code ), 'https://github.com/studiopress/genesis-sample/' ); ?></p>
 
-		<h3><?php esc_html_e( 'Fixed', 'genesis' ); ?></h3>
-		<ul>
-			<li><?php esc_html_e( 'More compliance with WordPress coding standards.', 'genesis' ); ?></li>
-			<li><?php echo wp_kses( __( 'Set ID of <code>entry-pings</code> to <code>comments</code> if only pings exist.', 'genesis' ), $genesis_allowed_code ); ?></li>
-			<li><?php esc_html_e( 'Ensure default settings get saved to database in new installs.', 'genesis' ); ?></li>
-			<li><?php echo wp_kses( __( 'Change <code>h3</code> to <code>h2</code> for titles in admin metaboxes.', 'genesis' ), $genesis_allowed_code ); ?></li>
-			<li><?php esc_html_e( 'Ensure theme support for Genesis import / export menu before outputting.', 'genesis' ); ?></li>
-			<li><?php esc_html_e( 'Check for post parents before outputting parent in breadcrumbs.', 'genesis' ); ?></li>
-			<li><?php echo wp_kses( __( 'Ensure <code>[post_tags]</code> and <code>[post_categories]</code> are valid for post type before outputting.', 'genesis' ), $genesis_allowed_code ); ?></li>
-			<li><?php echo wp_kses( __( 'Update <code>aria-label</code> attributes for <code>nav</code> elements to remove redundant "navigation" word.', 'genesis' ), $genesis_allowed_code ); ?></li>
-			<li><?php esc_html_e( 'Compatibility issue with breadcrumbs in Yoast SEO.', 'genesis' ); ?></li>
-			<li><?php esc_html_e( 'Issue with extra slashes in settings when using Customizer.', 'genesis' ); ?></li>
-			<li><?php esc_html_e( 'PHP 7 issue with non-static methods being used statically.', 'genesis' ); ?></li>
-			<li><?php echo wp_kses( __( 'Empty string warning in <code>skip-links.js</code>.', 'genesis' ), $genesis_allowed_code ); ?></li>
-		</ul>
+		<h3><?php esc_html_e( 'The Details', 'genesis' ); ?></h3>
+		<p><?php printf( wp_kses( __( 'We keep a detailed changelog for each release. The changelog for Genesis 2.8 can be found <a href="%s">here</a>.', 'genesis' ), $genesis_allowed_code ), 'https://studiopress.github.io/genesis/changelog/2.8.0' ); ?></p>
 
-		<h3><?php esc_html_e( 'Removed', 'genesis' ); ?></h3>
-		<ul>
-			<li><?php echo wp_kses( __( 'Remove duplicate <code>genesis_load_favicon</code> from being hooked to <code>wp_head</code>.', 'genesis' ), $genesis_allowed_code ); ?></li>
-			<li><?php echo wp_kses( __( 'Remove screen reader <code>h2</code> from inside Header Right widget area.', 'genesis' ), $genesis_allowed_code ); ?></li>
-			<li><?php echo wp_kses( __( 'Remove screen reader <code>h2</code> from inside primary <code>nav</code> element.', 'genesis' ), $genesis_allowed_code ); ?></li>
-			<li><?php esc_html_e( 'Remove feed settings if Genesis 2.6 is your first version.', 'genesis' ); ?></li>
-		</ul>
-
-
-	</div>
 </div>
 
 <div class="project-leads">
