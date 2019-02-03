@@ -1,27 +1,70 @@
 <?php
 
 if (!defined('ABSPATH')) {
-    die('-1');
+  die('-1');
 }
 
-if (defined('ELEMENTOR_PRO_VERSION')) {
+class QuadMenu_Elementor {
 
-    class QuadMenu_Elementor {
+  public function __construct() {
+    //add_filter('wp_nav_menu_args', array($this, 'elementor'), 10, 1);
+    add_action('elementor/widgets/widgets_registered', array($this, 'module'));
+    add_action('elementor/widgets/widgets_registered', array($this, 'exclude'));
+    add_action('wp_footer', array($this, 'footer'));
+  }
 
-        public function __construct() {
-            add_filter('wp_nav_menu_args', array($this, 'elementor'), 10, 1);
-        }
+  function exclude($elementor) {
 
-        function elementor($args) {
-            
-            if (empty($args['theme_location']) && isset($args['menu_class']) && strpos($args['menu_class'], 'elementor-nav-menu') !== false) {
-                $args['theme_location'] = 'primary';
-            }
-
-            return $args;
-        }
-
+    if (!class_exists('Elementor\\Plugin')) {
+      return;
     }
 
-    new QuadMenu_Elementor();
+    $elementor->unregister_widget_type('wp-widget-quadmenu_widget');
+  }
+
+  function module($elementor) {
+
+    if (!class_exists('Elementor\\Plugin')) {
+      return;
+    }
+
+    require_once 'elementor/module.php';
+
+    $elementor->register_widget_type(new Elementor\QuadMenu());
+  }
+
+  function footer() {
+    if (!class_exists('Elementor\\Plugin')) {
+      return;
+    }
+    if (!Elementor\Plugin::$instance->editor->is_edit_mode() && !Elementor\Plugin::$instance->preview->is_preview_mode()) {
+      return;
+    }
+    ?>
+    <script>
+      jQuery(function ($) {
+        if (window.elementorFrontend) {
+
+          elementorFrontend.hooks.addAction('frontend/element_ready/global', function (response) {
+
+            var $quadmenu = $('nav#quadmenu', $(response));
+
+            if ($quadmenu.length) {
+
+              setTimeout(function () {
+                $quadmenu.quadmenu();
+              }, 100);
+
+            }
+
+
+          });
+        }
+      });
+    </script>
+    <?php
+
+  }
 }
+
+new QuadMenu_Elementor();

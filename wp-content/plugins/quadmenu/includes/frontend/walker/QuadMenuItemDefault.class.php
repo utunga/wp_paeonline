@@ -1,38 +1,38 @@
 <?php
 
 if (!defined('ABSPATH')) {
-    die('-1');
+  die('-1');
 }
 
 class QuadMenuItemDefault extends QuadMenuItem {
 
-    protected $type = 'default';
+  protected $type = 'default';
 
-    function get_start_el() {
+  function get_start_el() {
 
-        $item_output = '';
+    $item_output = '';
 
-        $this->add_item_classes();
+    $this->add_item_classes();
 
-        $this->add_item_classes_prefix();
+    $this->add_item_classes_prefix();
 
-        $this->add_item_classes_current();
+    $this->add_item_classes_current();
 
-        $this->add_item_classes_quadmenu();
+    $this->add_item_classes_quadmenu();
 
-        $id = $this->get_item_id();
+    $id = $this->get_item_id();
 
-        $class = $this->get_item_classes();
+    $class = $this->get_item_classes();
 
-        $item_output .= '<li' . $id . $class . '>';
+    $item_output .= '<li' . $id . $class . '>';
 
-        $this->add_link_atts();
+    $this->add_link_atts();
 
-        $this->add_link_atts_toggle();
+    $this->add_link_atts_toggle();
 
-        $item_output .= $this->get_link();
+    $item_output .= $this->get_link();
 
-        return $item_output;
-    }
+    return $item_output;
+  }
 
 }

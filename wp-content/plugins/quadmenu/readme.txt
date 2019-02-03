@@ -2,7 +2,7 @@
 Contributors: quadlayers
 Tags: quadmenu, menu, megamenu, mega menu, responsive menu, mobile menu, wordpress mega menu, horizontal menu, vertical menu, navigation, widget, dropdown menu, drag and drop, mobile, responsive, retina, theme editor, shortcode, sidebar, icons, dashicons
 Requires at least: 4.8
-Tested up to: 4.9.5
+Tested up to: 5.0
 Stable tag: 1.4.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -10,7 +10,7 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 The first responsive mega menu designed for theme developers. 
 
 == Description ==
-[Premium](https://quadmenu.com/) | [Demo](https://quadmenu.com/demo/) | [Documentation](https://quadmenu.com/documentation/) | [Developers](https://quadmenu.com/documentation/developers/)
+[Premium](https://quadmenu.com/) | [Demo](https://quadmenu.com/demo/) | [Documentation](https://quadmenu.com/documentation/) | [Developers](https://quadmenu.com/documentation/developers/) | [Community](https://www.facebook.com/groups/quadmenu/)
 
 QuadMenu is a WordPress Mega Menu that will allows you easily integrate the menu in your theme's project. This plugin allows you to create mega menus, tabs menus and carrousel menus in a simple and native way converting your existing menu into a powerful tool. 
 
@@ -99,7 +99,110 @@ QuadMenu has been designed by developers for developers. For them, we have inclu
 
 == Changelog ==
 
+= 1.7.4 =
+
+* Fixed. divi quadmenu module
+* Fixed. widget save ajax issue
+* Fixed. custom dropdown width padding issue
+* Fixed. divi mobile menu two columns
+
+= 1.7.3 =
+
+* Fixed. fixed lazy load height
+
+= 1.7.2 =
+
+* Fixed. admin columns improved
+* Fixed. admin width default
+* Fixed. admin width and colums style
+* Fixed. hover cart icon color
+* Fixed. fixed lazy load images ratio
+* Fixed. fixed woocommerce cart menu
+* Fixed. media player size issue
+
+= 1.7.1 =
+
+* Fixed. persistent cache issues
+* Fixed. menu class replaced with quadmenu
+
+= 1.7.0 =
+
+* Fixed. fixed large subtitle
+* Fixed. elementor logo remove
+* Fixed. beaver logo remove
+* Fixed. removed quadmenu widget from metaboxes
+* Improvement. admin columns interface
+* Improvement. admin preset columns
+
+= 1.6.9 =
+
+* Fixed. dev alerts
+
+= 1.6.8 =
+
+* Fixed. login form issues
+
+= 1.6.7 =
+
+* Fixed. navbar brand width
+* Fixed. description in top level items on mobile menu
+* Fixed. search custom post types
+
+= 1.6.6 =
+
+* Fixed. remove unnecessary fields
+* New. option username in login item 
+* New. quadmenu dev location for testing 
+
+= 1.6.5 =
+
+* Fixed. undefined url
+* Fixed. icon padding
+* Fixed. icon dropdown
+* Fixed. logo in elementor module
+* Fixed. logo in beaver module
+* Fixed. customizer options removed transient time
+* New. button element in quadmenu pro
+
+= 1.6.4 =
+
+* New. font awesome 5
+
+= 1.6.3 =
+
+* Fixed. quadmenu pro override
+
+= 1.6.2 =
+
+* Fixed. offcanvas menu logo url
+
+= 1.6.1 =
+
+* New. option logo link 
+* Fixed. Unexpected token u in JSON at position 0
+
+= 1.6.0 =
+
+* Fixed. elementor undefined variable in frontend
+* Fixed. divi quadmenu module height
+* Improvement. translations files updated
+
+= 1.5.9 =
+
+* New. elementor module
+* New. beaver builder module
+
+= 1.5.8 =
+
+* Fixed. login and cart text margin
+* Fixed. load menu height issues
+* Fixed. login alerts css
+* Fixed. widget loading on ajax changes
+* Fixed. slidebar animation issues
+* Improvement. rebuild quadmenu on ajax events
+
 = 1.5.7 =
+
 * Fixed. tabs height
 * Fixed. divi mobile padding
 * Fixed. widget save off save settings event

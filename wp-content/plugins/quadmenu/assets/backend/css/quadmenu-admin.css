@@ -213,8 +213,20 @@ body.admin-color-quadmenu .wp-picker-container .wp-picker-default {
   margin: 0;
   padding: 1px 10px 0 10px;
 }
-body.wp-customizer .wp-picker-container .wp-picker-holder .iris-picker .iris-slider-offset,
-body.admin-color-quadmenu .wp-picker-container .wp-picker-holder .iris-picker .iris-slider-offset {
+body.wp-customizer .wp-picker-container .wp-picker-holder .iris-picker .iris-strip,
+body.admin-color-quadmenu .wp-picker-container .wp-picker-holder .iris-picker .iris-strip {
+  display: none;
+}
+body.wp-customizer .wp-picker-container .wp-picker-holder .iris-picker .iris-strip:nth-of-type(2),
+body.admin-color-quadmenu .wp-picker-container .wp-picker-holder .iris-picker .iris-strip:nth-of-type(2) {
+  display: block;
+}
+body.wp-customizer .wp-picker-container .wp-picker-holder .iris-picker .iris-slider,
+body.admin-color-quadmenu .wp-picker-container .wp-picker-holder .iris-picker .iris-slider {
+  display: block;
+}
+body.wp-customizer .wp-picker-container .wp-picker-holder .iris-picker .iris-slider .iris-slider-offset,
+body.admin-color-quadmenu .wp-picker-container .wp-picker-holder .iris-picker .iris-slider .iris-slider-offset {
   top: 11px;
   width: auto;
 }
@@ -1612,7 +1624,6 @@ body.wp-customizer #customize-controls .wp-picker-container .wp-color-result {
 @media only screen and (min-width: 960px) {
   #quadmenu-settings > .quadmenu-settings-body > .quadmenu-tabs.vertical {
     width: 160px;
-    height: 430px;
   }
   #quadmenu-settings > .quadmenu-settings-body > .quadmenu-tabs.vertical > li {
     text-align: left;
@@ -1621,16 +1632,39 @@ body.wp-customizer #customize-controls .wp-picker-container .wp-color-result {
     display: inline-block;
   }
   #quadmenu-settings > .quadmenu-settings-body > .quadmenu-tabs-content {
-    margin-left: 160px;
+    padding-left: 160px;
   }
 }
 #quadmenu-settings .quadmenu-tabs {
+  position: relative;
+  width: 100%;
+  display: flex;
   background-color: #fafafa;
+  border-width: 0 0 1px 0;
+  border-style: solid;
   border-color: #e5e5e5;
+  margin: 0;
+}
+#quadmenu-settings .quadmenu-tabs > .spinner {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  margin: -10px 15px 0 0;
 }
 #quadmenu-settings .quadmenu-tabs > li {
+  position: static;
   margin: 0;
-  float: left;
+}
+#quadmenu-settings .quadmenu-tabs > li:not(:last-child) {
+  border-color: #e5e5e5;
+  border-width: 0 1px 0 0;
+  border-style: solid;
+}
+#quadmenu-settings .quadmenu-tabs > li.ui-sortable-helper {
+  display: block;
+  overflow: hidden;
+  border-width: 1px;
+  opacity: 0.8;
 }
 #quadmenu-settings .quadmenu-tabs > li.drop-tab {
   padding: 4px;
@@ -1654,15 +1688,17 @@ body.wp-customizer #customize-controls .wp-picker-container .wp-color-result {
   position: relative;
 }
 #quadmenu-settings .quadmenu-tabs > li > a {
-  display: none;
+  position: relative;
+  display: block;
+  height: 46px;
+  line-height: 46px;
+  padding: 0 15px;
   background-color: #fafafa;
-  padding: 15px;
+  color: #444;
   text-decoration: none;
   font-weight: 700;
-  display: block;
   box-shadow: none;
-  color: #444;
-  position: relative;
+  z-index: 999;
   -webkit-transition: all 0.4s;
   -moz-transition: all 0.4s;
   -o-transition: all 0.4s;
@@ -1677,43 +1713,20 @@ body.wp-customizer #customize-controls .wp-picker-container .wp-color-result {
   outline: 0;
   color: #222;
 }
-#quadmenu-settings .quadmenu-tabs-content {
-  position: relative;
-  height: 100%;
-  margin-left: 50px;
-  overflow-y: auto;
-  overflow-x: hidden;
-  height: 400px;
-  padding: 15px;
-}
-#quadmenu-settings .quadmenu-tabs-content .quadmenu-tab-pane {
-  display: none;
-}
-#quadmenu-settings .quadmenu-tabs-content .quadmenu-tab-pane.active {
-  display: block;
-  -webkit-animation: fadeIn 1s forwards;
-  -o-animation: fadeIn 1s forwards;
-  animation: fadeIn 1s forwards;
-}
-#quadmenu-settings .quadmenu-tabs {
-  position: relative;
-  margin: 0;
-}
 #quadmenu-settings .quadmenu-tabs.vertical {
   width: 50px;
+  flex-direction: column;
   border-width: 0 1px 0 0;
   border-style: solid;
   position: absolute;
   top: 0;
   bottom: 0;
-  margin: 0;
-  padding: 0;
   left: 0;
   z-index: 999;
 }
 #quadmenu-settings .quadmenu-tabs.vertical > li {
+  width: 100%;
   margin: 0;
-  float: none;
   text-align: center;
 }
 #quadmenu-settings .quadmenu-tabs.vertical > li:not(:last-child) {
@@ -1726,64 +1739,42 @@ body.wp-customizer #customize-controls .wp-picker-container .wp-color-result {
   border-bottom: 1px solid #e5e5e5;
 }
 #quadmenu-settings .quadmenu-tabs.vertical > li.active > a {
-  margin-right: -3px;
+  margin-right: -1px;
   -webkit-transition: all 0.4s;
   -moz-transition: all 0.4s;
   -o-transition: all 0.4s;
   transition: all 0.4s;
 }
-#quadmenu-settings .quadmenu-tabs > li {
-  position: static;
-}
-#quadmenu-settings .quadmenu-tabs > li:not(:last-child) {
-  border-color: #e5e5e5;
-  border-width: 0 1px 0 0;
-  border-style: solid;
-}
-#quadmenu-settings .quadmenu-tabs > li.ui-sortable-helper {
-  display: block;
-  overflow: hidden;
-  border-width: 1px;
-  opacity: 0.8;
-}
-#quadmenu-settings .quadmenu-tabs > .spinner {
-  position: absolute;
-  top: 50%;
-  right: 0;
-  margin: -10px 15px 0 0;
-}
-#quadmenu-settings .quadmenu-tabs > .submit-add-to-quadmenu-panel,
-#quadmenu-settings .quadmenu-tabs > .submit-add-to-quadmenu-tab {
-  z-index: 9999;
-  text-align: center;
-  font-weight: 800;
-  padding: 4px;
-}
-#quadmenu-settings .quadmenu-tabs > .submit-add-to-quadmenu-panel:after,
-#quadmenu-settings .quadmenu-tabs > .submit-add-to-quadmenu-tab:after {
-  font: 12px dashicons;
-  color: #c3c3c3;
+#quadmenu-settings .quadmenu-tabs-content {
   position: relative;
-  border: 1px dashed #DFDFDF;
-  padding: 14px 0 12px 0;
-  width: 40px;
+  height: 100%;
+  padding-left: 50px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  height: 400px;
+}
+#quadmenu-settings .quadmenu-tabs-content .quadmenu-tab-pane {
+  display: none;
+  position: relative;
+  padding: 15px;
+}
+#quadmenu-settings .quadmenu-tabs-content .quadmenu-tab-pane.quadmenu-tab-pane-mega,
+#quadmenu-settings .quadmenu-tabs-content .quadmenu-tab-pane.quadmenu-tab-pane-tabs,
+#quadmenu-settings .quadmenu-tabs-content .quadmenu-tab-pane.quadmenu-tab-pane-carousel {
+  padding: 0;
+}
+#quadmenu-settings .quadmenu-tabs-content .quadmenu-tab-pane.active {
   display: block;
-  content: '\f132';
-}
-#quadmenu-settings .quadmenu-tabs > .submit-add-to-quadmenu-panel:hover,
-#quadmenu-settings .quadmenu-tabs > .submit-add-to-quadmenu-tab:hover {
-  cursor: pointer;
-}
-#quadmenu-settings .quadmenu-tabs > .submit-add-to-quadmenu-panel:hover:before,
-#quadmenu-settings .quadmenu-tabs > .submit-add-to-quadmenu-tab:hover:before {
-  opacity: 0.2;
+  -webkit-animation: fadeIn 1s forwards;
+  -o-animation: fadeIn 1s forwards;
+  animation: fadeIn 1s forwards;
 }
 #quadmenu-settings .dropdown {
   position: relative;
 }
 #quadmenu-settings .dropdown-menu {
   position: absolute;
-  top: 100%;
+  top: 2px;
   left: 0;
   display: none;
   list-style: none;
@@ -1911,6 +1902,29 @@ body.wp-customizer #customize-controls .wp-picker-container .wp-color-result {
   border-top: 1px solid #ececec;
   border-bottom: 1px solid #ececec;
 }
+#quadmenu-settings.quadmenu-item-carousel .quadmenu-tab-pane-default .quadmenu-setting-description,
+#quadmenu-settings.quadmenu-item-tabs .quadmenu-tab-pane-default .quadmenu-setting-description,
+#quadmenu-settings.quadmenu-item-mega .quadmenu-tab-pane-default .quadmenu-setting-description {
+  display: none;
+}
+#quadmenu-settings.quadmenu-item-social .quadmenu-tab-pane-default .quadmenu-setting-description,
+#quadmenu-settings.quadmenu-item-carousel .quadmenu-tab-pane-default .quadmenu-setting-description,
+#quadmenu-settings.quadmenu-item-search .quadmenu-tab-pane-default .quadmenu-setting-description,
+#quadmenu-settings.quadmenu-item-login .quadmenu-tab-pane-default .quadmenu-setting-description,
+#quadmenu-settings.quadmenu-item-social .quadmenu-tab-pane-default .quadmenu-setting-xfn,
+#quadmenu-settings.quadmenu-item-carousel .quadmenu-tab-pane-default .quadmenu-setting-xfn,
+#quadmenu-settings.quadmenu-item-search .quadmenu-tab-pane-default .quadmenu-setting-xfn,
+#quadmenu-settings.quadmenu-item-login .quadmenu-tab-pane-default .quadmenu-setting-xfn,
+#quadmenu-settings.quadmenu-item-social .quadmenu-tab-pane-default .quadmenu-setting-target,
+#quadmenu-settings.quadmenu-item-carousel .quadmenu-tab-pane-default .quadmenu-setting-target,
+#quadmenu-settings.quadmenu-item-search .quadmenu-tab-pane-default .quadmenu-setting-target,
+#quadmenu-settings.quadmenu-item-login .quadmenu-tab-pane-default .quadmenu-setting-target,
+#quadmenu-settings.quadmenu-item-social .quadmenu-tab-pane-default .quadmenu-setting-url,
+#quadmenu-settings.quadmenu-item-carousel .quadmenu-tab-pane-default .quadmenu-setting-url,
+#quadmenu-settings.quadmenu-item-search .quadmenu-tab-pane-default .quadmenu-setting-url,
+#quadmenu-settings.quadmenu-item-login .quadmenu-tab-pane-default .quadmenu-setting-url {
+  display: none;
+}
 #quadmenu-settings li.quadmenu-panel-query,
 #quadmenu-settings li.quadmenu-panel-content,
 #quadmenu-settings li.quadmenu-panel-archive_carousel {
@@ -1964,7 +1978,6 @@ body.wp-customizer #customize-controls .wp-picker-container .wp-color-result {
   display: block;
 }
 #quadmenu-settings .dashicons {
-  line-height: inherit;
   width: auto;
   height: auto;
   padding: 0;
@@ -2090,7 +2103,6 @@ body.wp-customizer #customize-controls .wp-picker-container .wp-color-result {
 }
 #quadmenu-settings .quadmenu-setting.quadmenu-setting-background .field-wrapper .edit-menu-item-media-thumbnail:before,
 #quadmenu-settings .quadmenu-setting.quadmenu-setting-media .field-wrapper .edit-menu-item-media-thumbnail:before {
-  line-height: inherit;
   width: auto;
   height: auto;
   padding: 0;
@@ -2163,79 +2175,153 @@ body.wp-customizer #customize-controls .wp-picker-container .wp-color-result {
   min-width: 200px;
   width: auto;
 }
-#quadmenu-settings .quadmenu-setting.quadmenu-setting-width .quadmenu-setting-width-icons > div,
-#quadmenu-settings .quadmenu-setting.quadmenu-setting-width .quadmenu-setting-width-columns > div,
-#quadmenu-settings .quadmenu-setting.quadmenu-setting-width .quadmenu-setting-width-offset > div,
-#quadmenu-settings .quadmenu-setting.quadmenu-setting-width .quadmenu-setting-width-hidden > div {
+#quadmenu-settings .quadmenu-setting.quadmenu-setting-width > label {
+  display: flex;
+}
+#quadmenu-settings .quadmenu-setting.quadmenu-setting-width > label > .quadmenu-setting-width-icons,
+#quadmenu-settings .quadmenu-setting.quadmenu-setting-width > label > .quadmenu-setting-width-columns,
+#quadmenu-settings .quadmenu-setting.quadmenu-setting-width > label > .quadmenu-setting-width-offset,
+#quadmenu-settings .quadmenu-setting.quadmenu-setting-width > label > .quadmenu-setting-width-hidden {
+  flex: auto;
+}
+#quadmenu-settings .quadmenu-setting.quadmenu-setting-width > label > .quadmenu-setting-width-icons > div,
+#quadmenu-settings .quadmenu-setting.quadmenu-setting-width > label > .quadmenu-setting-width-columns > div,
+#quadmenu-settings .quadmenu-setting.quadmenu-setting-width > label > .quadmenu-setting-width-offset > div,
+#quadmenu-settings .quadmenu-setting.quadmenu-setting-width > label > .quadmenu-setting-width-hidden > div {
   padding: 0 20px;
   line-height: 70px;
   height: 70px;
 }
-#quadmenu-settings .quadmenu-setting.quadmenu-setting-width .quadmenu-setting-width-icons > div:not(:last-child),
-#quadmenu-settings .quadmenu-setting.quadmenu-setting-width .quadmenu-setting-width-columns > div:not(:last-child),
-#quadmenu-settings .quadmenu-setting.quadmenu-setting-width .quadmenu-setting-width-offset > div:not(:last-child),
-#quadmenu-settings .quadmenu-setting.quadmenu-setting-width .quadmenu-setting-width-hidden > div:not(:last-child) {
+#quadmenu-settings .quadmenu-setting.quadmenu-setting-width > label > .quadmenu-setting-width-icons > div:not(:last-child),
+#quadmenu-settings .quadmenu-setting.quadmenu-setting-width > label > .quadmenu-setting-width-columns > div:not(:last-child),
+#quadmenu-settings .quadmenu-setting.quadmenu-setting-width > label > .quadmenu-setting-width-offset > div:not(:last-child),
+#quadmenu-settings .quadmenu-setting.quadmenu-setting-width > label > .quadmenu-setting-width-hidden > div:not(:last-child) {
   border-bottom: 1px solid #efefef;
 }
-#quadmenu-settings .quadmenu-setting.quadmenu-setting-width .quadmenu-setting-width-icons > div > i,
-#quadmenu-settings .quadmenu-setting.quadmenu-setting-width .quadmenu-setting-width-columns > div > i,
-#quadmenu-settings .quadmenu-setting.quadmenu-setting-width .quadmenu-setting-width-offset > div > i,
-#quadmenu-settings .quadmenu-setting.quadmenu-setting-width .quadmenu-setting-width-hidden > div > i,
-#quadmenu-settings .quadmenu-setting.quadmenu-setting-width .quadmenu-setting-width-icons > div > select,
-#quadmenu-settings .quadmenu-setting.quadmenu-setting-width .quadmenu-setting-width-columns > div > select,
-#quadmenu-settings .quadmenu-setting.quadmenu-setting-width .quadmenu-setting-width-offset > div > select,
-#quadmenu-settings .quadmenu-setting.quadmenu-setting-width .quadmenu-setting-width-hidden > div > select,
-#quadmenu-settings .quadmenu-setting.quadmenu-setting-width .quadmenu-setting-width-icons > div > input,
-#quadmenu-settings .quadmenu-setting.quadmenu-setting-width .quadmenu-setting-width-columns > div > input,
-#quadmenu-settings .quadmenu-setting.quadmenu-setting-width .quadmenu-setting-width-offset > div > input,
-#quadmenu-settings .quadmenu-setting.quadmenu-setting-width .quadmenu-setting-width-hidden > div > input {
+#quadmenu-settings .quadmenu-setting.quadmenu-setting-width > label > .quadmenu-setting-width-icons > div > i,
+#quadmenu-settings .quadmenu-setting.quadmenu-setting-width > label > .quadmenu-setting-width-columns > div > i,
+#quadmenu-settings .quadmenu-setting.quadmenu-setting-width > label > .quadmenu-setting-width-offset > div > i,
+#quadmenu-settings .quadmenu-setting.quadmenu-setting-width > label > .quadmenu-setting-width-hidden > div > i,
+#quadmenu-settings .quadmenu-setting.quadmenu-setting-width > label > .quadmenu-setting-width-icons > div > select,
+#quadmenu-settings .quadmenu-setting.quadmenu-setting-width > label > .quadmenu-setting-width-columns > div > select,
+#quadmenu-settings .quadmenu-setting.quadmenu-setting-width > label > .quadmenu-setting-width-offset > div > select,
+#quadmenu-settings .quadmenu-setting.quadmenu-setting-width > label > .quadmenu-setting-width-hidden > div > select,
+#quadmenu-settings .quadmenu-setting.quadmenu-setting-width > label > .quadmenu-setting-width-icons > div > input,
+#quadmenu-settings .quadmenu-setting.quadmenu-setting-width > label > .quadmenu-setting-width-columns > div > input,
+#quadmenu-settings .quadmenu-setting.quadmenu-setting-width > label > .quadmenu-setting-width-offset > div > input,
+#quadmenu-settings .quadmenu-setting.quadmenu-setting-width > label > .quadmenu-setting-width-hidden > div > input {
   margin: 0;
 }
-#quadmenu-settings .quadmenu-setting.quadmenu-setting-width .quadmenu-setting-width-icons > div > select,
-#quadmenu-settings .quadmenu-setting.quadmenu-setting-width .quadmenu-setting-width-columns > div > select,
-#quadmenu-settings .quadmenu-setting.quadmenu-setting-width .quadmenu-setting-width-offset > div > select,
-#quadmenu-settings .quadmenu-setting.quadmenu-setting-width .quadmenu-setting-width-hidden > div > select {
+#quadmenu-settings .quadmenu-setting.quadmenu-setting-width > label > .quadmenu-setting-width-icons > div > select,
+#quadmenu-settings .quadmenu-setting.quadmenu-setting-width > label > .quadmenu-setting-width-columns > div > select,
+#quadmenu-settings .quadmenu-setting.quadmenu-setting-width > label > .quadmenu-setting-width-offset > div > select,
+#quadmenu-settings .quadmenu-setting.quadmenu-setting-width > label > .quadmenu-setting-width-hidden > div > select {
   margin: 0 0 3px 0;
 }
-#quadmenu-settings .quadmenu-setting.quadmenu-setting-width .quadmenu-setting-width-icons > div > i {
+#quadmenu-settings .quadmenu-setting.quadmenu-setting-width > label > .quadmenu-setting-width-icons,
+#quadmenu-settings .quadmenu-setting.quadmenu-setting-width > label > .quadmenu-setting-width-offset,
+#quadmenu-settings .quadmenu-setting.quadmenu-setting-width > label > .quadmenu-setting-width-hidden {
+  max-width: 60px;
+}
+#quadmenu-settings .quadmenu-setting.quadmenu-setting-width > label > .quadmenu-setting-width-hidden {
+  text-align: center;
+}
+#quadmenu-settings .quadmenu-setting.quadmenu-setting-width > label > .quadmenu-setting-width-icons > div > i {
   background: transparent url('../../backend/images/offset.png') -21px 0 no-repeat;
   width: 21px;
   height: 21px;
   display: inline-block;
   vertical-align: middle;
 }
-#quadmenu-settings .quadmenu-setting.quadmenu-setting-width .quadmenu-setting-width-icons > div.md > i {
+#quadmenu-settings .quadmenu-setting.quadmenu-setting-width > label > .quadmenu-setting-width-icons > div.md > i {
   background-position: -21px -21px;
 }
-#quadmenu-settings .quadmenu-setting.quadmenu-setting-width .quadmenu-setting-width-icons > div.sm > i {
+#quadmenu-settings .quadmenu-setting.quadmenu-setting-width > label > .quadmenu-setting-width-icons > div.sm > i {
   background-position: -21px -42px;
 }
-#quadmenu-settings .quadmenu-setting.quadmenu-setting-width .quadmenu-setting-width-icons > div.xs > i {
+#quadmenu-settings .quadmenu-setting.quadmenu-setting-width > label > .quadmenu-setting-width-icons > div.xs > i {
   background-position: -21px -84px;
 }
-#quadmenu-settings .quadmenu-setting.quadmenu-setting-width .quadmenu-setting-width-columns,
-#quadmenu-settings .quadmenu-setting.quadmenu-setting-width .quadmenu-setting-width-offset {
-  padding: 0;
-}
-#quadmenu-settings .quadmenu-setting.quadmenu-setting-width .quadmenu-setting-width-icons,
-#quadmenu-settings .quadmenu-setting.quadmenu-setting-width .quadmenu-setting-width-hidden {
+#quadmenu-settings ul > li:first-of-type > a.submit-add-to-quadmenu-column,
+#quadmenu-settings ul > li:first-of-type > a.submit-add-to-quadmenu-panel,
+#quadmenu-settings ul > li:first-of-type > a.submit-add-to-quadmenu-tab {
+  z-index: 9999;
   text-align: center;
+  width: auto;
+  padding: 0;
+  text-decoration: none;
+  align-items: center;
+  cursor: pointer;
+}
+#quadmenu-settings ul > li:first-of-type > a.submit-add-to-quadmenu-column:after,
+#quadmenu-settings ul > li:first-of-type > a.submit-add-to-quadmenu-panel:after,
+#quadmenu-settings ul > li:first-of-type > a.submit-add-to-quadmenu-tab:after {
+  position: relative;
+  display: inline-block;
+  font: 16px dashicons;
+  color: #c3c3c3;
+  content: '\f132';
+  width: 46px;
+  vertical-align: middle;
+  top: 1px;
 }
 #quadmenu-settings .quadmenu-columns {
-  margin: 0 -15px;
-}
-#quadmenu-settings .quadmenu-columns.row {
   position: relative;
-  padding-top: 45px;
+  padding: 46px 0 0 0;
 }
-#quadmenu-settings .quadmenu-columns > .spinner,
-#quadmenu-settings .quadmenu-columns > .submit-add-to-quadmenu-column {
+#quadmenu-settings .quadmenu-columns > ul {
   position: absolute;
-  top: 0;
-  margin: 0 15px;
-}
-#quadmenu-settings .quadmenu-columns > .submit-add-to-quadmenu-column {
+  width: 100%;
   left: 0;
+  right: 0;
+  top: 0;
+  display: flex;
+  background-color: #fafafa;
+  border-width: 0 0 1px 0;
+  border-style: solid;
+  border-color: #e5e5e5;
+  margin: 0;
+  height: 46px;
+  align-items: center;
+}
+#quadmenu-settings .quadmenu-columns > ul > .spinner {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  margin: -10px 15px 0 0;
+}
+#quadmenu-settings .quadmenu-columns > ul > li {
+  min-width: 40px;
+  padding: 0 15px 0 0;
+  margin: 0;
+}
+#quadmenu-settings .quadmenu-columns > ul > li > a {
+  display: flex;
+  height: 32px;
+  cursor: pointer;
+  -webkit-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+  -o-transition: all 0.4s;
+  transition: all 0.4s;
+}
+#quadmenu-settings .quadmenu-columns > ul > li > a:focus,
+#quadmenu-settings .quadmenu-columns > ul > li > a:hover {
+  outline: 0;
+  box-shadow: none;
+}
+#quadmenu-settings .quadmenu-columns > ul > li > a:focus > .col,
+#quadmenu-settings .quadmenu-columns > ul > li > a:hover > .col {
+  background: #c3c3c3;
+}
+#quadmenu-settings .quadmenu-columns > ul > li > a > .col {
+  flex: auto;
+  height: 100%;
+  margin: 0 3px 0 0;
+  background: #ebebeb;
+  padding: 0;
+}
+#quadmenu-settings .quadmenu-columns > ul > li > a > .col:last-of-type {
+  margin: 0;
 }
 #quadmenu-settings .quadmenu-columns > .spinner {
   right: 0;
@@ -2248,6 +2334,7 @@ body.wp-customizer #customize-controls .wp-picker-container .wp-color-result {
 #quadmenu-settings .quadmenu-column .quadmenu-title,
 #quadmenu-settings .quadmenu-column-item .quadmenu-title {
   font-size: 12px;
+  white-space: nowrap;
 }
 #quadmenu-settings .quadmenu-carousel .quadmenu-title > i,
 #quadmenu-settings .quadmenu-panel .quadmenu-title > i,
@@ -2259,22 +2346,46 @@ body.wp-customizer #customize-controls .wp-picker-container .wp-color-result {
   margin: 0 5px 0 0;
   color: #333;
 }
-#quadmenu-settings .quadmenu-carousel .action-top,
-#quadmenu-settings .quadmenu-panel .action-top,
-#quadmenu-settings .quadmenu-tabs .action-top,
-#quadmenu-settings .quadmenu-tab .action-top,
-#quadmenu-settings .quadmenu-columns .action-top,
-#quadmenu-settings .quadmenu-column .action-top,
-#quadmenu-settings .quadmenu-column-item .action-top {
+#quadmenu-settings .quadmenu-carousel > .inner > .action-top .actions,
+#quadmenu-settings .quadmenu-panel > .inner > .action-top .actions,
+#quadmenu-settings .quadmenu-tabs > .inner > .action-top .actions,
+#quadmenu-settings .quadmenu-tab > .inner > .action-top .actions,
+#quadmenu-settings .quadmenu-columns > .inner > .action-top .actions,
+#quadmenu-settings .quadmenu-column > .inner > .action-top .actions,
+#quadmenu-settings .quadmenu-column-item > .inner > .action-top .actions {
+  position: relative;
+  z-index: 2;
+  text-align: right;
+  float: right;
   padding: 0 15px;
 }
-#quadmenu-settings .quadmenu-carousel .action-top .option,
-#quadmenu-settings .quadmenu-panel .action-top .option,
-#quadmenu-settings .quadmenu-tabs .action-top .option,
-#quadmenu-settings .quadmenu-tab .action-top .option,
-#quadmenu-settings .quadmenu-columns .action-top .option,
-#quadmenu-settings .quadmenu-column .action-top .option,
-#quadmenu-settings .quadmenu-column-item .action-top .option {
+#quadmenu-settings .quadmenu-carousel > .inner > .action-top .actions a,
+#quadmenu-settings .quadmenu-panel > .inner > .action-top .actions a,
+#quadmenu-settings .quadmenu-tabs > .inner > .action-top .actions a,
+#quadmenu-settings .quadmenu-tab > .inner > .action-top .actions a,
+#quadmenu-settings .quadmenu-columns > .inner > .action-top .actions a,
+#quadmenu-settings .quadmenu-column > .inner > .action-top .actions a,
+#quadmenu-settings .quadmenu-column-item > .inner > .action-top .actions a {
+  display: inline-block;
+  line-height: 46px;
+}
+#quadmenu-settings .quadmenu-carousel > .inner > .action-top .actions .spinner,
+#quadmenu-settings .quadmenu-panel > .inner > .action-top .actions .spinner,
+#quadmenu-settings .quadmenu-tabs > .inner > .action-top .actions .spinner,
+#quadmenu-settings .quadmenu-tab > .inner > .action-top .actions .spinner,
+#quadmenu-settings .quadmenu-columns > .inner > .action-top .actions .spinner,
+#quadmenu-settings .quadmenu-column > .inner > .action-top .actions .spinner,
+#quadmenu-settings .quadmenu-column-item > .inner > .action-top .actions .spinner {
+  display: none;
+  margin: 10px 0;
+}
+#quadmenu-settings .quadmenu-carousel > .inner > .action-top .option,
+#quadmenu-settings .quadmenu-panel > .inner > .action-top .option,
+#quadmenu-settings .quadmenu-tabs > .inner > .action-top .option,
+#quadmenu-settings .quadmenu-tab > .inner > .action-top .option,
+#quadmenu-settings .quadmenu-columns > .inner > .action-top .option,
+#quadmenu-settings .quadmenu-column > .inner > .action-top .option,
+#quadmenu-settings .quadmenu-column-item > .inner > .action-top .option {
   font: 400 16px/1 dashicons;
   speak: none;
   display: inline-block;
@@ -2284,105 +2395,72 @@ body.wp-customizer #customize-controls .wp-picker-container .wp-color-result {
   text-decoration: none!important;
   color: #999;
 }
-#quadmenu-settings .quadmenu-carousel .action-top .option:hover,
-#quadmenu-settings .quadmenu-panel .action-top .option:hover,
-#quadmenu-settings .quadmenu-tabs .action-top .option:hover,
-#quadmenu-settings .quadmenu-tab .action-top .option:hover,
-#quadmenu-settings .quadmenu-columns .action-top .option:hover,
-#quadmenu-settings .quadmenu-column .action-top .option:hover,
-#quadmenu-settings .quadmenu-column-item .action-top .option:hover {
+#quadmenu-settings .quadmenu-carousel > .inner > .action-top .option:hover,
+#quadmenu-settings .quadmenu-panel > .inner > .action-top .option:hover,
+#quadmenu-settings .quadmenu-tabs > .inner > .action-top .option:hover,
+#quadmenu-settings .quadmenu-tab > .inner > .action-top .option:hover,
+#quadmenu-settings .quadmenu-columns > .inner > .action-top .option:hover,
+#quadmenu-settings .quadmenu-column > .inner > .action-top .option:hover,
+#quadmenu-settings .quadmenu-column-item > .inner > .action-top .option:hover {
   color: #333;
   cursor: pointer;
 }
-#quadmenu-settings .quadmenu-carousel .action-top .option:after,
-#quadmenu-settings .quadmenu-panel .action-top .option:after,
-#quadmenu-settings .quadmenu-tabs .action-top .option:after,
-#quadmenu-settings .quadmenu-tab .action-top .option:after,
-#quadmenu-settings .quadmenu-columns .action-top .option:after,
-#quadmenu-settings .quadmenu-column .action-top .option:after,
-#quadmenu-settings .quadmenu-column-item .action-top .option:after {
+#quadmenu-settings .quadmenu-carousel > .inner > .action-top .option:after,
+#quadmenu-settings .quadmenu-panel > .inner > .action-top .option:after,
+#quadmenu-settings .quadmenu-tabs > .inner > .action-top .option:after,
+#quadmenu-settings .quadmenu-tab > .inner > .action-top .option:after,
+#quadmenu-settings .quadmenu-columns > .inner > .action-top .option:after,
+#quadmenu-settings .quadmenu-column > .inner > .action-top .option:after,
+#quadmenu-settings .quadmenu-column-item > .inner > .action-top .option:after {
   padding: 0;
   font: 400 14px/40px dashicons;
   display: inline;
 }
-#quadmenu-settings .quadmenu-carousel .action-top .option.remove::after,
-#quadmenu-settings .quadmenu-panel .action-top .option.remove::after,
-#quadmenu-settings .quadmenu-tabs .action-top .option.remove::after,
-#quadmenu-settings .quadmenu-tab .action-top .option.remove::after,
-#quadmenu-settings .quadmenu-columns .action-top .option.remove::after,
-#quadmenu-settings .quadmenu-column .action-top .option.remove::after,
-#quadmenu-settings .quadmenu-column-item .action-top .option.remove::after {
+#quadmenu-settings .quadmenu-carousel > .inner > .action-top .option.remove::after,
+#quadmenu-settings .quadmenu-panel > .inner > .action-top .option.remove::after,
+#quadmenu-settings .quadmenu-tabs > .inner > .action-top .option.remove::after,
+#quadmenu-settings .quadmenu-tab > .inner > .action-top .option.remove::after,
+#quadmenu-settings .quadmenu-columns > .inner > .action-top .option.remove::after,
+#quadmenu-settings .quadmenu-column > .inner > .action-top .option.remove::after,
+#quadmenu-settings .quadmenu-column-item > .inner > .action-top .option.remove::after {
   content: '\f182';
   margin: 0;
 }
-#quadmenu-settings .quadmenu-carousel .action-top .option.edit::after,
-#quadmenu-settings .quadmenu-panel .action-top .option.edit::after,
-#quadmenu-settings .quadmenu-tabs .action-top .option.edit::after,
-#quadmenu-settings .quadmenu-tab .action-top .option.edit::after,
-#quadmenu-settings .quadmenu-columns .action-top .option.edit::after,
-#quadmenu-settings .quadmenu-column .action-top .option.edit::after,
-#quadmenu-settings .quadmenu-column-item .action-top .option.edit::after {
-  content: '\f107';
+#quadmenu-settings .quadmenu-carousel > .inner > .action-top .option.edit::after,
+#quadmenu-settings .quadmenu-panel > .inner > .action-top .option.edit::after,
+#quadmenu-settings .quadmenu-tabs > .inner > .action-top .option.edit::after,
+#quadmenu-settings .quadmenu-tab > .inner > .action-top .option.edit::after,
+#quadmenu-settings .quadmenu-columns > .inner > .action-top .option.edit::after,
+#quadmenu-settings .quadmenu-column > .inner > .action-top .option.edit::after,
+#quadmenu-settings .quadmenu-column-item > .inner > .action-top .option.edit::after {
+  content: '\f111';
 }
-#quadmenu-settings .quadmenu-carousel .action-top .option.disabled:hover,
-#quadmenu-settings .quadmenu-panel .action-top .option.disabled:hover,
-#quadmenu-settings .quadmenu-tabs .action-top .option.disabled:hover,
-#quadmenu-settings .quadmenu-tab .action-top .option.disabled:hover,
-#quadmenu-settings .quadmenu-columns .action-top .option.disabled:hover,
-#quadmenu-settings .quadmenu-column .action-top .option.disabled:hover,
-#quadmenu-settings .quadmenu-column-item .action-top .option.disabled:hover {
+#quadmenu-settings .quadmenu-carousel > .inner > .action-top .option.disabled:hover,
+#quadmenu-settings .quadmenu-panel > .inner > .action-top .option.disabled:hover,
+#quadmenu-settings .quadmenu-tabs > .inner > .action-top .option.disabled:hover,
+#quadmenu-settings .quadmenu-tab > .inner > .action-top .option.disabled:hover,
+#quadmenu-settings .quadmenu-columns > .inner > .action-top .option.disabled:hover,
+#quadmenu-settings .quadmenu-column > .inner > .action-top .option.disabled:hover,
+#quadmenu-settings .quadmenu-column-item > .inner > .action-top .option.disabled:hover {
   color: #999;
 }
-#quadmenu-settings .quadmenu-carousel .action-top .option.expand::after,
-#quadmenu-settings .quadmenu-panel .action-top .option.expand::after,
-#quadmenu-settings .quadmenu-tabs .action-top .option.expand::after,
-#quadmenu-settings .quadmenu-tab .action-top .option.expand::after,
-#quadmenu-settings .quadmenu-columns .action-top .option.expand::after,
-#quadmenu-settings .quadmenu-column .action-top .option.expand::after,
-#quadmenu-settings .quadmenu-column-item .action-top .option.expand::after {
+#quadmenu-settings .quadmenu-carousel > .inner > .action-top .option.expand::after,
+#quadmenu-settings .quadmenu-panel > .inner > .action-top .option.expand::after,
+#quadmenu-settings .quadmenu-tabs > .inner > .action-top .option.expand::after,
+#quadmenu-settings .quadmenu-tab > .inner > .action-top .option.expand::after,
+#quadmenu-settings .quadmenu-columns > .inner > .action-top .option.expand::after,
+#quadmenu-settings .quadmenu-column > .inner > .action-top .option.expand::after,
+#quadmenu-settings .quadmenu-column-item > .inner > .action-top .option.expand::after {
   content: '\f345';
 }
-#quadmenu-settings .quadmenu-carousel .action-top .option.contract::after,
-#quadmenu-settings .quadmenu-panel .action-top .option.contract::after,
-#quadmenu-settings .quadmenu-tabs .action-top .option.contract::after,
-#quadmenu-settings .quadmenu-tab .action-top .option.contract::after,
-#quadmenu-settings .quadmenu-columns .action-top .option.contract::after,
-#quadmenu-settings .quadmenu-column .action-top .option.contract::after,
-#quadmenu-settings .quadmenu-column-item .action-top .option.contract::after {
+#quadmenu-settings .quadmenu-carousel > .inner > .action-top .option.contract::after,
+#quadmenu-settings .quadmenu-panel > .inner > .action-top .option.contract::after,
+#quadmenu-settings .quadmenu-tabs > .inner > .action-top .option.contract::after,
+#quadmenu-settings .quadmenu-tab > .inner > .action-top .option.contract::after,
+#quadmenu-settings .quadmenu-columns > .inner > .action-top .option.contract::after,
+#quadmenu-settings .quadmenu-column > .inner > .action-top .option.contract::after,
+#quadmenu-settings .quadmenu-column-item > .inner > .action-top .option.contract::after {
   content: '\f341';
-}
-#quadmenu-settings .quadmenu-carousel .actions,
-#quadmenu-settings .quadmenu-panel .actions,
-#quadmenu-settings .quadmenu-tabs .actions,
-#quadmenu-settings .quadmenu-tab .actions,
-#quadmenu-settings .quadmenu-columns .actions,
-#quadmenu-settings .quadmenu-column .actions,
-#quadmenu-settings .quadmenu-column-item .actions {
-  position: relative;
-  background: #fff;
-  z-index: 2;
-  text-align: right;
-  float: right;
-}
-#quadmenu-settings .quadmenu-carousel .actions a,
-#quadmenu-settings .quadmenu-panel .actions a,
-#quadmenu-settings .quadmenu-tabs .actions a,
-#quadmenu-settings .quadmenu-tab .actions a,
-#quadmenu-settings .quadmenu-columns .actions a,
-#quadmenu-settings .quadmenu-column .actions a,
-#quadmenu-settings .quadmenu-column-item .actions a {
-  display: inline-block;
-  line-height: 40px;
-}
-#quadmenu-settings .quadmenu-carousel .actions .spinner,
-#quadmenu-settings .quadmenu-panel .actions .spinner,
-#quadmenu-settings .quadmenu-tabs .actions .spinner,
-#quadmenu-settings .quadmenu-tab .actions .spinner,
-#quadmenu-settings .quadmenu-columns .actions .spinner,
-#quadmenu-settings .quadmenu-column .actions .spinner,
-#quadmenu-settings .quadmenu-column-item .actions .spinner {
-  display: none;
-  margin: 10px 0;
 }
 #quadmenu-settings .quadmenu-carousel .settings .quadmenu-tabs-content,
 #quadmenu-settings .quadmenu-panel .settings .quadmenu-tabs-content,
@@ -2459,12 +2537,33 @@ body.wp-customizer #customize-controls .wp-picker-container .wp-color-result {
   position: relative;
   border: 1px dashed #DFDFDF;
 }
+#quadmenu-settings .quadmenu-carousel.open > .inner,
+#quadmenu-settings .quadmenu-panel.open > .inner,
+#quadmenu-settings .quadmenu-tabs.open > .inner,
+#quadmenu-settings .quadmenu-tab.open > .inner,
+#quadmenu-settings .quadmenu-columns.open > .inner,
+#quadmenu-settings .quadmenu-column.open > .inner,
+#quadmenu-settings .quadmenu-column-item.open > .inner {
+  z-index: 999;
+  min-width: 220px;
+  width: 100%;
+}
+#quadmenu-settings .quadmenu-carousel.open .settings,
+#quadmenu-settings .quadmenu-panel.open .settings,
+#quadmenu-settings .quadmenu-tabs.open .settings,
+#quadmenu-settings .quadmenu-tab.open .settings,
+#quadmenu-settings .quadmenu-columns.open .settings,
+#quadmenu-settings .quadmenu-column.open .settings,
+#quadmenu-settings .quadmenu-column-item.open .settings {
+  visibility: visible;
+  opacity: 1;
+  max-height: 900px;
+}
 #quadmenu-settings .quadmenu-carousel .settings,
 #quadmenu-settings .quadmenu-panel .settings,
 #quadmenu-settings .quadmenu-tabs .settings,
 #quadmenu-settings .quadmenu-tab .settings,
 #quadmenu-settings .quadmenu-columns .settings,
-#quadmenu-settings .quadmenu-column .settings,
 #quadmenu-settings .quadmenu-column .settings,
 #quadmenu-settings .quadmenu-column-item .settings {
   position: absolute;
@@ -2478,28 +2577,15 @@ body.wp-customizer #customize-controls .wp-picker-container .wp-color-result {
   -o-transition: all 0.4s cubic-bezier(0.18, 0.74, 0.72, 1);
   transition: all 0.4s cubic-bezier(0.18, 0.74, 0.72, 1);
 }
-#quadmenu-settings .quadmenu-carousel.open > .inner,
-#quadmenu-settings .quadmenu-panel.open > .inner,
-#quadmenu-settings .quadmenu-tabs.open > .inner,
-#quadmenu-settings .quadmenu-tab.open > .inner,
-#quadmenu-settings .quadmenu-columns.open > .inner,
 #quadmenu-settings .quadmenu-column.open > .inner,
-#quadmenu-settings .quadmenu-column.open > .inner,
-#quadmenu-settings .quadmenu-column-item.open > .inner {
-  min-width: 260px;
-  z-index: 999;
+#quadmenu-settings .quadmenu-column.open > .inner > .settings {
+  box-shadow: 0 3px 12px -4px rgba(0, 0, 0, 0.1);
 }
-#quadmenu-settings .quadmenu-carousel.open .settings,
-#quadmenu-settings .quadmenu-panel.open .settings,
-#quadmenu-settings .quadmenu-tabs.open .settings,
-#quadmenu-settings .quadmenu-tab.open .settings,
-#quadmenu-settings .quadmenu-columns.open .settings,
-#quadmenu-settings .quadmenu-column.open .settings,
-#quadmenu-settings .quadmenu-column.open .settings,
-#quadmenu-settings .quadmenu-column-item.open .settings {
-  visibility: visible;
-  opacity: 1;
-  max-height: 900px;
+#quadmenu-settings .quadmenu-column:last-of-type.open > .inner {
+  float: right;
+}
+#quadmenu-settings .quadmenu-column:last-of-type .quadmenu-column-item.open > .inner {
+  float: right;
 }
 #quadmenu-settings .quadmenu-column {
   padding: 15px;
@@ -2517,26 +2603,27 @@ body.wp-customizer #customize-controls .wp-picker-container .wp-color-result {
 }
 #quadmenu-settings .quadmenu-column > .inner {
   position: relative;
-  background: #FAFAFA;
   padding: 0 15px 15px 15px;
+  background: #FAFAFA;
 }
 #quadmenu-settings .quadmenu-column > .inner > .action-top > .actions {
   background: #FAFAFA;
 }
 #quadmenu-settings .quadmenu-column > .inner > .settings {
-  padding: 0 15px;
   background: #FAFAFA;
 }
 #quadmenu-settings .quadmenu-column > .inner > .settings .quadmenu-setting.quadmenu-setting-width {
-  position: relative;
-  z-index: 1;
   min-width: 220px;
   background: #FAFAFA;
+  width: 100%;
 }
-#quadmenu-settings .quadmenu-column > .inner > .settings .quadmenu-setting.quadmenu-setting-width .quadmenu-setting-width-icons > div,
-#quadmenu-settings .quadmenu-column > .inner > .settings .quadmenu-setting.quadmenu-setting-width .quadmenu-setting-width-columns > div,
-#quadmenu-settings .quadmenu-column > .inner > .settings .quadmenu-setting.quadmenu-setting-width .quadmenu-setting-width-offset > div,
-#quadmenu-settings .quadmenu-column > .inner > .settings .quadmenu-setting.quadmenu-setting-width .quadmenu-setting-width-hidden > div {
+#quadmenu-settings .quadmenu-column > .inner > .settings .quadmenu-setting.quadmenu-setting-width > label {
+  padding: 0 15px;
+}
+#quadmenu-settings .quadmenu-column > .inner > .settings .quadmenu-setting.quadmenu-setting-width > label > .quadmenu-setting-width-icons > div,
+#quadmenu-settings .quadmenu-column > .inner > .settings .quadmenu-setting.quadmenu-setting-width > label > .quadmenu-setting-width-columns > div,
+#quadmenu-settings .quadmenu-column > .inner > .settings .quadmenu-setting.quadmenu-setting-width > label > .quadmenu-setting-width-offset > div,
+#quadmenu-settings .quadmenu-column > .inner > .settings .quadmenu-setting.quadmenu-setting-width > label > .quadmenu-setting-width-hidden > div {
   padding: 0 5px;
   line-height: 40px;
   height: 40px;
@@ -2547,7 +2634,7 @@ body.wp-customizer #customize-controls .wp-picker-container .wp-color-result {
 }
 #quadmenu-settings .quadmenu-column .items:after {
   border: 1px dashed #DFDFDF;
-  padding: 9px 0 5px 0;
+  padding: 11px 0 7px 0;
   text-align: center;
   font-weight: 800;
   font: 24px dashicons;
@@ -2562,8 +2649,8 @@ body.wp-customizer #customize-controls .wp-picker-container .wp-color-result {
 #quadmenu-settings .quadmenu-column .items .drop-area {
   display: block;
   box-sizing: border-box;
-  width: 100%;
-  min-height: 40px;
+  max-width: 100%;
+  min-height: 46px;
   position: relative;
   border: 1px dashed #DFDFDF;
 }
@@ -2600,7 +2687,7 @@ body.wp-customizer #customize-controls .wp-picker-container .wp-color-result {
   display: none;
 }
 #quadmenu-settings .quadmenu-column-item .item-title {
-  float: left;
+  padding: 0 15px;
   overflow: hidden;
 }
 #quadmenu-settings .quadmenu-column-item .item-title .quadmenu-title {
@@ -2608,10 +2695,10 @@ body.wp-customizer #customize-controls .wp-picker-container .wp-color-result {
   max-width: 60%;
   overflow: hidden;
   vertical-align: middle;
-  height: 40px;
-  line-height: 40px;
+  height: 46px;
+  line-height: 46px;
   display: inline-block;
-  margin: 0 0 0 5px;
+  margin: 0;
   padding: 0;
   white-space: nowrap;
   border-bottom: 0;
@@ -2701,7 +2788,7 @@ body.wp-customizer #customize-controls .wp-picker-container .wp-color-result {
 .quadmenu-setting-icon .quadmenu-icons-scroll .icon > i {
   display: inline-block !important;
   background-color: #f6f6f6;
-  line-height: inherit;
+  line-height: 45px;
   width: 100%!important;
   height: auto;
 }
@@ -2717,8 +2804,20 @@ body.admin-color-quadmenu:not(.post-php):not(.post-new-php) .quadmenu-admin-wrap
   max-width: 1050px;
   clear: both;
 }
-body.admin-color-quadmenu .about-wrap h2 .nav-tab {
+body.admin-color-quadmenu .about-wrap h2 {
   font-weight: 600;
+}
+body.admin-color-quadmenu .about-wrap h2 .dashicons-awards {
+  vertical-align: bottom;
+}
+body.admin-color-quadmenu .about-wrap h1 .dashicons-awards {
+  font-size: 44px;
+  width: 44px;
+  margin: 0 0 0 -8px;
+  height: 44px;
+  text-align: center;
+  vertical-align: bottom;
+  color: #21c2f8;
 }
 body.admin-color-quadmenu .quadmenu-admin-wrap p {
   font-size: 15px;
@@ -2940,5 +3039,16 @@ body.admin-color-quadmenu .quadmenu-status-small-text {
   font-size: 12px;
   color: #707070;
   font-style: italic;
+}
+body.quadmenu-pro #adminmenu #toplevel_page_quadmenu_welcome a[href="admin.php?page=quadmenu_welcome"] .wp-menu-name:before {
+  content: 'PRO';
+  color: #fff;
+  background-color: #21c2f8;
+  padding: 1px 7px;
+  font-size: 9px;
+  font-weight: 700;
+  border-radius: 10px;
+  position: absolute;
+  right: 15px;
 }
 /*# sourceMappingURL=quadmenu-admin.css.map */

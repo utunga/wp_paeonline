@@ -1,61 +1,72 @@
 <?php
 
 if (!defined('ABSPATH')) {
-    die('-1');
+  die('-1');
 }
 
 class Quadmenu_Locations {
 
-    public function __construct() {
+  public function __construct() {
 
-        $this->locations();
+    $this->locations();
 
-        add_action('init', array($this, 'active'), -10);
+    $this->dev();
 
-        add_action('admin_init', array($this, 'save'), 999);
-    }
+    add_action('init', array($this, 'active'), -10);
 
-    function locations() {
+    add_action('admin_init', array($this, 'save'), 999);
+  }
 
-        global $quadmenu_locations;
+  function dev() {
 
-        $quadmenu_locations = get_option(QUADMENU_LOCATIONS, array());
-    }
+    register_nav_menus(array(
+        'quadmenu_dev' => 'QuadMenu Dev',
+    ));
 
-    function active() {
+    unset($GLOBALS['quadmenu_locations']['quadmenu_dev']);
+  }
 
-        global $quadmenu, $quadmenu_locations, $quadmenu_active_locations;
+  function locations() {
 
-        $quadmenu_active_locations = array();
+    global $quadmenu_locations;
 
-        if (!empty($quadmenu) && is_array($quadmenu_locations) && count($quadmenu_locations)) {
+    $quadmenu_locations = get_option(QUADMENU_LOCATIONS, array());
+  }
 
-            foreach ($quadmenu_locations as $id => $location) {
-                if (!empty($quadmenu[$id . '_integration']) && !empty($quadmenu[$id . '_theme'])) {
-                    $quadmenu_active_locations[$id] = $quadmenu[$id . '_theme'];
-                }
-            }
+  function active() {
+
+    global $quadmenu, $quadmenu_locations, $quadmenu_active_locations;
+
+    $quadmenu_active_locations = array('quadmenu_dev' => true);
+
+    if (!empty($quadmenu) && is_array($quadmenu_locations) && count($quadmenu_locations)) {
+
+      foreach ($quadmenu_locations as $id => $location) {
+        if (!empty($quadmenu[$id . '_integration']) && !empty($quadmenu[$id . '_theme'])) {
+          $quadmenu_active_locations[$id] = $quadmenu[$id . '_theme'];
         }
+      }
     }
+  }
 
-    public function save() {
+  public function save() {
 
-        global $_wp_registered_nav_menus, $quadmenu, $quadmenu_locations;
+    global $_wp_registered_nav_menus, $quadmenu, $quadmenu_locations;
 
-        if (!empty($quadmenu) && is_array($_wp_registered_nav_menus) && count($_wp_registered_nav_menus)) {
+    if (!empty($quadmenu) && is_array($_wp_registered_nav_menus) && count($_wp_registered_nav_menus)) {
 
-            $quadmenu_locations = array();
+      $quadmenu_locations = array();
 
-            foreach ($_wp_registered_nav_menus as $location => $name) {
+      foreach ($_wp_registered_nav_menus as $location => $name) {
 
-                $quadmenu_locations[$location] = array(
-                    'name' => $name
-                );
-            }
+        $quadmenu_locations[$location] = array(
+            'name' => $name
+        );
+      }
 
-            update_option(QUADMENU_LOCATIONS, $quadmenu_locations);
-        }
+      update_option(QUADMENU_LOCATIONS, $quadmenu_locations);
     }
+  }
 
 }
 
