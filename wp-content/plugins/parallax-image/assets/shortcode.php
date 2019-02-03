@@ -12,7 +12,7 @@ add_action( 'wp_enqueue_scripts', 'DuckParallaxScripts' );
  * Register style sheet and scripts.
  */
 function DuckParallaxScripts() {
-	wp_register_script ('duck-parallax', plugins_url('/js/parallax.min.js' ,  __FILE__), array('jquery'), '1.0', true);
+	wp_register_script ('duck-parallax', plugins_url('/js/parallax.min.js' ,  __FILE__), array('jquery'), '1.4.2', true);
 	wp_register_script ('duck-px-offset', plugins_url('/js/dd-parallax-offset.js' ,  __FILE__), array('jquery'), '1.0', true);
     wp_register_style( 'duck-parallax', plugins_url('/css/duck-parallax.css',  __FILE__ ));
 }

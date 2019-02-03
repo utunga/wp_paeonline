@@ -5,8 +5,8 @@ Author URI: https://www.howardehrenberg.com
 Donate link: https://www.duckdiverllc.com/parallax-image-plugin/
 Tags: Parallax, Full Screen Parallax, Parallax Window, Parallax Image
 Requires at least: 4.5
-Tested up to: 4.9
-Stable tag: 1.5
+Tested up to: 5.0
+Stable tag: 1.6.1
 Requires PHP: 5.4
 License: GPLv3 
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
@@ -18,6 +18,9 @@ Insert a full width parallax image into your page with this simple shortcode. Pa
 This is a simple parallax image plugin that uses the parallax.js script by pixelcog - http://pixelcog.github.io/parallax.js/ 
 
 To insert your full width parallax image, simply use the [dd-parallax] shortcode.  Include text to be overlaid on the parallax between the open and close [/dd-parallax] code.  This plugin has been tested with Wordpress 2014, 2015, 2016, and 2017 themes as well as a few themes that use Bootstrap.  I can't guarantee that it will work with all themes, but it's worth a shot.
+
+** Please note for WP 5.0 **
+Currently this plugin works, but the TinyMCE button only works with the classic editor.  A Gutenberg widget is in the works.
 
 For example:
 
@@ -75,6 +78,9 @@ If you’re resizing your browser window to check for responsiveness, the plugin
 3. A Parallax Window on a bootstrap theme with fullwidth template.
 
 == Changelog ==
+
+= 1.6 =
+Updated Parallax.js source script to version 1.5 fixes some flickering when placed close to other objects.
 
 = 1.5 =
 Add TinyMCE button and options under settings menu
