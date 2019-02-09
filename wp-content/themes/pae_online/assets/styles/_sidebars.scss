@@ -82,12 +82,12 @@
 	}
 }
 
-.widget-area.official-stuff-lower-sidebar,
-.widget-area.official-stuff-lower-sidebar-2 {
+.official-stuff-widget-area  {
 	flex-flow: column nowrap;
 	align-items: stretch;
 	display: flex;
 	align-content: space-between;
+
 
 	@include breakpoint(sm) {
 		flex-flow: row nowrap;
@@ -109,6 +109,6 @@
 	}
 
 	.widget {
-		margin-bottom: 0;
+		margin-bottom: 0 !important;
 	}
 }

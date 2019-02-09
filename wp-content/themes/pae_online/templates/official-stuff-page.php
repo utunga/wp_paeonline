@@ -67,13 +67,19 @@ function official_stuff_sidebar() {
 remove_action( 'genesis_after_entry', 'genesis_do_sidebar' );
 add_action( 'genesis_after_entry', 'official_stuff_lower_sidebar' ); 
 function official_stuff_lower_sidebar() {
+    
+    genesis_widget_area( 'official-stuff-lower-sidebar-0', array(
+        'before' => '<div class="widget-area official-stuff-widget-area official-stuff-lower-sidebar-0">',
+        'after'  => '</div>',
+    ) );
+
     genesis_widget_area( 'official-stuff-lower-sidebar', array(
-        'before' => '<div class="widget-area official-stuff-lower-sidebar">',
+        'before' => '<div class="widget-area official-stuff-widget-area official-stuff-lower-sidebar">',
         'after'  => '</div>',
     ) );
 
     genesis_widget_area( 'official-stuff-lower-sidebar-2', array(
-        'before' => '<div class="widget-area official-stuff-lower-sidebar-2 ">',
+        'before' => '<div class="widget-area official-stuff-widget-area official-stuff-lower-sidebar-2 ">',
         'after'  => '</div>',
     ) );
 }

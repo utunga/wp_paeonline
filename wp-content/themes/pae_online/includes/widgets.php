@@ -56,6 +56,12 @@ genesis_register_sidebar( array(
 ) );
 
 genesis_register_sidebar( array(
+  'id'          => 'official-stuff-lower-sidebar-0',
+  'name'        => __( 'Official Stuff - After content', 'pae-online'),
+  'description' => __( 'Widget area that appears straight after main content.', 'pae-online' ),
+) );
+
+genesis_register_sidebar( array(
   'id'          => 'official-stuff-lower-sidebar',
   'name'        => __( 'Official Stuff - Lower Sidebar', 'pae-online'),
   'description' => __( 'Lower widget area for official stuff page.', 'pae-online' ),
@@ -66,3 +72,4 @@ genesis_register_sidebar( array(
   'name'        => __( 'Official Stuff - Even Lower Sidebar', 'pae-online'),
   'description' => __( 'Lower widget area for official stuff page #2', 'pae-online' ),
 ) );
+
