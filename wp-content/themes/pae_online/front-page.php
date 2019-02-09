@@ -132,7 +132,7 @@ if (    is_active_sidebar( 'top-home' ) ||
 add_filter( 'genesis_pre_get_option_site_layout', '__genesis_return_full_width_content' );
 
 
-function render_first_post() {
+function render_featured_post() {
     
 	genesis_markup( array(
 		'open'    => '<article %s>',
@@ -260,9 +260,9 @@ function render_other_post() {
 	
 }
 
-function render_post($first_post) {
-    if ($first_post) {
-        render_first_post();
+function render_post($post_count) {
+    if ($post_count<2) {
+        render_featured_post();
     }
     else {
         render_other_post();
@@ -288,12 +288,16 @@ function do_homepage_featured_posts() {
     <?php
         
     // The Loop
-    $first_post = true;
+    $post_count = 0;
     if ( $query->have_posts() ) {
 
-        $query->the_post();
-        render_post($first_post);
-        $first_post = false;
+        while ( $query->have_posts() && $post_count<2 ) {
+	        $query->the_post();
+        
+            render_post($post_count); 
+            $post_count = $post_count+1;
+                   
+        }
 
         ?>
         <div class="other_stories">
@@ -301,7 +305,9 @@ function do_homepage_featured_posts() {
             while ( $query->have_posts() ) {
 		        $query->the_post();
             
-                render_post($first_post);          
+                render_post($post_count); 
+                $post_count = $post_count+1;
+                       
             }
             ?>
         </div>
