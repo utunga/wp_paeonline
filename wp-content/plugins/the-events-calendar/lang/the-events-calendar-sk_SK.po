@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - The Events Calendar - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2018-09-10 09:25:27+0000\n"
+"PO-Revision-Date: 2019-02-02 19:55:59+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -654,11 +654,11 @@ msgstr ""
 
 #: src/views/month/single-day.php:57
 msgid "%s for %s"
-msgstr ""
+msgstr "%s pre %s"
 
 #: src/views/month/loop-grid.php:25 src/views/month/loop-grid.php:28
 msgid "Calendar of %s"
-msgstr ""
+msgstr "Kalendár z %s"
 
 #: src/views/modules/bar.php:73
 msgid "Submit %s search"
@@ -666,11 +666,11 @@ msgstr ""
 
 #: src/views/modules/bar.php:61
 msgid "%s Search"
-msgstr ""
+msgstr "%s Hľadať"
 
 #: src/views/modules/bar.php:87 src/views/modules/bar.php:93
 msgid "View %s As"
-msgstr ""
+msgstr "Zobraziť %s Ako"
 
 #: src/views/modules/bar.php:86
 msgid "%s Views Navigation"
@@ -794,7 +794,7 @@ msgstr ""
 
 #: src/admin-views/privacy.php:13
 msgid "Hello,"
-msgstr ""
+msgstr "Ahojte,"
 
 #: src/admin-views/aggregator/settings.php:513
 msgid "The default event category for events imported via Eventbrite"
@@ -826,7 +826,7 @@ msgstr ""
 
 #: src/Tribe/Main.php:4335
 msgid "Search for %s by month. Please use the format %s."
-msgstr ""
+msgstr "Hľadať %s podľa mesiaca. Prosím použite formát %s."
 
 #: src/Tribe/Main.php:4330
 msgid "Search for %s by Date. Please use the format %s."
@@ -962,7 +962,7 @@ msgstr ""
 
 #: src/admin-views/aggregator/tabs/import-form.php:306
 msgid "Settings > General"
-msgstr ""
+msgstr "Nastavenia > Všeobecné"
 
 #: src/admin-views/aggregator/tabs/import-form.php:295
 msgid "The number of events available in the preview may be limited by your %1$sImport Settings.%2$s"
@@ -974,7 +974,7 @@ msgstr ""
 
 #: src/admin-views/aggregator/tabs/import-form.php:286
 msgid "timezone settings"
-msgstr ""
+msgstr "nastavenia časového pásma"
 
 #: src/admin-views/aggregator/tabs/import-form.php:284
 msgid "Events will be imported with the same timezone as defined on eventbrite.com. You can make use of The Events Calendar's"
@@ -1023,11 +1023,11 @@ msgstr ""
 
 #: src/admin-views/aggregator/origins/eventbrite.php:115
 msgid "Select Source"
-msgstr ""
+msgstr "Vybrať Zdroj"
 
 #: src/admin-views/aggregator/origins/eventbrite.php:114
 msgid "Import Source"
-msgstr ""
+msgstr "Importovať Zdroj"
 
 #: src/admin-views/aggregator/origins/eventbrite.php:44
 msgid "Log into Eventbrite"
@@ -1227,7 +1227,7 @@ msgstr "Stiahnite si naše Events Gutenberg rozšírenie a začnite používať 
 #: src/deprecated/Tribe__Events__Customizer__Front_Page_View.php:55
 msgctxt "Customizer static front page setting"
 msgid "Main %s Page"
-msgstr ""
+msgstr "Hlavná %s Stránka"
 
 #: common/src/Tribe/Plugins_API.php:71
 msgid "Event Tickets Plus allows you to sell tickets to your events using WooCommerce, Easy Digital Downloads, or our built in Tribe Commerce tool. Add tickets to your posts and pages, or add %1$sThe Events Calendar%2$s and sell tickets from your event listings. Create custom registration forms, manage attendees, use custom capacity options, and more. Guest check in is easy with QR codes and our custom scanning app."
@@ -1318,7 +1318,7 @@ msgstr ""
 #: src/Tribe/iCal.php:438
 msgctxt "iCal feed description"
 msgid "Events for %s"
-msgstr ""
+msgstr "Udalosti pre %s"
 
 #: src/Tribe/REST/V1/Messages.php:45
 msgid "The requested event term archive page does not exist"
@@ -2922,7 +2922,7 @@ msgstr ""
 #: src/Tribe/Main.php:869
 msgctxt "all events slug"
 msgid "all"
-msgstr ""
+msgstr "všetky"
 
 #: common/src/Tribe/Validate.php:248
 msgid "%s must be a whole number."
@@ -3101,7 +3101,7 @@ msgstr ""
 
 #: src/Tribe/iCal.php:141
 msgid "Export Events"
-msgstr ""
+msgstr "Export udalostí"
 
 #: src/Tribe/Main.php:868
 msgctxt "featured events slug"
@@ -3531,7 +3531,7 @@ msgstr ""
 #: src/views/single-event.php:28 src/views/single-event/back-link.php:18
 msgctxt "%s Events plural label"
 msgid "All %s"
-msgstr ""
+msgstr "Všetky %s"
 
 #: src/admin-views/widget-admin-list.php:40
 msgid "Generate JSON-LD data"
@@ -3931,7 +3931,7 @@ msgstr ""
 
 #: src/admin-views/aggregator/origins/refine.php:3
 msgid "Keyword(s)"
-msgstr ""
+msgstr "Kľúčové slovo(á)"
 
 #: src/admin-views/aggregator/origins/meetup.php:139
 msgid "Enter the url for a Meetup group, page, or individual. You can also enter the url of a single Meetup event."
@@ -4780,7 +4780,7 @@ msgstr ""
 #: src/Tribe/Aggregator/Records.php:131
 msgctxt "record"
 msgid "Add New"
-msgstr ""
+msgstr "Pridať nový"
 
 #: src/Tribe/Aggregator/Records.php:130
 msgctxt "add new on admin bar"
@@ -4880,7 +4880,7 @@ msgstr ""
 
 #: src/Tribe/Aggregator/Record/List_Table.php:496
 msgid "Keywords:"
-msgstr ""
+msgstr "Kľúčové slová:"
 
 #: src/Tribe/Ignored_Events.php:337
 #: src/Tribe/Aggregator/Record/List_Table.php:483
@@ -4951,9 +4951,9 @@ msgstr ""
 msgctxt "records"
 msgid "All <span class=\"count\">(%s)</span>"
 msgid_plural "All <span class=\"count\">(%s)</span>"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Všetky <span class=\"count\">(%s)</span>"
+msgstr[1] "Všetky <span class=\"count\">(%s)</span>"
+msgstr[2] "Všetky <span class=\"count\">(%s)</span>"
 
 #: src/Tribe/Aggregator/Record/List_Table.php:244
 msgid "Apply"
@@ -5233,7 +5233,7 @@ msgstr ""
 #: src/Tribe/Aggregator/Cron.php:118
 msgctxt "aggregator schedule frequency"
 msgid "Monthly"
-msgstr ""
+msgstr "Mesačne"
 
 #: src/Tribe/Aggregator/Cron.php:113
 msgctxt "aggregator schedule frequency"
@@ -5287,7 +5287,7 @@ msgstr ""
 #: src/Tribe/Admin_List.php:336
 msgctxt "%s Event count in admin list"
 msgid "All %s"
-msgstr ""
+msgstr "Všetky %s"
 
 #: common/src/admin-views/tribe-options-licenses.php:30
 msgid "Not seeing an update but expecting one? In WordPress, go to %1$sDashboard > Updates%2$s and click \"Check Again\"."
@@ -5404,7 +5404,7 @@ msgstr ""
 
 #: common/src/Tribe/Main.php:253
 msgid "All"
-msgstr ""
+msgstr "Všetky"
 
 #: common/src/Tribe/Main.php:248
 msgid "Search:"
@@ -5565,7 +5565,7 @@ msgstr ""
 
 #: src/Tribe/Importer/Column_Mapper.php:71
 msgid "Event Time Zone"
-msgstr ""
+msgstr "Časová Zóna Udalosti"
 
 #: src/Tribe/Importer/Column_Mapper.php:66
 msgid "Event Excerpt"
@@ -5635,17 +5635,17 @@ msgstr ""
 
 #: common/src/Tribe/Log/File_Logger.php:128
 msgid "Default (uses temporary files)"
-msgstr ""
+msgstr "Defaultné (využíva dočasné súbory)"
 
 #: common/src/Tribe/Log/Admin.php:148
 msgctxt "log engines"
 msgid "None currently available"
-msgstr ""
+msgstr "Žiadne momentálne dostupné"
 
 #: common/src/Tribe/Log/Admin.php:133
 msgctxt "log selector"
 msgid "None currently available"
-msgstr ""
+msgstr "Žiadne momentálne dostupné"
 
 #: common/src/admin-views/tribe-options-help.php:52
 msgid "Recent Template Changes"
@@ -5702,19 +5702,19 @@ msgstr "Upraviť miesto konania"
 
 #: src/views/list/nav.php:36
 msgid "Next %s"
-msgstr ""
+msgstr "Ďalší %s"
 
 #: src/views/list/nav.php:28
 msgid "Previous %s"
-msgstr ""
+msgstr "Predchádzajúci %s"
 
 #: src/functions/template-tags/day.php:108
 msgid "Next Day"
-msgstr ""
+msgstr "Ďalší deň"
 
 #: src/functions/template-tags/day.php:106
 msgid "Previous Day"
-msgstr ""
+msgstr "Predchádzajúci deň"
 
 #: src/admin-views/venue-meta-box.php:272
 msgid "%s Name already exists"
@@ -5734,7 +5734,7 @@ msgstr ""
 
 #: src/Tribe/Template_Factory.php:229
 msgid "There were no results found for %s."
-msgstr ""
+msgstr "Pre %s sa nenašli žiadne výsledky."
 
 #: src/Tribe/Template/Month.php:458
 msgid "There were no results found for %s this month. Try searching next month."
@@ -6095,7 +6095,7 @@ msgstr ""
 
 #: src/Tribe/Main.php:1106
 msgid "%1$s or %2$s"
-msgstr ""
+msgstr "%1$s alebo %2$s"
 
 #. Author URI of the plugin
 msgid "http://m.tri.be/1x"
@@ -6111,7 +6111,7 @@ msgstr ""
 
 #: src/views/widgets/list-widget.php:118
 msgid "There are no upcoming %s at this time."
-msgstr ""
+msgstr "Nie sú žiadne nadchádzajúce %s v tomto momente."
 
 #: src/views/widgets/list-widget.php:112
 msgid "View All %s"
@@ -6120,7 +6120,7 @@ msgstr "Zobraziť všetky %s"
 #: src/views/single-event.php:46 src/views/single-event.php:80
 #: src/views/single-event/footer.php:21
 msgid "%s Navigation"
-msgstr ""
+msgstr "%s Navigácia"
 
 #: src/views/month/nav.php:19
 msgid "Calendar Month Navigation"
@@ -6129,7 +6129,7 @@ msgstr "Navigácia pre mesiace v kalendári"
 #: src/views/modules/meta/details.php:143
 #: src/views/blocks/parts/details.php:153 src/views/blocks/event-tags.php:19
 msgid "%s Tags:"
-msgstr ""
+msgstr "%s Značky:"
 
 #: src/views/modules/bar.php:88
 msgid "View As"
@@ -6167,7 +6167,7 @@ msgstr "Typ importu:"
 
 #: src/Tribe/Aggregator/Page.php:272
 msgid "Events Import"
-msgstr ""
+msgstr "Import Udalostí"
 
 #: src/modules/blocks/event-links/template.js:101
 #: src/resources/js/app/blocks.js:48525
@@ -6180,15 +6180,15 @@ msgstr "Koncept"
 
 #: src/deprecated/Tribe__Events__Importer__Options.php:135
 msgid "Pending"
-msgstr ""
+msgstr "Čaká"
 
 #: src/deprecated/Tribe__Events__Importer__Options.php:134
 msgid "Published"
-msgstr ""
+msgstr "Publikované"
 
 #: src/deprecated/Tribe__Events__Importer__Admin_Page.php:238
 msgid "Import Settings"
-msgstr ""
+msgstr "Importovanie nastavení"
 
 #: src/functions/template-tags/options.php:29
 msgid "You %1$scannot%2$s use the same slug as above. The above should ideally be plural, and this singular.%3$sYour single Event URL is like: %4$s"
@@ -6200,7 +6200,7 @@ msgstr "Vaša súčasná URL udalosti je %s"
 
 #: src/functions/template-tags/loop.php:204
 msgid "Past %s"
-msgstr ""
+msgstr "Uplynulé %s"
 
 #: src/functions/template-tags/loop.php:202
 msgid "%1$s for %2$s - %3$s"
@@ -6230,7 +6230,7 @@ msgstr "Zobraziť viac »"
 
 #: src/functions/template-tags/general.php:595
 msgid "Loading %s"
-msgstr ""
+msgstr "Nahrávam %s"
 
 #: src/functions/template-tags/general.php:483
 msgid "Tags:"
@@ -6241,9 +6241,9 @@ msgstr "Tagy:"
 msgctxt "category list label"
 msgid "%s Category"
 msgid_plural "%s Categories"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%s Kategória"
+msgstr[1] "%s Kategórie"
+msgstr[2] "%s Kategórií"
 
 #: src/functions/template-tags/deprecated.php:1299
 msgid "Category"
@@ -6263,7 +6263,7 @@ msgstr ""
 
 #: src/Tribe/Linked_Posts/Chooser_Meta_Box.php:171
 msgid "%s:"
-msgstr ""
+msgstr "%s:"
 
 #: src/admin-views/aggregator/meta-box.php:2
 msgid "Origin:"
