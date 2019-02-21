@@ -274,7 +274,7 @@ function do_homepage_featured_posts() {
     // WP_Query arguments
     $args = array (
 	    'post_type'              => 'post',
-	    'posts_per_page'         => '4',
+	    'posts_per_page'         => '5',
         'meta_key'               => 'is_featured',
         'meta_value'               => 1
     );
