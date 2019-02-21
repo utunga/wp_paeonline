@@ -92,8 +92,8 @@ class EverythingDirectory_Listings_Widget extends WP_Widget {
                         wp_reset_postdata();
 
                         echo '</div>';
-                    else :
-                        esc_html_e( 'No listings in this category', 'text-domain' );
+                    //else :
+                    //    esc_html_e( 'No listings in this category', 'text-domain' );
                     endif;
                 ?>
                 </div>
