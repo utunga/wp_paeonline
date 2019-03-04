@@ -158,8 +158,14 @@
 
         $('.acf-map').each(function () {
 
-            // create map
-            map = new_map($(this));
+            try {
+              // create map
+              map = new_map($(this));
+            }
+            catch(err) {
+             console.log(err);
+            }
+            
 
         });
 
