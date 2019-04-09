@@ -2,7 +2,7 @@
 Contributors: quadlayers
 Tags: quadmenu, menu, megamenu, mega menu, responsive menu, mobile menu, wordpress mega menu, horizontal menu, vertical menu, navigation, widget, dropdown menu, drag and drop, mobile, responsive, retina, theme editor, shortcode, sidebar, icons, dashicons
 Requires at least: 4.8
-Tested up to: 5.0
+Tested up to: 5.1
 Stable tag: 1.4.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -10,7 +10,7 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 The first responsive mega menu designed for theme developers. 
 
 == Description ==
-[Premium](https://quadmenu.com/) | [Demo](https://quadmenu.com/demo/) | [Documentation](https://quadmenu.com/documentation/) | [Developers](https://quadmenu.com/documentation/developers/) | [Community](https://www.facebook.com/groups/quadmenu/)
+[Premium](https://quadmenu.com/) | [Demo](https://quadmenu.com/demo/) | [Documentation](https://quadmenu.com/documentation/) | [Developers](https://quadmenu.com/documentation/developers/) | [Community](https://www.facebook.com/groups/quadlayers/)
 
 QuadMenu is a WordPress Mega Menu that will allows you easily integrate the menu in your theme's project. This plugin allows you to create mega menus, tabs menus and carrousel menus in a simple and native way converting your existing menu into a powerful tool. 
 
@@ -98,6 +98,21 @@ QuadMenu has been designed by developers for developers. For them, we have inclu
 [https://www.quadmenu.com/documentation/installation/](https://www.quadmenu.com/documentation/installation/)
 
 == Changelog ==
+
+= 1.7.7 =
+
+* Fixed. small css issues
+
+= 1.7.6 =
+
+* Fixed. small css issues
+
+= 1.7.5 =
+
+* Fixed. chrome overflow issue on mobile menu
+* Fixed. offcanvas alignment issue in mobile menu
+* Fixed. GET to POST in ajax requests to avoid server issues
+* Fixed. woocommerce cart issues with wp rocket cache
 
 = 1.7.4 =
 

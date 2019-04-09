@@ -11,11 +11,46 @@ msgstr ""
 "Language: zh_TW\n"
 "Project-Id-Version: Events Calendar Pro\n"
 
+#: src/Tribe/Editor/Blocks/Related_Events.php:26
+msgid "Related Events"
+msgstr ""
+
+#: src/functions/php-min-version.php:76
+msgid "Contact your Host or your system administrator and ask to upgrade to the latest version of PHP."
+msgstr ""
+
+#: src/functions/php-min-version.php:74
+msgid "To allow better control over dates, advanced security improvements and performance gain."
+msgstr ""
+
+#: src/functions/php-min-version.php:64
+msgid "<b>%1$s</b> requires <b>PHP %2$s</b> or higher."
+msgid_plural "<b>%1$s</b> require <b>PHP %2$s</b> or higher."
+msgstr[0] ""
+
+#: src/functions/php-min-version.php:52
+msgctxt "Plugin A\",\" Plugin B"
+msgid ", "
+msgstr ""
+
+#: src/functions/php-min-version.php:51
+msgctxt "Plugin A \"and\" Plugin B"
+msgid " and "
+msgstr ""
+
+#: events-calendar-pro.php:167
+msgid "To begin using Events Calendar PRO, please install the latest version of"
+msgstr ""
+
+#: events-calendar-pro.php:52
+msgid "Events Calendar Pro"
+msgstr ""
+
 #: src/admin-views/event-recurrence-blocks-message.php:11
 msgid "This event’s recurrence rules were created in the block editor. Please use the block editor to make any further changes."
 msgstr ""
 
-#: src/Tribe/Main.php:731
+#: src/Tribe/Main.php:727
 msgid "Remove related events from the single event view (with classic editor)"
 msgstr ""
 
@@ -175,19 +210,19 @@ msgstr ""
 msgid "Loading %s"
 msgstr ""
 
-#: src/Tribe/Main.php:784
+#: src/Tribe/Main.php:780
 msgid "Check this to show the After HTML from the text area below on events displayed via shortcode."
 msgstr ""
 
-#: src/Tribe/Main.php:783
+#: src/Tribe/Main.php:779
 msgid "Enable the After HTML (below) on shortcodes."
 msgstr ""
 
-#: src/Tribe/Main.php:771
+#: src/Tribe/Main.php:767
 msgid "Check this to show the Before HTML from the text area below on events displayed via shortcode."
 msgstr ""
 
-#: src/Tribe/Main.php:770
+#: src/Tribe/Main.php:766
 msgid "Enable the Before HTML (below) on shortcodes."
 msgstr ""
 
@@ -980,26 +1015,26 @@ msgstr "所有 %s"
 msgid "$template_object is expected to be an actual object"
 msgstr ""
 
-#: src/Tribe/Main.php:2075
+#: src/Tribe/Main.php:2071
 msgid "all"
 msgstr "所有"
 
-#: src/Tribe/Main.php:624
+#: src/Tribe/Main.php:620
 msgctxt "debug recurrence"
 msgid "Invalid instance of a recurring event was requested ($1%s) redirecting to $2%s"
 msgstr ""
 
-#: src/Tribe/Main.php:589 src/Tribe/Main.php:602
+#: src/Tribe/Main.php:585 src/Tribe/Main.php:598
 msgctxt "debug recurrence"
 msgid "incorrect slug"
 msgstr ""
 
-#: src/Tribe/Main.php:558
+#: src/Tribe/Main.php:554
 msgctxt "debug recurrence"
 msgid "invalid date"
 msgstr ""
 
-#: src/Tribe/Main.php:540
+#: src/Tribe/Main.php:536
 msgctxt "debug recurrence"
 msgid "Unknown"
 msgstr ""
@@ -1034,7 +1069,7 @@ msgstr ""
 msgid "Times:"
 msgstr ""
 
-#: src/Tribe/Main.php:1971
+#: src/Tribe/Main.php:1967
 msgid "Events Calendar PRO"
 msgstr ""
 
@@ -1145,7 +1180,7 @@ msgstr ""
 msgid "Photo View"
 msgstr ""
 
-#: src/Tribe/Main.php:214
+#: src/Tribe/Main.php:222
 msgid "Month/Week View"
 msgstr ""
 
@@ -1281,15 +1316,15 @@ msgstr ""
 msgid "Could not process queue for event %1$d: %2$s"
 msgstr ""
 
-#: src/Tribe/Main.php:476
+#: src/Tribe/Main.php:472
 msgid "%1$s for week of %2$s"
 msgstr ""
 
-#: src/Tribe/Main.php:470
+#: src/Tribe/Main.php:466
 msgid "All %1$s for %2$s"
 msgstr ""
 
-#: src/Tribe/Main.php:802
+#: src/Tribe/Main.php:798
 msgid "Thanks for buying Events Calendar PRO! From all of us at Modern Tribe, we sincerely appreciate it. If you're looking for help with Events Calendar PRO, you've come to the right place. We are committed to helping make your calendar be spectacular... and hope the resources provided below will help get you there."
 msgstr "感謝你購買 Modern Tribe 的 Events Calendar PRO！ 我們誠摯的感謝您，希望我們能讓您的行事曆與眾不同。如果您有任何問題，請告訴我們，我們會全力為您解決。"
 
@@ -2054,73 +2089,73 @@ msgstr "Events Calendar"
 msgid "The events calendar mini calendar widget"
 msgstr "The events calendar 迷你行事曆小工具"
 
-#: src/Tribe/Main.php:1906
+#: src/Tribe/Main.php:1902
 msgid "Week Of"
 msgstr "週活動日"
 
-#: src/Tribe/Main.php:1889
+#: src/Tribe/Main.php:1885
 msgid "Photo"
 msgstr "圖片"
 
-#: src/Tribe/Main.php:1871
+#: src/Tribe/Main.php:1867
 msgid "Week"
 msgstr "週"
 
-#: src/Tribe/Main.php:1642
+#: src/Tribe/Main.php:1638
 msgid "View All Add-Ons"
 msgstr "檢視所有附加元件"
 
-#: src/Tribe/Main.php:1640
+#: src/Tribe/Main.php:1636
 msgid "Support"
 msgstr "支援"
 
-#: src/Tribe/Main.php:1580
+#: src/Tribe/Main.php:1576
 msgid "Organizer draft updated. <a target=\"_blank\" href=\"%s\">Preview organizer</a>"
 msgstr "主辦人草稿已更新。<a target=\"_blank\" href=\"%s\">預覽主辦人</a>"
 
-#: src/Tribe/Main.php:1576
+#: src/Tribe/Main.php:1572
 msgid "Organizer scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s\">Preview organizer</a>"
 msgstr "主辦人訂於：<strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s\">預覽主辦人</a>"
 
-#: src/Tribe/Main.php:1574
+#: src/Tribe/Main.php:1570
 msgid "Organizer submitted. <a target=\"_blank\" href=\"%s\">Preview organizer</a>"
 msgstr "主辦人已提交。<a target=\"_blank\" href=\"%s\">預覽主辦人</a>"
 
-#: src/Tribe/Main.php:1573
+#: src/Tribe/Main.php:1569
 msgid "Organizer published. <a href=\"%s\">View organizer</a>"
 msgstr "主辦人已發佈。<a href=\"%s\">檢視主辦人</a>"
 
-#: src/Tribe/Main.php:1572
+#: src/Tribe/Main.php:1568
 msgid "Organizer updated. <a href=\"%s\">View organizer</a>"
 msgstr "主辦人已更新。<a href=\"%s\">檢視主辦人</a>"
 
-#: src/Tribe/Main.php:1570
+#: src/Tribe/Main.php:1566
 msgid "Venue draft updated. <a target=\"_blank\" href=\"%s\">Preview venue</a>"
 msgstr "地點草稿已更新。<a target=\"_blank\" href=\"%s\">預覽地點</a>"
 
 #. translators: Publish box date format, see http://php.net/date
-#: src/Tribe/Main.php:1568 src/Tribe/Main.php:1578
+#: src/Tribe/Main.php:1564 src/Tribe/Main.php:1574
 msgid "M j, Y @ G:i"
 msgstr "M j, Y @ G:i"
 
-#: src/Tribe/Main.php:1566
+#: src/Tribe/Main.php:1562
 msgid "Venue scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s\">Preview venue</a>"
 msgstr "地點訂於：<strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s\">預覽地點</a>"
 
-#: src/Tribe/Main.php:1564
+#: src/Tribe/Main.php:1560
 msgid "Venue submitted. <a target=\"_blank\" href=\"%s\">Preview venue</a>"
 msgstr "地點已提交。<a target=\"_blank\" href=\"%s\">預覽地點</a>"
 
 #. translators: %s: date and time of the revision
-#: src/Tribe/Main.php:1563
+#: src/Tribe/Main.php:1559
 msgid "Venue published. <a href=\"%s\">View venue</a>"
 msgstr "地點已發佈。<a href=\"%s\">檢視地點</a>"
 
-#: src/Tribe/Main.php:1561
+#: src/Tribe/Main.php:1557
 msgid "Venue updated. <a href=\"%s\">View venue</a>"
 msgstr "地點已更新。<a href=\"%s\">檢視地點</a>"
 
-#: src/Tribe/Main.php:1533
+#: src/Tribe/Main.php:1529
 msgid "Settings"
 msgstr "設定"
 
@@ -2128,68 +2163,68 @@ msgstr "設定"
 msgid "Address: "
 msgstr "地址："
 
-#: src/Tribe/Main.php:839
+#: src/Tribe/Main.php:835
 msgid "Before posting a new thread, please do a search to make sure your issue hasn't already been addressed. When posting please make sure to provide as much detail about the problem as you can (with screenshots or screencasts if feasible), and make sure that you've identified whether a plugin / theme conflict could be at play in your initial message."
 msgstr "上傳問題前，請搜尋論壇文章以確認你的問題沒有被提出，當上傳支援需求時請盡可能提供問題細節的描述 (如果可能的話請附上螢幕截圖或擷取影片)，還有測試問題可能是與哪一個外掛 / 佈景主題衝突所造成的。"
 
-#: src/Tribe/Main.php:838
+#: src/Tribe/Main.php:834
 msgid "Our number one goal is helping you succeed, and to whatever extent possible, we'll help troubleshoot and guide your customizations or tweaks. While we won't build your site for you, and we can't guarantee we'll be able to get you 100% integrated with every theme or plugin out there, we'll do all we can to point you in the right direction and to make you -- and your client, as is often more importantly the case -- satisfied."
 msgstr "我們首要的目標是幫助你成功，還有有擴展無限的可能，我們將協助你解決問題並導引你完成客製或微調修復工作。 然而由於我們並沒有為你創建你的網站，因此我們無法保證能 100% 整合每一主題佈景主題或外掛，我們將指引對的方向讓你 -- 和你的客戶，因為通常更重要的是讓案件 -- 滿意。"
 
-#: src/Tribe/Main.php:837
+#: src/Tribe/Main.php:833
 msgid "Users who have purchased an Events Calendar PRO license are granted total access to our %spremium support forums%s. Unlike at the %sWordPress.org support forum%s, where our involvement is limited to identifying and patching bugs, we have a dedicated support team for PRO users. We're on the PRO forums daily throughout the business week, and no thread should go more than 24-hours without a response."
 msgstr "購買 Events Calendar PRO 密鑰的使用者將完全授權進入我們的 %s進階支援論壇%s。不像於 %sWordPress.org 支援論壇%s，只限於確認及修復錯誤的支援，我們有專門的支援團隊提供 PRO 使用者最佳服務，我們於 PRO 論壇營業日的每一天，而所有的問題都能在 24 小時內獲得回覆。"
 
-#: src/Tribe/Main.php:836
+#: src/Tribe/Main.php:832
 msgid "Written documentation can only take things so far...sometimes, you need help from a real person. This is where our %ssupport forums%s come into play."
 msgstr "編寫使用說明文件僅能解決一定程度的問題...有時候，你需要我們團隊的協助，這時我們的 %s支援論壇%s 便會啟動其機制。"
 
-#: src/Tribe/Main.php:823
+#: src/Tribe/Main.php:819
 msgid "Otherwise, if you're feeling adventurous, you can get started by heading to the Events menu and adding your first event."
 msgstr "否則，如果你覺得如此做有風險的話，你也可以從前往活動選單新增你的第一個活動開始。"
 
-#: src/Tribe/Main.php:821
+#: src/Tribe/Main.php:817
 msgid "Take care of your license key. Though not required to create your first event, you'll want to get it in place as soon as possible to guarantee your access to support and upgrades. %sHere's how to find your license key%s, if you don't have it handy."
 msgstr "請妥為保管你的授權密鑰，雖然你在建立第一個活動時並不需要它，但當你需要要支援或更新時就必須立即取得它以獲得連結，%s這裡將告訴你如何取得你的授權密鑰%s，當密鑰不在你手邊時。"
 
-#: src/Tribe/Main.php:819
+#: src/Tribe/Main.php:815
 msgid "%sInstallation/Setup FAQs%s from our support page can help give an overview of what the plugin can and cannot do. This section of the FAQs may be helpful as it aims to address any basic install questions not addressed by the new user primer."
 msgstr "%s安裝／設定 FAQs%s 從我們支援頁面的常見問題集中能夠幫助你了解此外掛產品的能與不能，FAQs 版區之所以會對使用者有所幫助，是因為其致力於必需的安裝問題而不是只專注在新手上路。"
 
-#: src/Tribe/Main.php:817
+#: src/Tribe/Main.php:813
 msgid "%sOur New User Primer%s was designed for folks in your exact position. Featuring both step-by-step videos and written walkthroughs that feature accompanying screenshots, the primer aims to take you from zero to hero in no time."
 msgstr "%s新手入門指南%s 為導引你正確使用本外掛產品而製作，以循序漸進的教學影片及附有豐富截圖的產品攻略雙管齊下解說產品的使用方法，此入門指南將帶領你零時差地從零到專家。"
 
-#: src/Tribe/Main.php:814
+#: src/Tribe/Main.php:810
 msgid "If this is your first time using The Events Calendar Pro, you're in for a treat and are already well on your way to creating a first event. Here are some basics we've found helpful for users jumping into it for the first time:"
 msgstr "如果這是你第一次使用 The Events Calendar Pro，你將會喜歡它並準備好要開始建立你的第一個活動，這是一些有助於使用者第一次進入其中的必要訊息。"
 
-#: src/Tribe/Main.php:758
+#: src/Tribe/Main.php:754
 msgid "Check this to only show weekdays on Week View"
 msgstr "在「週」檢視只顯示非假日"
 
-#: src/Tribe/Main.php:757
+#: src/Tribe/Main.php:753
 msgid "Hide weekends on Week View"
 msgstr "在「週」檢視隱藏假日"
 
-#: src/Tribe/Main.php:744
+#: src/Tribe/Main.php:740
 msgid "Enter the format to use for week days. Used when showing days of the week in Week view."
 msgstr "輸入在週檢視時的平常日日期格式"
 
-#: src/Tribe/Main.php:743
+#: src/Tribe/Main.php:739
 msgid "Week Day Format"
 msgstr "週間格式"
 
-#: src/Tribe/Main.php:730
+#: src/Tribe/Main.php:726
 msgid "Hide related events"
 msgstr "隱藏相關活動"
 
-#: src/Tribe/Editor.php:194 src/Tribe/Main.php:713
+#: src/Tribe/Editor.php:196 src/Tribe/Main.php:709
 #: src/admin-views/event-meta-options.php:3
 msgid "Additional Fields"
 msgstr "額外欄位"
 
-#: src/Tribe/Main.php:711 src/admin-views/tribe-options-defaults.php:35
+#: src/Tribe/Main.php:707 src/admin-views/tribe-options-defaults.php:35
 msgid "Default Content"
 msgstr "預設內容"
 
@@ -2197,11 +2232,11 @@ msgstr "預設內容"
 msgid "%s for week of %s"
 msgstr "%s 是該週的 %s"
 
-#: src/Tribe/Main.php:2077
+#: src/Tribe/Main.php:2073
 msgid "photo"
 msgstr "photo"
 
-#: src/Tribe/Main.php:2076 src/admin-views/event-recurrence.php:108
+#: src/Tribe/Main.php:2072 src/admin-views/event-recurrence.php:108
 #: src/admin-views/event-recurrence.php:372
 msgid "week"
 msgstr "週"
@@ -2385,10 +2420,6 @@ msgstr "結束日期"
 msgid "Start Date"
 msgstr "開始日期"
 
-#: events-calendar-pro.php:88
-msgid "To begin using Events Calendar PRO, please install the latest version of <a href=\"%s\" class=\"thickbox\" title=\"%s\">The Events Calendar</a>."
-msgstr "為能開始使用 Events Calendar PRO，請先安裝最新版本的 <a href=\"%s\" class=\"thickbox\" title=\"%s\">The Events Calendar</a>."
-
-#: events-calendar-pro.php:86
+#: events-calendar-pro.php:169 events-calendar-pro.php:170
 msgid "The Events Calendar"
 msgstr "The Events Calendar"

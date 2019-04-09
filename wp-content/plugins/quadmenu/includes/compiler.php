@@ -96,12 +96,12 @@ class QuadMenu_Compiler {
 
     $return_array = array('status' => 'error');
 
-    if (!isset($_POST['output']['imports'][0])) {
+    if (!isset($_REQUEST['output']['imports'][0])) {
       QuadMenu_Redux::add_notification('red', esc_html__('Imports is undefined.', 'quadmenu'));
       wp_die();
     }
 
-    if (!isset($_POST['output']['css'])) {
+    if (!isset($_REQUEST['output']['css'])) {
       QuadMenu_Redux::add_notification('red', esc_html__('CSS is undefined.', 'quadmenu'));
       wp_die();
     }
@@ -109,7 +109,7 @@ class QuadMenu_Compiler {
     $return_array['status'] = 'success';
 
     try {
-      $this->save_file(str_replace('.less', '.css', basename($_POST['output']['imports'][0])), QUADMENU_PATH_CSS, stripslashes($_POST['output']['css']));
+      $this->save_file(str_replace('.less', '.css', basename($_REQUEST['output']['imports'][0])), QUADMENU_PATH_CSS, stripslashes($_REQUEST['output']['css']));
     } catch (Exception $e) {
       $return_array['status'] = $e->getMessage();
     }

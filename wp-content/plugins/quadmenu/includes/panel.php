@@ -45,6 +45,7 @@ class QuadMenu_Panel {
 
   function panel() {
     add_menu_page(QUADMENU_NAME, QUADMENU_NAME, 'edit_posts', 'quadmenu_welcome', array($this, 'welcome'), QUADMENU_URL_ASSETS . 'backend/images/icon.png', 60);
+    add_submenu_page('quadmenu_welcome', esc_html__('Welcome', 'quadmenu'), esc_html__('Welcome', 'quadmenu'), 'edit_posts', 'quadmenu_welcome', array($this, 'welcome'));
   }
 
   function pro() {

@@ -93,7 +93,7 @@ class QuadMenuItemCart extends QuadMenuItem {
     ob_start();
     ?>
     <span class="quadmenu-cart-magic">
-      <span class="quadmenu-icon <?php echo esc_attr($this->item->icon); ?><?php //echo esc_attr($this->item->animation->icon);       ?>"></span>
+      <span class="quadmenu-icon <?php echo esc_attr($this->item->icon); ?><?php //echo esc_attr($this->item->animation->icon);           ?>"></span>
       <span class="quadmenu-cart-qty"><?php echo esc_html($this->count); ?></span>
     </span>
     <span class="quadmenu-cart-total"><?php echo WC()->cart->get_cart_total(); ?></span>
@@ -105,11 +105,7 @@ class QuadMenuItemCart extends QuadMenuItem {
     ob_start();
     ?>
     <?php $this->get_cart_icon(); ?>
-    <?php
-    //if (!is_cart()) {
-    the_widget('WC_Widget_Cart', 'title=');
-    //}
-    ?>
+    <?php the_widget('WC_Widget_Cart', 'title='); ?>
     <?php $this->get_cart_text(); ?>
     <?php
     return ob_get_clean();

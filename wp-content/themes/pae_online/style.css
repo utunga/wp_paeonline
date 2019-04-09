@@ -3436,6 +3436,20 @@ header.site-header .a_to_z_searchbar input.search_button {
 	color: #30353a !important;
 	margin: 0;
 	padding: 0 5px !important;
+	width: 90% !important;
+	background: inherit !important;
+}
+
+.nav-secondary ul.quadmenu-navbar-nav li.search .gsc-search-box .gsc-input-box table input::-webkit-input-placeholder {
+	color: transparent;
+}
+
+.nav-secondary ul.quadmenu-navbar-nav li.search .gsc-search-box .gsc-input-box table input:-ms-input-placeholder {
+	color: transparent;
+}
+
+.nav-secondary ul.quadmenu-navbar-nav li.search .gsc-search-box .gsc-input-box table input::placeholder {
+	color: transparent;
 }
 
 .nav-secondary ul.quadmenu-navbar-nav li.search .gsc-search-box .gsc-input-box table .gsib_b {

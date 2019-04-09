@@ -288,9 +288,15 @@
 							color: $dark !important;
 							margin: 0;
 							padding: 0 5px !important;
+							width: 90% !important;
+							background: inherit !important;
 
 							@include media("<=sm") {
 								padding: 0 3rem !important;
+							}
+
+							&::placeholder {
+								color:transparent;
 							}
 						}
 

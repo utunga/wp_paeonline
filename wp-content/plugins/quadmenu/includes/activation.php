@@ -20,6 +20,8 @@ class QuadMenu_Activation {
 
     add_action('quadmenu_activation', array(__CLASS__, 'do_redirect'));
 
+    add_action('quadmenu_activation', array(__CLASS__, 'do_rating'));
+
     add_action('upgrader_process_complete', array(__CLASS__, 'update'), 10, 2);
   }
 
@@ -55,6 +57,10 @@ class QuadMenu_Activation {
 
   static function do_redirect() {
     set_transient('_quadmenu_redirect', true, 30);
+  }
+
+  static function do_rating() {
+    set_transient('_quadmenu_first_rating', true, MONTH_IN_SECONDS);
   }
 
   static function activation() {

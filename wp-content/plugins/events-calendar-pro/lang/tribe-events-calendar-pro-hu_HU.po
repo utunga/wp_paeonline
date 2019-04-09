@@ -11,11 +11,47 @@ msgstr ""
 "Language: hu\n"
 "Project-Id-Version: Events Calendar Pro\n"
 
+#: src/Tribe/Editor/Blocks/Related_Events.php:26
+msgid "Related Events"
+msgstr ""
+
+#: src/functions/php-min-version.php:76
+msgid "Contact your Host or your system administrator and ask to upgrade to the latest version of PHP."
+msgstr ""
+
+#: src/functions/php-min-version.php:74
+msgid "To allow better control over dates, advanced security improvements and performance gain."
+msgstr ""
+
+#: src/functions/php-min-version.php:64
+msgid "<b>%1$s</b> requires <b>PHP %2$s</b> or higher."
+msgid_plural "<b>%1$s</b> require <b>PHP %2$s</b> or higher."
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/functions/php-min-version.php:52
+msgctxt "Plugin A\",\" Plugin B"
+msgid ", "
+msgstr ""
+
+#: src/functions/php-min-version.php:51
+msgctxt "Plugin A \"and\" Plugin B"
+msgid " and "
+msgstr ""
+
+#: events-calendar-pro.php:167
+msgid "To begin using Events Calendar PRO, please install the latest version of"
+msgstr ""
+
+#: events-calendar-pro.php:52
+msgid "Events Calendar Pro"
+msgstr ""
+
 #: src/admin-views/event-recurrence-blocks-message.php:11
 msgid "This event’s recurrence rules were created in the block editor. Please use the block editor to make any further changes."
 msgstr ""
 
-#: src/Tribe/Main.php:731
+#: src/Tribe/Main.php:727
 msgid "Remove related events from the single event view (with classic editor)"
 msgstr ""
 
@@ -175,19 +211,19 @@ msgstr ""
 msgid "Loading %s"
 msgstr ""
 
-#: src/Tribe/Main.php:784
+#: src/Tribe/Main.php:780
 msgid "Check this to show the After HTML from the text area below on events displayed via shortcode."
 msgstr ""
 
-#: src/Tribe/Main.php:783
+#: src/Tribe/Main.php:779
 msgid "Enable the After HTML (below) on shortcodes."
 msgstr ""
 
-#: src/Tribe/Main.php:771
+#: src/Tribe/Main.php:767
 msgid "Check this to show the Before HTML from the text area below on events displayed via shortcode."
 msgstr ""
 
-#: src/Tribe/Main.php:770
+#: src/Tribe/Main.php:766
 msgid "Enable the Before HTML (below) on shortcodes."
 msgstr ""
 
@@ -980,26 +1016,26 @@ msgstr "Összes %s"
 msgid "$template_object is expected to be an actual object"
 msgstr ""
 
-#: src/Tribe/Main.php:2075
+#: src/Tribe/Main.php:2071
 msgid "all"
 msgstr ""
 
-#: src/Tribe/Main.php:624
+#: src/Tribe/Main.php:620
 msgctxt "debug recurrence"
 msgid "Invalid instance of a recurring event was requested ($1%s) redirecting to $2%s"
 msgstr ""
 
-#: src/Tribe/Main.php:589 src/Tribe/Main.php:602
+#: src/Tribe/Main.php:585 src/Tribe/Main.php:598
 msgctxt "debug recurrence"
 msgid "incorrect slug"
 msgstr ""
 
-#: src/Tribe/Main.php:558
+#: src/Tribe/Main.php:554
 msgctxt "debug recurrence"
 msgid "invalid date"
 msgstr ""
 
-#: src/Tribe/Main.php:540
+#: src/Tribe/Main.php:536
 msgctxt "debug recurrence"
 msgid "Unknown"
 msgstr ""
@@ -1034,7 +1070,7 @@ msgstr ""
 msgid "Times:"
 msgstr ""
 
-#: src/Tribe/Main.php:1971
+#: src/Tribe/Main.php:1967
 msgid "Events Calendar PRO"
 msgstr ""
 
@@ -1146,7 +1182,7 @@ msgstr ""
 msgid "Photo View"
 msgstr ""
 
-#: src/Tribe/Main.php:214
+#: src/Tribe/Main.php:222
 msgid "Month/Week View"
 msgstr ""
 
@@ -1282,15 +1318,15 @@ msgstr ""
 msgid "Could not process queue for event %1$d: %2$s"
 msgstr ""
 
-#: src/Tribe/Main.php:476
+#: src/Tribe/Main.php:472
 msgid "%1$s for week of %2$s"
 msgstr ""
 
-#: src/Tribe/Main.php:470
+#: src/Tribe/Main.php:466
 msgid "All %1$s for %2$s"
 msgstr ""
 
-#: src/Tribe/Main.php:802
+#: src/Tribe/Main.php:798
 msgid "Thanks for buying Events Calendar PRO! From all of us at Modern Tribe, we sincerely appreciate it. If you're looking for help with Events Calendar PRO, you've come to the right place. We are committed to helping make your calendar be spectacular... and hope the resources provided below will help get you there."
 msgstr ""
 
@@ -2055,73 +2091,73 @@ msgstr "Eseménynaptár"
 msgid "The events calendar mini calendar widget"
 msgstr "Mini eseménynaptár widget"
 
-#: src/Tribe/Main.php:1906
+#: src/Tribe/Main.php:1902
 msgid "Week Of"
 msgstr "Hét:"
 
-#: src/Tribe/Main.php:1889
+#: src/Tribe/Main.php:1885
 msgid "Photo"
 msgstr "Fénykép"
 
-#: src/Tribe/Main.php:1871
+#: src/Tribe/Main.php:1867
 msgid "Week"
 msgstr "Hét"
 
-#: src/Tribe/Main.php:1642
+#: src/Tribe/Main.php:1638
 msgid "View All Add-Ons"
 msgstr "Összes kiegészítő megtekintése"
 
-#: src/Tribe/Main.php:1640
+#: src/Tribe/Main.php:1636
 msgid "Support"
 msgstr "Támogatás"
 
-#: src/Tribe/Main.php:1580
+#: src/Tribe/Main.php:1576
 msgid "Organizer draft updated. <a target=\"_blank\" href=\"%s\">Preview organizer</a>"
 msgstr "Szervező vázlat frissítve. <a target=\"_blank\" href=\"%s\">Szervező előnézete</a>"
 
-#: src/Tribe/Main.php:1576
+#: src/Tribe/Main.php:1572
 msgid "Organizer scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s\">Preview organizer</a>"
 msgstr "Szervező betervezve: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s\">Szervező előnézete</a>"
 
-#: src/Tribe/Main.php:1574
+#: src/Tribe/Main.php:1570
 msgid "Organizer submitted. <a target=\"_blank\" href=\"%s\">Preview organizer</a>"
 msgstr "Szervező beküldve. <a target=\"_blank\" href=\"%s\">Szervező előnézete</a>"
 
-#: src/Tribe/Main.php:1573
+#: src/Tribe/Main.php:1569
 msgid "Organizer published. <a href=\"%s\">View organizer</a>"
 msgstr "Szervező közzétéve. <a href=\"%s\">Szervező megtekintése</a>"
 
-#: src/Tribe/Main.php:1572
+#: src/Tribe/Main.php:1568
 msgid "Organizer updated. <a href=\"%s\">View organizer</a>"
 msgstr "Szervező frissítve. <a href=\"%s\">Szervező megtekintése</a>"
 
-#: src/Tribe/Main.php:1570
+#: src/Tribe/Main.php:1566
 msgid "Venue draft updated. <a target=\"_blank\" href=\"%s\">Preview venue</a>"
 msgstr "Helyszín vázlat frissítve. <a target=\"_blank\" href=\"%s\">Helyszín előnézete</a>"
 
 #. translators: Publish box date format, see http://php.net/date
-#: src/Tribe/Main.php:1568 src/Tribe/Main.php:1578
+#: src/Tribe/Main.php:1564 src/Tribe/Main.php:1574
 msgid "M j, Y @ G:i"
 msgstr "Y. M j. @  G:i"
 
-#: src/Tribe/Main.php:1566
+#: src/Tribe/Main.php:1562
 msgid "Venue scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s\">Preview venue</a>"
 msgstr "Helyszín betervezve: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s\">Helyszín előnézete</a>"
 
-#: src/Tribe/Main.php:1564
+#: src/Tribe/Main.php:1560
 msgid "Venue submitted. <a target=\"_blank\" href=\"%s\">Preview venue</a>"
 msgstr "Helyszín beküldve. <a target=\"_blank\" href=\"%s\">Helyszín előnézete</a>"
 
 #. translators: %s: date and time of the revision
-#: src/Tribe/Main.php:1563
+#: src/Tribe/Main.php:1559
 msgid "Venue published. <a href=\"%s\">View venue</a>"
 msgstr "Helyszín közzétéve. <a href=\"%s\">Helyszín megtekintése</a>"
 
-#: src/Tribe/Main.php:1561
+#: src/Tribe/Main.php:1557
 msgid "Venue updated. <a href=\"%s\">View venue</a>"
 msgstr "Helyszín frissítve. <a href=\"%s\">Helyszín megtekintése</a>"
 
-#: src/Tribe/Main.php:1533
+#: src/Tribe/Main.php:1529
 msgid "Settings"
 msgstr "Beállítások"
 
@@ -2129,68 +2165,68 @@ msgstr "Beállítások"
 msgid "Address: "
 msgstr "Cím:"
 
-#: src/Tribe/Main.php:839
+#: src/Tribe/Main.php:835
 msgid "Before posting a new thread, please do a search to make sure your issue hasn't already been addressed. When posting please make sure to provide as much detail about the problem as you can (with screenshots or screencasts if feasible), and make sure that you've identified whether a plugin / theme conflict could be at play in your initial message."
 msgstr "Új téma indítása előtt kérjük, végezz el egy keresést, hátha a kérdéseddel már foglalkoztunk korábban. A bejegyzésben adj meg minél több részletet a problémáról (lehetőleg képernyőmentésekkel), és próbáld azonosítani, hogy esetleg egy bővítmény / téma ütközés szerepet játszhat-e a problémában."
 
-#: src/Tribe/Main.php:838
+#: src/Tribe/Main.php:834
 msgid "Our number one goal is helping you succeed, and to whatever extent possible, we'll help troubleshoot and guide your customizations or tweaks. While we won't build your site for you, and we can't guarantee we'll be able to get you 100% integrated with every theme or plugin out there, we'll do all we can to point you in the right direction and to make you -- and your client, as is often more importantly the case -- satisfied."
 msgstr "Első számú célunk segíteni neked, és a lehető legteljesebb hibaelhárítási és testreszabási útmutatást nyújtani. Bár nem mi készítjük el helyetted a weboldalt és nem tudjuk garantálni, hogy minden bővítménnyel és témával integráljuk az eseménynaptárat, mindent megteszünk mad, hogy megmutassuk a helyes irányt a fentiek eléréséhez. Így lehetsz te és ami néha még fontosabb, az ügyfeled is elégedett. "
 
-#: src/Tribe/Main.php:837
+#: src/Tribe/Main.php:833
 msgid "Users who have purchased an Events Calendar PRO license are granted total access to our %spremium support forums%s. Unlike at the %sWordPress.org support forum%s, where our involvement is limited to identifying and patching bugs, we have a dedicated support team for PRO users. We're on the PRO forums daily throughout the business week, and no thread should go more than 24-hours without a response."
 msgstr "A felhasználók, akik megvásárolták az Events Calendar PRO licenszet, teljes hozzáférést kapnak a %sprémium támogatói fórumokhoz%s. Ellentétben a %sWordPress.org fórummmal%s, ahol tevékenységünk a bugok azonosítására és befoltozására korlátozik, a PRO felhasználók támogatására egy külön csapatunk van. Minden munkanap fent vagyunk a PRO fórumokon, így egy bejegyzés sem maradhat 24 óránál tovább megválaszolatlan."
 
-#: src/Tribe/Main.php:836
+#: src/Tribe/Main.php:832
 msgid "Written documentation can only take things so far...sometimes, you need help from a real person. This is where our %ssupport forums%s come into play."
 msgstr "Az írásos dokumentáció csak eddig tart... De néha több kell, és egy valódi személy segítségére van szükség. Ez az, ahol a %stámogatói forumok%s jöhetnek számításba."
 
-#: src/Tribe/Main.php:823
+#: src/Tribe/Main.php:819
 msgid "Otherwise, if you're feeling adventurous, you can get started by heading to the Events menu and adding your first event."
 msgstr "Ha azonban kalandvágyónak érzed magad, akkor rögtön az Események menüpont felé veheted az irányt és létrehozhatod az első eseményed."
 
-#: src/Tribe/Main.php:821
+#: src/Tribe/Main.php:817
 msgid "Take care of your license key. Though not required to create your first event, you'll want to get it in place as soon as possible to guarantee your access to support and upgrades. %sHere's how to find your license key%s, if you don't have it handy."
 msgstr "Intézd el a licensz kulcsod beillesztését. Bár nem szükséges az első esemény létrehozásához, de ajánlott a lehető leghamarabb beilleszteni, hogy biztosan hozzáférj a frissítésekhez és segédletekhez. %s Így tudod megtalálni a licensz kulcsot%s, ha épp nincs kéznél."
 
-#: src/Tribe/Main.php:819
+#: src/Tribe/Main.php:815
 msgid "%sInstallation/Setup FAQs%s from our support page can help give an overview of what the plugin can and cannot do. This section of the FAQs may be helpful as it aims to address any basic install questions not addressed by the new user primer."
 msgstr "A %sTelepítési és beállítási GYIK%s a támogatási oldalunkon segítséget nyújthat abban, hogy mit tud és mit nem tud a bővítmény. A GYIK ezen része is hasznos lehet, mivel célja, hogy a telepítés olyan általános kérdéseire is választ adjon, amelyet a fenti \"Bevezető új felhasználóknak\" anyag nem tartalmaz."
 
-#: src/Tribe/Main.php:817
+#: src/Tribe/Main.php:813
 msgid "%sOur New User Primer%s was designed for folks in your exact position. Featuring both step-by-step videos and written walkthroughs that feature accompanying screenshots, the primer aims to take you from zero to hero in no time."
 msgstr "A %sBevezető új felhasználóknak%s anyagot pont neked készítettük. Lépésről-lépésre videósegédeket és képernyőképekkel illusztrált írásos útmutatókat is tartalmaz, így a bevezető gyorsan a nulláról a tapasztalt felhasználók közé röpíthet."
 
-#: src/Tribe/Main.php:814
+#: src/Tribe/Main.php:810
 msgid "If this is your first time using The Events Calendar Pro, you're in for a treat and are already well on your way to creating a first event. Here are some basics we've found helpful for users jumping into it for the first time:"
 msgstr "Ha első alkalommal használod a Events Calendar Pro-t, jó uton jársz az első eseményed létrehozásához vezető úton. Íme néhány alapvető dolog, ami a kezdő felhasználóknak hasznos lehet:"
 
-#: src/Tribe/Main.php:758
+#: src/Tribe/Main.php:754
 msgid "Check this to only show weekdays on Week View"
 msgstr ""
 
-#: src/Tribe/Main.php:757
+#: src/Tribe/Main.php:753
 msgid "Hide weekends on Week View"
 msgstr ""
 
-#: src/Tribe/Main.php:744
+#: src/Tribe/Main.php:740
 msgid "Enter the format to use for week days. Used when showing days of the week in Week view."
 msgstr "Add meg a hétköznapok használni kívánt formátumát. A heti nézet használatakor jelenik meg. "
 
-#: src/Tribe/Main.php:743
+#: src/Tribe/Main.php:739
 msgid "Week Day Format"
 msgstr "Hétköznapok formátuma"
 
-#: src/Tribe/Main.php:730
+#: src/Tribe/Main.php:726
 msgid "Hide related events"
 msgstr "Kapcsolódó események elrejtése"
 
-#: src/Tribe/Editor.php:194 src/Tribe/Main.php:713
+#: src/Tribe/Editor.php:196 src/Tribe/Main.php:709
 #: src/admin-views/event-meta-options.php:3
 msgid "Additional Fields"
 msgstr "További mezők"
 
-#: src/Tribe/Main.php:711 src/admin-views/tribe-options-defaults.php:35
+#: src/Tribe/Main.php:707 src/admin-views/tribe-options-defaults.php:35
 msgid "Default Content"
 msgstr "Alapértelmezett tartalom"
 
@@ -2198,11 +2234,11 @@ msgstr "Alapértelmezett tartalom"
 msgid "%s for week of %s"
 msgstr ""
 
-#: src/Tribe/Main.php:2077
+#: src/Tribe/Main.php:2073
 msgid "photo"
 msgstr "fénykép"
 
-#: src/Tribe/Main.php:2076 src/admin-views/event-recurrence.php:108
+#: src/Tribe/Main.php:2072 src/admin-views/event-recurrence.php:108
 #: src/admin-views/event-recurrence.php:372
 msgid "week"
 msgstr "hét"
@@ -2386,10 +2422,6 @@ msgstr "Befejezés időpontja"
 msgid "Start Date"
 msgstr "Kezdés időpontja"
 
-#: events-calendar-pro.php:88
-msgid "To begin using Events Calendar PRO, please install the latest version of <a href=\"%s\" class=\"thickbox\" title=\"%s\">The Events Calendar</a>."
-msgstr "Az Events Calendar PRO használatának megkezdéséhez kérjük, telepítsd a<a href=\"%s\" class=\"thickbox\" title=\"%s\">The Events Calendar</a> legújabb verzióját."
-
-#: events-calendar-pro.php:86
+#: events-calendar-pro.php:169 events-calendar-pro.php:170
 msgid "The Events Calendar"
 msgstr "Az Events Calendar"

@@ -4,7 +4,7 @@
  * Plugin Name: QuadMenu
  * Plugin URI:  https://www.quadmenu.com
  * Description: The best drag & drop WordPress Mega Menu plugin which allow you to create Tabs Menus & Carousel Menus.
- * Version:     1.7.4
+ * Version:     1.7.7
  * Author:      Mega Menu
  * Author URI:  https://www.quadmenu.com
  * Copyright:   2018 QuadMenu (https://www.quadmenu.com)
@@ -43,9 +43,7 @@ if (!class_exists('QuadMenu')) :
     }
 
     private function compatibility() {
-      require_once QUADMENU_PATH . 'includes/3rd/compatibility.php';
-      require_once QUADMENU_PATH . 'includes/3rd/lmm.php';
-      require_once QUADMENU_PATH . 'includes/3rd/wpml.php';
+      require_once QUADMENU_PATH . 'includes/3rd/woocommerce.php';
       require_once QUADMENU_PATH . 'includes/3rd/polylang.php';
       require_once QUADMENU_PATH . 'includes/3rd/vc.php';
       require_once QUADMENU_PATH . 'includes/3rd/elementor.php';
@@ -138,7 +136,7 @@ if (!class_exists('QuadMenu')) :
 
       define('QUADMENU_NAME', 'QuadMenu');
 
-      define('QUADMENU_VERSION', '1.7.4');
+      define('QUADMENU_VERSION', '1.7.7');
 
       define('QUADMENU_OPTIONS', "quadmenu_{$this->theme()}");
 
@@ -182,7 +180,9 @@ if (!class_exists('QuadMenu')) :
 
       define('QUADMENU_PURCHASE', 'https://quadmenu.com/#pricing?utm_source=quadmenu_admin');
 
-      define('QUADMENU_GROUP', 'https://www.facebook.com/groups/quadmenu');
+      define('QUADMENU_GROUP', 'https://www.facebook.com/groups/quadlayers/');
+
+      define('QUADMENU_REVIEW', 'https://wordpress.org/support/plugin/quadmenu/reviews/?filter=5#new-post');
     }
 
     private function includes() {
@@ -237,7 +237,7 @@ if (!class_exists('QuadMenu')) :
       $nav_menu_selected_id = isset($_REQUEST['menu']) ? (int) $_REQUEST['menu'] : 0;
 
       // Are we on the add new screen?
-      $add_new_screen = ( isset($_GET['menu']) && 0 == $_GET['menu'] ) ? true : false;
+      $add_new_screen = ( isset($_REQUEST['menu']) && 0 == $_REQUEST['menu'] ) ? true : false;
 
       $page_count = wp_count_posts('page');
 
@@ -247,11 +247,11 @@ if (!class_exists('QuadMenu')) :
         $recently_edited = $nav_menu_selected_id;
 
       // Use $recently_edited if none are selected.
-      if (empty($nav_menu_selected_id) && !isset($_GET['menu']) && is_nav_menu($recently_edited))
+      if (empty($nav_menu_selected_id) && !isset($_REQUEST['menu']) && is_nav_menu($recently_edited))
         $nav_menu_selected_id = $recently_edited;
 
       // On deletion of menu, if another menu exists, show it.
-      if (!$add_new_screen && 0 < $menu_count && isset($_GET['action']) && 'delete' == $_GET['action'])
+      if (!$add_new_screen && 0 < $menu_count && isset($_REQUEST['action']) && 'delete' == $_REQUEST['action'])
         $nav_menu_selected_id = $nav_menus[0]->term_id;
 
       // Set $nav_menu_selected_id to 0 if no menus.

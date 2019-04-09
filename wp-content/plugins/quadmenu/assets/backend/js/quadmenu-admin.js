@@ -710,7 +710,7 @@
 
       var $form = $('form', action);
       $.ajax({
-        type: 'GET',
+        type: 'POST',
         url: ajaxurl,
         data: $.param($form.serializeArrayAll()) + '&' + $.param({
           menu_id: $('#menu').val(),
@@ -784,7 +784,7 @@
       if ($target.data('loading') || $target.data('loaded') || !$tabs.data('menu_item_panel'))
         return;
       $.ajax({
-        type: 'GET',
+        type: 'POST',
         url: ajaxurl,
         data: $.param({
           menu_id: $('#menu').val(),
@@ -1081,7 +1081,7 @@
       if (!$widget.hasClass('open') && !$widget.data('loaded')) {
 
         $.ajax({
-          type: 'GET',
+          type: 'POST',
           url: ajaxurl,
           data: $.param({
             menu_id: $('#menu').val(),
@@ -1148,7 +1148,7 @@
                 };
               });
               $.ajax({
-                type: 'GET',
+                type: 'POST',
                 url: ajaxurl,
                 data: {
                   action: 'quadmenu_update_nav_menu_item',
@@ -1180,7 +1180,7 @@
             };
           });
           $.ajax({
-            type: 'GET',
+            type: 'POST',
             url: ajaxurl,
             data: {
               action: 'quadmenu_update_nav_menu_item',
@@ -1220,7 +1220,7 @@
       e.preventDefault();
       var $form = $(this);
       $.ajax({
-        type: 'GET',
+        type: 'POST',
         url: ajaxurl,
         data: $.param($form.serializeArrayAll()) + '&' + $.param({
           menu_id: $('#menu').val(),
@@ -1276,7 +1276,7 @@
       return false;
 
     $.ajax({
-      type: 'GET',
+      type: 'POST',
       url: ajaxurl,
       data: {
         action: 'quadmenu_add_nav_menu_item',
@@ -1488,7 +1488,7 @@
     if ($li.data('openning'))
       return false;
     xhr = $.ajax({
-      type: 'GET',
+      type: 'POST',
       url: ajaxurl,
       data: {
         menu_id: $('#menu').val(),
@@ -1563,7 +1563,7 @@
    return false;
    
    xhr = $.ajax({
-   type: 'GET',
+   type: 'POST',
    url: ajaxurl,
    data: {
    menu_id: $('#menu').val(),
@@ -1669,7 +1669,7 @@
             current_theme = $this.data('theme');
 
     $.ajax({
-      type: 'GET',
+      type: 'POST',
       url: ajaxurl,
       data: {
         action: $this.attr('id'),

@@ -156,7 +156,10 @@ class QuadMenu_System extends QuadMenu_Panel {
         ));
       }
 
-      $response_code = wp_remote_retrieve_response_code(wp_remote_get(QUADMENU_URL_ASSETS . 'frontend/less/quadmenu-locations.less'));
+      $response_code = wp_remote_retrieve_response_code(wp_remote_get(QUADMENU_URL_ASSETS . 'frontend/less/quadmenu-locations.less', array(
+          'timeout' => 20,
+          'user-agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.8; rv:20.0) Gecko/20100101 Firefox/20.0'
+      )));
       // mime types
       if ($response_code == 200) {
         $this->add('Compiler', array(

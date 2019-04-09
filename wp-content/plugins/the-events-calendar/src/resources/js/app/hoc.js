@@ -338,7 +338,8 @@ function createStructuredSelector(selectors) {
 
 /***/ }),
 /* 11 */,
-/* 12 */
+/* 12 */,
+/* 13 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -974,7 +975,6 @@ if (false) {}
 
 
 /***/ }),
-/* 13 */,
 /* 14 */,
 /* 15 */,
 /* 16 */,
@@ -1839,7 +1839,7 @@ function shallowEqual(objA, objB) {
   return true;
 }
 // EXTERNAL MODULE: ./node_modules/redux/es/redux.js
-var redux = __webpack_require__(12);
+var redux = __webpack_require__(13);
 
 // CONCATENATED MODULE: ./node_modules/react-redux/es/utils/isPlainObject.js
 /**
@@ -2383,7 +2383,7 @@ module.exports = isObject;
 var global = __webpack_require__(40);
 var core = __webpack_require__(27);
 var ctx = __webpack_require__(112);
-var hide = __webpack_require__(54);
+var hide = __webpack_require__(53);
 var has = __webpack_require__(48);
 var PROTOTYPE = 'prototype';
 
@@ -2490,8 +2490,7 @@ module.exports = function (it, key) {
 /***/ }),
 /* 49 */,
 /* 50 */,
-/* 51 */,
-/* 52 */
+/* 51 */
 /***/ (function(module, exports) {
 
 /**
@@ -2518,13 +2517,13 @@ module.exports = identity;
 
 
 /***/ }),
-/* 53 */
+/* 52 */
 /***/ (function(module, exports) {
 
 module.exports = tribe.common.store;
 
 /***/ }),
-/* 54 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var dP = __webpack_require__(41);
@@ -2538,14 +2537,14 @@ module.exports = __webpack_require__(45) ? function (object, key, value) {
 
 
 /***/ }),
-/* 55 */
+/* 54 */
 /***/ (function(module, exports) {
 
 module.exports = {};
 
 
 /***/ }),
-/* 56 */
+/* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var baseGetTag = __webpack_require__(36),
@@ -2588,7 +2587,7 @@ module.exports = isFunction;
 
 
 /***/ }),
-/* 57 */
+/* 56 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2618,6 +2617,7 @@ exports.default = function (obj, key, value) {
 };
 
 /***/ }),
+/* 57 */,
 /* 58 */
 /***/ (function(module, exports) {
 
@@ -2789,7 +2789,7 @@ module.exports = keys;
 /* 68 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var isFunction = __webpack_require__(56),
+var isFunction = __webpack_require__(55),
     isLength = __webpack_require__(84);
 
 /**
@@ -2852,7 +2852,7 @@ __webpack_require__.r(thunks_namespaceObject);
 __webpack_require__.d(thunks_namespaceObject, "fetchDetails", function() { return thunks_fetchDetails; });
 
 // EXTERNAL MODULE: ./node_modules/babel-runtime/helpers/defineProperty.js
-var defineProperty = __webpack_require__(57);
+var defineProperty = __webpack_require__(56);
 var defineProperty_default = /*#__PURE__*/__webpack_require__.n(defineProperty);
 
 // EXTERNAL MODULE: ./node_modules/babel-runtime/helpers/extends.js
@@ -3026,7 +3026,7 @@ var getVolatile = Object(lib["createSelector"])([getDetails, external_tribe_comm
 	return difference_default()([details.id], volatileGroup).length === 0;
 });
 // EXTERNAL MODULE: external "tribe.common.store"
-var external_tribe_common_store_ = __webpack_require__(53);
+var external_tribe_common_store_ = __webpack_require__(52);
 
 // CONCATENATED MODULE: ./src/modules/data/details/thunks.js
  /**
@@ -4449,8 +4449,8 @@ module.exports = getSymbols;
 
 __webpack_require__(400);
 var global = __webpack_require__(40);
-var hide = __webpack_require__(54);
-var Iterators = __webpack_require__(55);
+var hide = __webpack_require__(53);
+var Iterators = __webpack_require__(54);
 var TO_STRING_TAG = __webpack_require__(29)('toStringTag');
 
 var DOMIterables = ('CSSRuleList,CSSStyleDeclaration,CSSValueList,ClientRectList,DOMRectList,DOMStringList,' +
@@ -4553,8 +4553,8 @@ module.exports = function (it) {
 var LIBRARY = __webpack_require__(87);
 var $export = __webpack_require__(44);
 var redefine = __webpack_require__(170);
-var hide = __webpack_require__(54);
-var Iterators = __webpack_require__(55);
+var hide = __webpack_require__(53);
+var Iterators = __webpack_require__(54);
 var $iterCreate = __webpack_require__(372);
 var setToStringTag = __webpack_require__(117);
 var getPrototypeOf = __webpack_require__(375);
@@ -4945,7 +4945,7 @@ module.exports = function (object, names) {
 /* 170 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(54);
+module.exports = __webpack_require__(53);
 
 
 /***/ }),
@@ -4954,7 +4954,7 @@ module.exports = __webpack_require__(54);
 
 var classof = __webpack_require__(172);
 var ITERATOR = __webpack_require__(29)('iterator');
-var Iterators = __webpack_require__(55);
+var Iterators = __webpack_require__(54);
 module.exports = __webpack_require__(27).getIteratorMethod = function (it) {
   if (it != undefined) return it[ITERATOR]
     || it['@@iterator']
@@ -5170,7 +5170,7 @@ module.exports = hashClear;
 /* 182 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var isFunction = __webpack_require__(56),
+var isFunction = __webpack_require__(55),
     isMasked = __webpack_require__(183),
     isObject = __webpack_require__(43),
     toSource = __webpack_require__(120);
@@ -6901,7 +6901,7 @@ var prop_types = __webpack_require__(0);
 var prop_types_default = /*#__PURE__*/__webpack_require__.n(prop_types);
 
 // EXTERNAL MODULE: ./node_modules/redux/es/redux.js
-var redux = __webpack_require__(12);
+var redux = __webpack_require__(13);
 
 // EXTERNAL MODULE: ./node_modules/react-redux/es/index.js + 19 modules
 var es = __webpack_require__(32);
@@ -7225,7 +7225,7 @@ var setToStringTag = __webpack_require__(117);
 var IteratorPrototype = {};
 
 // 25.1.2.1.1 %IteratorPrototype%[@@iterator]()
-__webpack_require__(54)(IteratorPrototype, __webpack_require__(29)('iterator'), function () { return this; });
+__webpack_require__(53)(IteratorPrototype, __webpack_require__(29)('iterator'), function () { return this; });
 
 module.exports = function (Constructor, NAME, next) {
   Constructor.prototype = create(IteratorPrototype, { next: descriptor(1, next) });
@@ -7346,7 +7346,7 @@ module.exports = function (iterator, fn, value, entries) {
 /***/ (function(module, exports, __webpack_require__) {
 
 // check on default Array iterator
-var Iterators = __webpack_require__(55);
+var Iterators = __webpack_require__(54);
 var ITERATOR = __webpack_require__(29)('iterator');
 var ArrayProto = Array.prototype;
 
@@ -7589,7 +7589,7 @@ module.exports = apply;
 
 var constant = __webpack_require__(398),
     defineProperty = __webpack_require__(205),
-    identity = __webpack_require__(52);
+    identity = __webpack_require__(51);
 
 /**
  * The base implementation of `setToString` without support for hot loop shorting.
@@ -7694,7 +7694,7 @@ module.exports = shortOut;
 
 var addToUnscopables = __webpack_require__(401);
 var step = __webpack_require__(402);
-var Iterators = __webpack_require__(55);
+var Iterators = __webpack_require__(54);
 var toIObject = __webpack_require__(59);
 
 // 22.1.3.4 Array.prototype.entries()
@@ -7973,7 +7973,7 @@ module.exports = baseDifference;
 /* 454 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var identity = __webpack_require__(52),
+var identity = __webpack_require__(51),
     overRest = __webpack_require__(353),
     setToString = __webpack_require__(354);
 
@@ -8295,7 +8295,7 @@ $JSON && $export($export.S + $export.F * (!USE_NATIVE || $fails(function () {
 });
 
 // 19.4.3.4 Symbol.prototype[@@toPrimitive](hint)
-$Symbol[PROTOTYPE][TO_PRIMITIVE] || __webpack_require__(54)($Symbol[PROTOTYPE], TO_PRIMITIVE, $Symbol[PROTOTYPE].valueOf);
+$Symbol[PROTOTYPE][TO_PRIMITIVE] || __webpack_require__(53)($Symbol[PROTOTYPE], TO_PRIMITIVE, $Symbol[PROTOTYPE].valueOf);
 // 19.4.3.5 Symbol.prototype[@@toStringTag]
 setToStringTag($Symbol, 'Symbol');
 // 20.2.1.9 Math[@@toStringTag]

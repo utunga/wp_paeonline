@@ -453,11 +453,11 @@ class QuadMenu_Settings extends QuadMenu_Configuration {
       QuadMenu::send_json_error(esc_html__('Please reload page.', 'quadmenu'));
     }
 
-    $panel = sanitize_text_field($_GET['menu_item_panel']);
+    $panel = sanitize_text_field($_REQUEST['menu_item_panel']);
 
-    $menu_item_id = absint($_GET['menu_item_id']);
+    $menu_item_id = absint($_REQUEST['menu_item_id']);
 
-    $menu_id = absint($_GET['menu_id']);
+    $menu_id = absint($_REQUEST['menu_id']);
 
     if (ob_get_contents())
       ob_clean();

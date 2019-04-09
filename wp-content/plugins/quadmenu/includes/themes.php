@@ -114,9 +114,9 @@ class Quadmenu_Themes {
 
     global $quadmenu_themes;
 
-    if (!empty($_GET['current_theme'])) {
+    if (!empty($_REQUEST['current_theme'])) {
 
-      $key = sanitize_text_field($_GET['current_theme']);
+      $key = sanitize_text_field($_REQUEST['current_theme']);
 
       $saved_themes = get_option(QUADMENU_THEMES, array());
 
@@ -141,15 +141,15 @@ class Quadmenu_Themes {
 
   function themes_delete() {
 
-    if (!empty($_GET['data']) && wp_verify_nonce($_GET['nonce'], 'redux_ajax_nonce' . QUADMENU_OPTIONS)) {
+    if (!empty($_REQUEST['data']) && wp_verify_nonce($_REQUEST['nonce'], 'redux_ajax_nonce' . QUADMENU_OPTIONS)) {
 
       $redux = ReduxFrameworkInstances::get_instance(QUADMENU_OPTIONS);
 
       $values = array();
 
-      $_GET['data'] = stripslashes($_GET['data']);
+      $_REQUEST['data'] = stripslashes($_REQUEST['data']);
 
-      $values = $redux->redux_parse_str($_GET['data']);
+      $values = $redux->redux_parse_str($_REQUEST['data']);
 
       $values = $values[QUADMENU_OPTIONS];
 

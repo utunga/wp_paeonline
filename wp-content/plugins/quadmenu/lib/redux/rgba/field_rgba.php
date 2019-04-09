@@ -47,8 +47,6 @@ if (!class_exists('ReduxFramework_rgba')) {
 
     public function enqueue() {
 
-      
-      //wp_deregister_script('astra-color-alpha');
       wp_enqueue_style('wp-color-picker');
 
       wp_register_script('wp-color-picker-alpha', $this->_extension_url . 'wp-color-picker-alpha' . Redux_Functions::isMin() . '.js', array('jquery', 'wp-color-picker'));

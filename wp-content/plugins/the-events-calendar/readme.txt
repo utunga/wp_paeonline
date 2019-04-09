@@ -4,9 +4,9 @@ Contributors: ModernTribe, borkweb, barry.hughes, bordoni, brianjessee, aguseo, 
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: http://m.tri.be/29
 Requires at least: 4.7
-Stable tag: 4.8.0.1
-Tested up to: 5.0.3
-Requires PHP: 5.2.4
+Stable tag: 4.8.2
+Tested up to: 5.1
+Requires PHP: 5.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -215,6 +215,25 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 
 == Changelog ==
 
+= [4.8.2] 2019-03-04 =
+
+* Fix - Resolve console warnings around React key usage for Blocks Editor [121198]
+* Fix - Improve our `tribe_paged` sanitization, preventing themes to print the variable without and causing XSS security issues [123616]
+* Fix - Change ordering for Eventbrite Tickets on Event Aggregator, Ascending order by date is now the default [121979]
+* Tweak - Day light savings notice will now reset 4 times per year when using any UTC Timezone [123221]
+* Tweak - Start date for Event Aggregator is now required on Eventbrite Tickets [121979]
+* Language - 3 new strings added, 172 updated, 0 fuzzied, and 1 obsoleted
+
+= [4.8.1] 2019-02-14 =
+
+* Feature - Introduced new "(do not override)" default post status for Eventbrite imports in Event Aggregator. This preserves events' original statuses from Eventbrite.com upon import (e.g., "draft" events will not be automatically set to "publish" upon import) [112346]
+* Fix - Make sure the setting for "Default mobile view" is respected. Thanks to Kathleen, Tim and others for reporting this! [119271]
+* Fix - Apply block closer to price block [120108]
+* Tweak - Added new filter `tribe_aggregator_new_event_post_status_before_import` to allow for custom handling of an event's post status before EA an import is completed [112648]
+* Tweak - Added filters: `tribe_events_admin_js_ajax_url_data`
+* Tweak - Unload Image Widget Plus version 1.0.2 or older to Prevent it from creating fatals on The Events Calendar
+* Language - 2 new strings added, 150 updated, 1 fuzzied, and 0 obsoleted
+
 = [4.8.0.1] 2019-02-07 =
 
 * Fix - Modify extension dependency checking with new system to determine if it can load [122368]
@@ -243,6 +262,7 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 * Fix - Layout bugs with the new Twenty Nineteen core theme [119689]
 * Fix - Include UTC dates meta on the event creation from the block editor [120399]
 * Tweak - Ensure we don't re-apply `wpautop()` to content that has had it removed [120562]
+* Tweak - Added `tribe_events_admin_js_ajax_url_data` filter to make filtering the JS vars of TEC's admin JS easier [116973]
 * Tweak - Adjusted content in the admin welcome page that users are brought to upon newly activating The Events Calendar [117795]
 * Tweak - Changed views: `blocks/event-tags`
 * Language - 3 new strings added, 21 updated, 1 fuzzied, and 5 obsoleted

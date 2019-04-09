@@ -176,9 +176,9 @@ class QuadMenu_Ajax extends QuadMenu_Settings {
     QuadMenu::send_json_error(esc_html__('Please reload page.', 'quadmenu'));
     }
 
-    $menu_id = absint($_GET['menu_id']);
+    $menu_id = absint($_REQUEST['menu_id']);
 
-    $key = sanitize_text_field($_GET['current_theme']);
+    $key = sanitize_text_field($_REQUEST['current_theme']);
 
     if ($menu_id > 0 && is_nav_menu($menu_id)) {
 
@@ -186,7 +186,7 @@ class QuadMenu_Ajax extends QuadMenu_Settings {
 
     QuadMenu::send_json_error(json_encode($saved_themes));
 
-    if (add_term_meta($menu_id, QUADMENU_THEME_DB_KEY, array_merge((array) $saved_themes, (array) $_GET['quadmenu_themes']), true)) {
+    if (add_term_meta($menu_id, QUADMENU_THEME_DB_KEY, array_merge((array) $saved_themes, (array) $_REQUEST['quadmenu_themes']), true)) {
     QuadMenu::send_json_success();
     } else {
     QuadMenu::send_json_error(sprintf(esc_html__('Failed to add theme', 'quadmenu')));
@@ -202,7 +202,7 @@ class QuadMenu_Ajax extends QuadMenu_Settings {
       QuadMenu::send_json_error(esc_html__('Please reload page.', 'quadmenu'));
     }
 
-    if (empty($_GET['menu-item'])) {
+    if (empty($_REQUEST['menu-item'])) {
       QuadMenu::send_json_error(esc_html__('Undefined menu-item var.', 'quadmenu'));
       wp_die();
     }
@@ -214,11 +214,11 @@ class QuadMenu_Ajax extends QuadMenu_Settings {
 
     $menu_items_data = array();
 
-    foreach ((array) $_GET['menu-item'] as $menu_item_data) {
+    foreach ((array) $_REQUEST['menu-item'] as $menu_item_data) {
       $menu_items_data[] = $menu_item_data;
     }
 
-    $menu_id = absint($_GET['menu_id']);
+    $menu_id = absint($_REQUEST['menu_id']);
 
     $item_ids = $this->ajax_create_nav_menu_items($menu_id, $menu_items_data);
 
@@ -341,9 +341,9 @@ class QuadMenu_Ajax extends QuadMenu_Settings {
       QuadMenu::send_json_error(esc_html__('Please reload page.', 'quadmenu'));
     }
 
-    $menu_id = absint($_GET['menu_id']);
+    $menu_id = absint($_REQUEST['menu_id']);
 
-    $menu_item_id = absint($_GET['menu_item_id']);
+    $menu_item_id = absint($_REQUEST['menu_item_id']);
 
     $deleted = $this->delete_children_nav_menu_items($menu_id, $menu_item_id);
 
@@ -388,13 +388,13 @@ class QuadMenu_Ajax extends QuadMenu_Settings {
       QuadMenu::send_json_error(esc_html__('Please reload page.', 'quadmenu'));
     }
 
-    $menu_id = absint($_GET['menu_id']);
+    $menu_id = absint($_REQUEST['menu_id']);
 
-    if (isset($_GET['menu-item']) && is_array($_GET['menu-item'])) {
+    if (isset($_REQUEST['menu-item']) && is_array($_REQUEST['menu-item'])) {
 
       $updated = array();
 
-      foreach ($_GET['menu-item'] as $menu_item_id => $menu_item_data) {
+      foreach ($_REQUEST['menu-item'] as $menu_item_id => $menu_item_data) {
 
         $menu_item_parent_id = absint($menu_item_data['menu-item-parent-id']);
 
@@ -424,11 +424,11 @@ class QuadMenu_Ajax extends QuadMenu_Settings {
       QuadMenu::send_json_error(esc_html__('Please reload page.', 'quadmenu'));
     }
 
-    $menu_id = absint($_GET['menu_id']);
+    $menu_id = absint($_REQUEST['menu_id']);
 
-    $menu_item_id = absint($_GET['menu_item_id']);
+    $menu_item_id = absint($_REQUEST['menu_item_id']);
 
-    $menu_item_depth = absint($_GET['menu_item_depth']);
+    $menu_item_depth = absint($_REQUEST['menu_item_depth']);
 
     $menu_obj = QuadMenu::wp_setup_nav_menu_item($menu_item_id);
 
@@ -464,55 +464,55 @@ class QuadMenu_Ajax extends QuadMenu_Settings {
       QuadMenu::send_json_error(esc_html__('Please reload page.', 'quadmenu'));
     }
 
-    if ($menu_item_id = absint($_GET['menu_item_id'])) {
+    if ($menu_item_id = absint($_REQUEST['menu_item_id'])) {
       wp_cache_delete("wp_setup_nav_menu_item_{$menu_item_id}", 'quadmenu');
     }
 
-    $menu_id = absint($_GET['menu_id']);
+    $menu_id = absint($_REQUEST['menu_id']);
 
     if ($menu_item_id > 0) {
 
-      if (isset($_GET['menu-item-quadmenu-settings']) && is_array($_GET['menu-item-quadmenu-settings'])) {
+      if (isset($_REQUEST['menu-item-quadmenu-settings']) && is_array($_REQUEST['menu-item-quadmenu-settings'])) {
 
         $saved_settings = array_filter((array) get_post_meta($menu_item_id, QUADMENU_DB_KEY, true));
 
-        if (is_array($saved_settings) && $updated_settings = array_merge($saved_settings, $_GET['menu-item-quadmenu-settings'])) {
+        if (is_array($saved_settings) && $updated_settings = array_merge($saved_settings, $_REQUEST['menu-item-quadmenu-settings'])) {
           update_post_meta($menu_item_id, QUADMENU_DB_KEY, $updated_settings);
         }
       }
 
-      if (isset($_GET['menu-item-url'])) {
-        update_post_meta($menu_item_id, '_menu_item_url', esc_url_raw($_GET['menu-item-url']));
+      if (isset($_REQUEST['menu-item-url'])) {
+        update_post_meta($menu_item_id, '_menu_item_url', esc_url_raw($_REQUEST['menu-item-url']));
       }
-      if (isset($_GET['menu-item-parent-id'])) {
-        update_post_meta($menu_item_id, '_menu_item_menu_item_parent', strval((int) $_GET['menu-item-parent-id']));
+      if (isset($_REQUEST['menu-item-parent-id'])) {
+        update_post_meta($menu_item_id, '_menu_item_menu_item_parent', strval((int) $_REQUEST['menu-item-parent-id']));
       }
-      if (isset($_GET['menu-item-target'])) {
-        update_post_meta($menu_item_id, '_menu_item_target', sanitize_key($_GET['menu-item-target']));
+      if (isset($_REQUEST['menu-item-target'])) {
+        update_post_meta($menu_item_id, '_menu_item_target', sanitize_key($_REQUEST['menu-item-target']));
       }
-      if (isset($_GET['menu-item-classes'])) {
-        $_GET['menu-item-classes'] = array_map('sanitize_html_class', explode(' ', $_GET['menu-item-classes']));
-        update_post_meta($menu_item_id, '_menu_item_classes', $_GET['menu-item-classes']);
+      if (isset($_REQUEST['menu-item-classes'])) {
+        $_REQUEST['menu-item-classes'] = array_map('sanitize_html_class', explode(' ', $_REQUEST['menu-item-classes']));
+        update_post_meta($menu_item_id, '_menu_item_classes', $_REQUEST['menu-item-classes']);
       }
-      if (isset($_GET['menu-item-xfn'])) {
-        $_GET['menu-item-xfn'] = join(' ', array_map('sanitize_html_class', explode(' ', $_GET['menu-item-xfn'])));
-        update_post_meta($menu_item_id, '_menu_item_xfn', $_GET['menu-item-xfn']);
+      if (isset($_REQUEST['menu-item-xfn'])) {
+        $_REQUEST['menu-item-xfn'] = join(' ', array_map('sanitize_html_class', explode(' ', $_REQUEST['menu-item-xfn'])));
+        update_post_meta($menu_item_id, '_menu_item_xfn', $_REQUEST['menu-item-xfn']);
       }
 
-      if (isset($_GET['menu-item-title']) || isset($_GET['menu-item-attr-title']) || isset($_GET['menu-item-description'])) {
+      if (isset($_REQUEST['menu-item-title']) || isset($_REQUEST['menu-item-attr-title']) || isset($_REQUEST['menu-item-description'])) {
 
         $post = array(
             'ID' => $menu_item_id,
         );
 
-        if (isset($_GET['menu-item-title'])) {
-          $post['post_title'] = apply_filters('the_title', $_GET['menu-item-title']);
+        if (isset($_REQUEST['menu-item-title'])) {
+          $post['post_title'] = apply_filters('the_title', $_REQUEST['menu-item-title']);
         }
-        if (isset($_GET['menu-item-attr-title'])) {
-          $post['post_excerpt'] = wp_kses_post($_GET['menu-item-attr-title']);
+        if (isset($_REQUEST['menu-item-attr-title'])) {
+          $post['post_excerpt'] = wp_kses_post($_REQUEST['menu-item-attr-title']);
         }
-        if (isset($_GET['menu-item-description'])) {
-          $post['post_content'] = wp_kses_post($_GET['menu-item-description']);
+        if (isset($_REQUEST['menu-item-description'])) {
+          $post['post_content'] = wp_kses_post($_REQUEST['menu-item-description']);
         }
 
         //'post_type' => 'nav_menu_item',

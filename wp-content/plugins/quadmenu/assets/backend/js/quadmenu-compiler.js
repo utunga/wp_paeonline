@@ -127,7 +127,7 @@
   $(document).on('quadmenu_compiler_save', function (e, output, id) {
 
     $.ajax({
-      type: 'post',
+      type: 'POST',
       dataType: 'json',
       url: ajaxurl,
       data: {

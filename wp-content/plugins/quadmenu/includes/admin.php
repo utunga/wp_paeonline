@@ -7,9 +7,13 @@ class QuadMenu_Admin {
 
   public function __construct() {
 
+    add_action('wp_ajax_quadmenu_dismiss_notice', array($this, 'ajax_dismiss_notice'));
+
     add_action('admin_enqueue_scripts', array($this, 'register'), -1);
 
     add_action('admin_notices', array($this, 'notices'));
+
+    add_action('admin_notices', array($this, 'add_rating_notice'));
 
     add_action('admin_footer', array($this, 'icons'));
 
@@ -92,6 +96,67 @@ class QuadMenu_Admin {
     );
 
     update_option('quadmenu_admin_notices', $notices);
+  }
+
+  function ajax_dismiss_notice() {
+
+    if ($notice_id = ( isset($_POST['notice_id']) ) ? sanitize_key($_POST['notice_id']) : '') {
+
+      update_user_meta(get_current_user_id(), $notice_id, true);
+
+      wp_send_json($notice_id);
+    }
+
+    wp_die();
+  }
+
+  function add_rating_notice() {
+
+    if (!get_transient('_quadmenu_first_rating') && !get_user_meta(get_current_user_id(), 'quadmenu-user-rating', true)) {
+      ?>
+      <div id="quadmenu-admin-rating" class="quadmenu-notice notice is-dismissible" data-notice_id="quadmenu-user-rating">
+        <div class="notice-container" style="padding-top: 10px; padding-bottom: 10px; display: flex; justify-content: left; align-items: center;">
+          <div class="notice-image">
+            <img style="border-radius:50%;max-width: 90px;" src="<?php echo QUADMENU_URL_ASSETS; ?>backend/images/logo.jpg" alt="<?php echo esc_html(QUADMENU_NAME); ?>>">
+          </div>
+          <div class="notice-content" style="margin-left: 15px;">
+            <p>
+              <?php printf(esc_html__('Hello! Thank you for choosing the %s plugin!', 'quadmenu'), QUADMENU_NAME); ?>
+              <br/>
+              <?php esc_html_e('Could you please give it a 5-star rating on WordPress? We know its a big favor, but we\'ve worked very much and very hard to release this great product and this will boost our motivation and help us promote and continue to improving this product.', 'quadmenu'); ?>
+            </p>
+            <a href="<?php echo esc_url(QUADMENU_REVIEW); ?>" class="button-primary" target="_blank">
+              <?php esc_html_e('Yes, of course!', 'quadmenu'); ?>
+            </a>
+            <a href="<?php echo esc_url(QUADMENU_SUPPORT); ?>" class="button-secondary" target="_blank">
+              <?php esc_html_e('Report a bug', 'quadmenu'); ?>
+            </a>
+          </div>				
+        </div>
+      </div>
+      <script>
+        (function ($) {
+          $('.quadmenu-notice').on('click', '.notice-dismiss', function (e) {
+            e.preventDefault();
+
+            var notice_id = $(e.delegateTarget).data('notice_id');
+
+            $.ajax({
+              type: 'POST',
+              url: ajaxurl,
+              data: {
+                notice_id: notice_id,
+                action: 'quadmenu_dismiss_notice',
+              },
+              success: function (response) {
+                console.log(response);
+              },
+            });
+          });
+        })(jQuery);
+      </script>
+      <?php
+    }
   }
 
 }

@@ -32,7 +32,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
 
-		const VERSION             = '4.8.0.1';
+		const VERSION             = '4.8.2';
 
 		/**
 		 * Min Pro Addon
@@ -46,7 +46,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 *
 		 * @deprecated 4.8
 		 */
-		const MIN_COMMON_VERSION  = '4.9-dev';
+		const MIN_COMMON_VERSION  = '4.9.2-dev';
 
 		const WP_PLUGIN_URL       = 'https://wordpress.org/extend/plugins/the-events-calendar/';
 
@@ -316,6 +316,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			// let's initialize tec
 			add_action( 'plugins_loaded', array( $this, 'plugins_loaded' ), 0 );
 
+			// Prevents Image Widget Plus from been problematic
+			$this->compatibility_unload_iwplus_v102();
 		}
 
 		/**
@@ -583,6 +585,32 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			if ( ! defined( 'TRIBE_DISABLE_DEPRECATED_TAGS' ) ) {
 				require_once $this->plugin_path . 'src/functions/template-tags/deprecated.php';
 			}
+		}
+
+		/**
+		 * Prevents Image Widget Plus weird version of Tribe Common Lib to
+		 * conflict with The Events Calendar
+		 *
+		 * It will make IW+ not load on version 1.0.2
+		 *
+		 * @since   4.8.1
+		 *
+		 * @return  void
+		 */
+		private function compatibility_unload_iwplus_v102() {
+			if ( ! class_exists( 'Tribe__Image__Plus__Main' ) ) {
+				return;
+			}
+
+			if ( ! defined( 'Tribe__Image__Plus__Main::VERSION' ) ) {
+				return;
+			}
+
+			if ( ! version_compare( Tribe__Image__Plus__Main::VERSION, '1.0.2', '<=' ) ) {
+				return;
+			}
+
+			remove_action( 'plugins_loaded', array( Tribe__Image__Plus__Main::instance(), 'plugins_loaded' ), 0 );
 		}
 
 		/**

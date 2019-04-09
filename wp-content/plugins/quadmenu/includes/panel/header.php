@@ -20,7 +20,7 @@ if (is_array($welcome_menu_items)) {
           continue;
         ?>
         <a href="<?php echo admin_url('admin.php?page=' . $welcome_menu_item[2]); ?>" class="nav-tab <?php
-    if (isset($_GET['page']) and $_GET['page'] == $welcome_menu_item[2]) {
+    if (isset($_REQUEST['page']) and $_REQUEST['page'] == $welcome_menu_item[2]) {
       echo 'nav-tab-active';
     }
         ?> "><?php echo $welcome_menu_item[0] ?></a>

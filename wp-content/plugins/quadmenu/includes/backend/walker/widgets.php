@@ -220,8 +220,8 @@ class QuadMenu_Nav_Menu_Widgets extends QuadMenu_Settings {
       QuadMenu::send_json_error(esc_html__('Please reload page.', 'quadmenu'));
     }
 
-    $widget_id = sanitize_text_field($_GET['widget_id']);
-    $menu_item_id = absint($_GET['menu_item_id']);
+    $widget_id = sanitize_text_field($_REQUEST['widget_id']);
+    $menu_item_id = absint($_REQUEST['menu_item_id']);
 
     if (ob_get_contents())
       ob_clean();
@@ -316,9 +316,9 @@ class QuadMenu_Nav_Menu_Widgets extends QuadMenu_Settings {
       QuadMenu::send_json_error(esc_html__('Please reload page.', 'quadmenu'));
     }
 
-    $menu_item_id = absint($_POST['menu_item_id']);
+    $menu_item_id = absint($_REQUEST['menu_item_id']);
 
-    $id_base = sanitize_text_field($_POST['id_base']);
+    $id_base = sanitize_text_field($_REQUEST['id_base']);
 
     $saved = $this->save_widget($id_base);
 

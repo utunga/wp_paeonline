@@ -337,7 +337,6 @@
   display: inline-table;
   vertical-align: middle;
   width: 100%;
-  z-index: 1;
 }
 #quadmenu .quadmenu-navbar-nav li.quadmenu-item > a > .quadmenu-item-content > .quadmenu-icon {
   display: table-cell;
@@ -735,6 +734,7 @@
 #quadmenu .quadmenu-navbar-nav > li.quadmenu-item-type-login > .quadmenu-dropdown-menu .quadmenu-login-buttons .button {
   margin: 0;
   flex: auto;
+  white-space: nowrap;
 }
 #quadmenu .quadmenu-navbar-nav > li.quadmenu-item-type-login > .quadmenu-dropdown-menu .quadmenu-login-buttons .button:not(:only-child):first-child {
   margin-right: 5px;
@@ -937,6 +937,10 @@
 #quadmenu:not(.quadmenu-is-horizontal).quadmenu-mobile-shadow-show {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
 }
+#quadmenu:not(.quadmenu-is-horizontal) .quadmenu-navbar-nav li.quadmenu-item.closing,
+#quadmenu:not(.quadmenu-is-horizontal) .quadmenu-navbar-nav li.quadmenu-item.opening {
+  overflow: hidden;
+}
 #quadmenu:not(.quadmenu-is-horizontal) .quadmenu-navbar-nav li.quadmenu-item.closing > .quadmenu-dropdown-menu,
 #quadmenu:not(.quadmenu-is-horizontal) .quadmenu-navbar-nav li.quadmenu-item.opening > .quadmenu-dropdown-menu {
   display: block;
@@ -1011,6 +1015,10 @@ nav > #quadmenu.quadmenu-is-embed .quadmenu-container {
 #quadmenu.quadmenu-is-horizontal.quadmenu-sticky-top .quadmenu-navbar-collapse {
   padding-left: 0;
   padding-right: 0;
+}
+#quadmenu.quadmenu-is-horizontal .quadmenu-navbar-header {
+  z-index: 1;
+  position: relative;
 }
 #quadmenu.quadmenu-is-horizontal.quadmenu-align-left .quadmenu-navbar-header {
   float: right;
@@ -1382,6 +1390,12 @@ body.quadmenu-offcanvas-in {
 }
 #quadmenu:not(.quadmenu-is-horizontal).quadmenu-offcanvas-left > .quadmenu-navbar-toggle {
   left: 0;
+}
+#quadmenu:not(.quadmenu-is-horizontal).quadmenu-offcanvas-left .quadmenu-navbar-header .quadmenu-navbar-toggle {
+  float: left;
+}
+#quadmenu:not(.quadmenu-is-horizontal).quadmenu-offcanvas-left .quadmenu-navbar-header .quadmenu-navbar-brand {
+  float: right;
 }
 #quadmenu:not(.quadmenu-is-horizontal).quadmenu-offcanvas-left .navbar-offcanvas {
   transform: translateX(-100%);
