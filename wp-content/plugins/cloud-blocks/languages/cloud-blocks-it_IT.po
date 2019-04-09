@@ -1,0 +1,279 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Cloud Blocks\n"
+"POT-Creation-Date: 2019-01-02 10:06+0100\n"
+"PO-Revision-Date: 2019-01-02 10:08+0100\n"
+"Last-Translator: Gianluca Rosi <gluca.rosi28@gmail.com>\n"
+"Language-Team: \n"
+"Language: it_IT\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.2\n"
+"X-Poedit-Basepath: ..\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
+"X-Poedit-WPHeader: cloud-blocks.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;"
+"_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+
+#: core/Blocks/Explore.php:58
+msgid ""
+"The file you are trying to upload is not a supported file type. Please try "
+"again."
+msgstr ""
+"Il file che si sta tentando di caricare non è supportato tipo di file. Per "
+"favore riprova."
+
+#: core/Blocks/Explore.php:72
+#, php-format
+msgid ""
+"Your custom block <b>%s</b> installed successfully. You must activate it in "
+"local tab."
+msgstr ""
+"Blocco <b>%s</b> installato correttamente. Devi attivarlo nella scheda "
+"locale."
+
+#: core/Blocks/Explore.php:75
+msgid "There was a problem with the upload. Please try again."
+msgstr "Errore caricamento file. Riprovare."
+
+#: core/Blocks/Explore.php:112
+msgid "Upload block"
+msgstr "Carica blocco"
+
+#: core/Blocks/Explore.php:118
+msgid "If you have a custom Gutenberg block, you can upload it here."
+msgstr ""
+"Se si dispone di un blocco Gutenberg personalizzato, è possibile caricarlo "
+"qui."
+
+#: core/Blocks/Explore.php:120
+#, php-format
+msgid ""
+"If using Git, we recommend adjusting your .gitignore and commit your block "
+"in <b>%s</b>"
+msgstr ""
+"Se si utilizza Git, si consiglia di regolare il. gitignore e commit il "
+"blocco in <b> %s </b>"
+
+#: core/Blocks/Explore.php:122
+msgid "See documentation: Private blocks."
+msgstr "Vedere documentazione: blocchi privati."
+
+#: core/Blocks/Explore.php:127
+msgid "Zip file of block"
+msgstr "Carica blocco"
+
+#: core/Blocks/Explore.php:129
+msgid "Install now"
+msgstr "Installa ora"
+
+#: core/CloudBlocks.php:42
+msgid "Gutenberg is not enabled. Please try again after enabling."
+msgstr "Gutenberg non è abilitato. Riprovare dopo averlo attivato."
+
+#: core/Settings/Tools.php:72
+msgid "No file selected."
+msgstr "Nessun file selezionato."
+
+#: core/Settings/Tools.php:80
+msgid "Error uploading file. Please try again."
+msgstr "Errore caricamento file. Riprovare."
+
+#: core/Settings/Tools.php:86 core/Settings/Tools.php:112
+msgid "Incorrect file type"
+msgstr "Tipo di file sbagliato"
+
+#: core/Settings/Tools.php:98
+msgid "Empty file imported"
+msgstr "File importato vuoto"
+
+#: core/Settings/Tools.php:106
+#, php-format
+msgid "Block <b>%s</b> already installed."
+msgstr "Blocco <b>%s</b> già installato."
+
+#: core/Settings/Tools.php:109
+#, php-format
+msgid "Block <b>%s</b> installed successfully."
+msgstr "Blocco <b>%s</b> installato correttamente."
+
+#: core/Settings/Tools.php:194
+msgid "Tools"
+msgstr "Strumenti"
+
+#: core/Settings/Tools.php:208
+msgid "Gutenberg cloud configurations"
+msgstr "Configurazioni Gutenberg cloud"
+
+#: core/Settings/Tools.php:219
+msgid "Export installed blocks"
+msgstr "Esporta blocchi installati"
+
+#: core/Settings/Tools.php:222
+msgid ""
+"Export all your installed blocks from Gutenberg Cloud as JSON. Note: The "
+"content will not be exported."
+msgstr ""
+"Qui puoi esportare tutti i blocchi personalizzati installati da Gutenberg "
+"Cloud come file json, quindi importarli da qualsiasi altra parte."
+
+#: core/Settings/Tools.php:224
+msgid "Export file"
+msgstr "Esporta file"
+
+#: core/Settings/Tools.php:233
+msgid "Import custom blocks"
+msgstr "Importa blocchi personali"
+
+#: core/Settings/Tools.php:236
+msgid "Choose the JSON file you want to import."
+msgstr "Scegli il file JSON da importare."
+
+#: core/Settings/Tools.php:240
+msgid "Choose the file"
+msgstr "Scegli il file"
+
+#: core/Settings/Tools.php:251
+msgid "Import file"
+msgstr "Importa file"
+
+#: core/Settings/Translations.php:18
+msgid "Block"
+msgstr "Blocco"
+
+#: core/Settings/Translations.php:19
+msgid "The block"
+msgstr "Il blocco"
+
+#: core/Settings/Translations.php:20
+msgid "Delete"
+msgstr "Cancella"
+
+#: core/Settings/Translations.php:21
+msgid "Delete block"
+msgstr "Elimina blocco"
+
+#: core/Settings/Translations.php:22
+msgid "Install"
+msgstr "Installato"
+
+#: core/Settings/Translations.php:23
+msgid "Uninstall"
+msgstr "Disinstalla"
+
+#: core/Settings/Translations.php:24
+msgid "Local"
+msgstr "Locale"
+
+#: core/Settings/Translations.php:25
+msgid "Local block"
+msgstr "Blocco locale"
+
+#: core/Settings/Translations.php:26
+msgid "By"
+msgstr "Di"
+
+#: core/Settings/Translations.php:27
+msgid "Tags"
+msgstr "Tags"
+
+#: core/Settings/Translations.php:28
+msgid "Installed"
+msgstr "Installato"
+
+#: core/Settings/Translations.php:29
+msgid "Popular"
+msgstr "Popolare"
+
+#: core/Settings/Translations.php:30
+msgid "Latest"
+msgstr "Più recente"
+
+#: core/Settings/Translations.php:31
+msgid "Most used"
+msgstr "Più usato"
+
+#: core/Settings/Translations.php:32
+msgid "Search for blocks"
+msgstr "Cerca blocchi"
+
+#: core/Settings/Translations.php:33
+msgid "Search blocks..."
+msgstr "Cerca blocchi..."
+
+#: core/Settings/Translations.php:34
+msgid "Filter"
+msgstr "Filtra"
+
+#: core/Settings/Translations.php:35
+msgid "Update now"
+msgstr "Aggiorna ora"
+
+#: core/Settings/Translations.php:36
+msgid "Show more details"
+msgstr "Mostra più dettagli"
+
+#: core/Settings/Translations.php:37
+msgid "More details"
+msgstr "Più dettagli"
+
+#: core/Settings/Translations.php:38
+msgid "have been installed successfully."
+msgstr "è stato installato correttamente."
+
+#: core/Settings/Translations.php:39
+msgid "have been uninstalled successfully."
+msgstr "è stato disinstallato correttamente."
+
+#: core/Settings/Translations.php:40
+msgid "have been deleted successfully."
+msgstr "sono stati eliminati con successo."
+
+#: core/Settings/Translations.php:41
+msgid "have been updated successfully."
+msgstr "è stato aggiornato correttamente."
+
+#: core/Settings/Translations.php:42
+msgid "New version available."
+msgstr "Nuova versione disponibile."
+
+#: core/Settings/Translations.php:43
+msgid "Version"
+msgstr "Versione"
+
+#: core/Settings/Translations.php:44
+msgid "Visit homepage"
+msgstr "Visita la homepage"
+
+#: core/Settings/Translations.php:45
+msgid "Homepage"
+msgstr "Homepage"
+
+#: vendor/foadyousefi/seven-fields/src/Container/Container.php:196
+msgid "Actions"
+msgstr "Azioni"
+
+#. Plugin Name of the plugin/theme
+msgid "Cloud Blocks"
+msgstr "Cloud Blocks"
+
+#. Description of the plugin/theme
+msgid "Your library of Gutenberg blocks in the cloud"
+msgstr "La tua libreria di Gutenberg blocks nel cloud"
+
+#. Author of the plugin/theme
+msgid "Frontkom"
+msgstr "Frontkom"
+
+#. Author URI of the plugin/theme
+msgid "https://frontkom.no"
+msgstr "https://frontkom.no"
+
+#~ msgid "Blocks zip file"
+#~ msgstr "Blocca il file zip"
