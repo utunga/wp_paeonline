@@ -85,8 +85,9 @@ class EverythingDirectory_A_to_Z_Widget extends WP_Widget {
                 filterChildSelector: '.directory-item-container',
                 filter: function (el, val) {
                     var title = $(el).find(".title").text();
-                    var tags = $(el).find(".tag").text();
-                    return (title + " " + tags).toUpperCase().indexOf(val.toUpperCase()) >= 0;
+                    var cats = $(el).find(".entry-categories").text();
+                    //var description = $(el).find(".short-description").text();
+                    return (title + " " + cats).toUpperCase().indexOf(val.toUpperCase()) >= 0;
                 },
                 after: function (contains, containsNot) {
                     if (containsNot.length) {

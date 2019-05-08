@@ -70,7 +70,7 @@
 
         <?php if ($has_description_row) { ?>
         <div class="directory-row">
-            <div>
+            <div class="short-description">
                 <?php echo $short_description ?>
             </div>
         </div>
