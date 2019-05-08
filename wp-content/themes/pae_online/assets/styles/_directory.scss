@@ -153,16 +153,19 @@
 		flex-flow: row nowrap;
 	}
 
-	@include media("<=sm") {
-		.more-button-row {
-			.categories {
-				width: 70%;
-			}
+	
+	.more-button-row {
+		.categories {
+			width: 70%;
+		}
+		.more-button {
+			max-height: 1.7em;
+		}
+		@include media("<=sm") {
 			.more-button {
 				max-height: 21px;
 			}
 		}
-		
 	}
 
 	.directory-logo {
