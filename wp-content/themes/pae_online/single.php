@@ -41,6 +41,13 @@ function pae_online_post_header() {
     echo "</div>";
 }
 
+add_filter( 'genesis_post_meta', 'sp_post_meta_filter' );
+function sp_post_meta_filter($post_meta) {
+    if ( !is_page() ) {
+        $post_meta = genesis_post_categories_shortcode(array('before' => 'Filed under: '));
+    return $post_meta;
+}}
+
 // Run Genesis.
 genesis();
 

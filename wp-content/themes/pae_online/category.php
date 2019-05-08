@@ -40,6 +40,7 @@ function pae_onlinedequeue_skip_links() {
 
 ////move post info to end and only include date
 remove_action( 'genesis_entry_header', 'genesis_post_info', 12 );
+remove_action( 'genesis_loop_else', 'genesis_do_noposts' );
 
 //// switch out header for custom header
 remove_action( 'genesis_before_content_sidebar_wrap', 'pae_onlinepage_header' );

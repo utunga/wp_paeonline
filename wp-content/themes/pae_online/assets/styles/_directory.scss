@@ -136,6 +136,10 @@
 
 	.a_to_z_listings {
 		background-color: $white;
+
+		.directory-item-container:first-child {
+			border-top: solid 1px $accent;
+		}
 	}
 }
 
@@ -156,9 +160,7 @@
 	border-bottom: solid 1px $accent;
 }
 
-.directory-item-container:first-child {
-	border-top: solid 1px $accent;
-}
+
 
 .directory-item-container.supporter {
 	background: $featured_bg;
@@ -243,8 +245,8 @@
 
 			img.sponsor-thumb-size {
 				vertical-align: top;
-				width: 240px !important;
-				height: 220px !important;
+				max-width: 240px !important;
+				max-height: 220px !important;
 			}
 
 			.sponsor-thumb-mobile-size {
@@ -385,8 +387,6 @@
 
 	.a_to_z_jumplinks {
 		width: 100%;
-		margin-top: 1rem;
-		margin-bottom: 4rem;
 	}
 
 	.a_to_z_searchbar {

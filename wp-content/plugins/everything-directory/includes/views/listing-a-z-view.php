@@ -80,7 +80,7 @@
         <div class="directory-row taxonomy more-button-row">
             <div>
                 <?php
-                    echo the_post_tags($listing);
+                    echo genesis_post_categories_shortcode($listing, array('before' => '')); 
                 ?>
             </div>
             <?php 
@@ -99,13 +99,19 @@
 
     </div>
 
-    <?php if (!empty($logo)) { ?>
+    <?php if (!empty($logo)) { 
+
+        //var_dump($logo);
+
+        $sponsor_size = wp_get_attachment_image($logo, 'sponsor-thumb-size', '', ["class" => "sponsor-thumb-size"]);
+        $sponsor_mobile_size = wp_get_attachment_image($logo, 'sponsor-thumb-mobile-size', '', ["class" => "sponsor-thumb-mobile-size"]);
+        ?>
     <div class="directory-logo">
         <?php if (!empty($main_link)) { ?>
             <a href="<?php echo $main_link?>">
         <?php } ?>
-        <img class="sponsor-thumb-size" src="<?php echo $logo['sizes']['sponsor-thumb-size']; ?>" alt="<?php echo $logo['alt']; ?>" />
-        <img class="sponsor-thumb-mobile-size" src="<?php echo $logo['sizes']['sponsor-thumb-mobile-size']; ?>" alt="<?php echo $logo['alt']; ?>" />
+        <?php echo $sponsor_size ?>
+        <?php echo $sponsor_mobile_size ?>
         <?php if (!empty($main_link)) { ?>
             </a>
         <?php } ?>   

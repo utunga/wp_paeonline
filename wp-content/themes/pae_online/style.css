@@ -2412,6 +2412,15 @@ h6 {
 	margin: 0 0 0.618em;
 }
 
+.content h1,
+.content h2,
+.content h3,
+.content h4,
+.content h5,
+.content h6 {
+	margin: 1em 0 1em 0;
+}
+
 h1 {
 	font-size: 2em;
 }
@@ -4647,6 +4656,10 @@ p.entry-meta {
 	background-color: #ffffff;
 }
 
+.a_to_z_section .a_to_z_listings .directory-item-container:first-child {
+	border-top: solid 1px #61b5b5;
+}
+
 .directory-item-container {
 	display: -ms-flexbox;
 	display: flex;
@@ -4658,10 +4671,6 @@ p.entry-meta {
 .directory-item-container .directory-logo {
 	display: none;
 	/* not that this happens anyway */
-}
-
-.directory-item-container:first-child {
-	border-top: solid 1px #61b5b5;
 }
 
 .directory-item-container.supporter {
@@ -4785,10 +4794,6 @@ p.entry-meta {
 
 #a_to_z_widget .a_to_z_jumplinks {
 	width: 100%;
-	margin-top: 10px;
-	margin-top: 1rem;
-	margin-bottom: 40px;
-	margin-bottom: 4rem;
 }
 
 #a_to_z_widget .a_to_z_searchbar .wrap {
@@ -6144,8 +6149,8 @@ p.entry-meta {
 	}
 	.directory-item-container.supporter .directory-logo img.sponsor-thumb-size {
 		vertical-align: top;
-		width: 240px !important;
-		height: 220px !important;
+		max-width: 240px !important;
+		max-height: 220px !important;
 	}
 	.directory-item-container.supporter .directory-logo .sponsor-thumb-mobile-size {
 		display: none;

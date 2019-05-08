@@ -134,7 +134,7 @@ function initializeMenuOverrides($, menuSelector, menuContent) {
 			// assume that menus are set to the desktop label by default
 			return (item.desktop_label.match(new RegExp( current_label, "i")));
 		});
-		console.log("Found in menu overrides ", matched);
+		//console.log("Found in menu overrides ", matched);
 		if (matched) {
 			var this_menu_id = $(this).attr('id');
 			matched.menu_item_id = this_menu_id;
