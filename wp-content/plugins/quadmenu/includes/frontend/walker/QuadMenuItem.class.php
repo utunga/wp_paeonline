@@ -142,12 +142,12 @@ abstract class QuadMenuItem {
   function add_item_classes_current() {
 
     if ($this->args->layout_current) {
-
-      $parent = (bool) array_search('current-menu-parent', $this->item->classes);
-
-      $current = (bool) array_search('current-menu-item', $this->item->classes);
-
-      if ($parent || $current) {
+      //$parent = (bool) array_search('current-menu-parent', $this->item->classes);
+      //$current = (bool) array_search('current-menu-item', $this->item->classes);
+      //if ($parent || $current) {
+      //  $this->item_classes[] = 'open';
+      //}
+      if (count(array_intersect(array('current-menu-ancestor'), $this->item->classes))) {
         $this->item_classes[] = 'open';
       }
     }
@@ -315,7 +315,7 @@ abstract class QuadMenuItem {
     <?php echo $this->args->before; ?>
     <a <?php echo $this->get_link_attr(); ?>>
       <span class="quadmenu-item-content">
-    <?php echo $this->args->link_before; ?>
+        <?php echo $this->args->link_before; ?>
         <?php echo $this->get_thumbnail(); ?>
         <?php echo $this->get_caret(); ?>
         <?php echo $this->get_icon(); ?>
@@ -335,7 +335,7 @@ abstract class QuadMenuItem {
     if ($this->args->has_caret) {
       ob_start();
       ?>
-      <span class="quadmenu-caret<?php //echo join(' ', array_map('sanitize_html_class', (array) $this->args->navbar_animation_caret));            ?>"></span>
+      <span class="quadmenu-caret<?php //echo join(' ', array_map('sanitize_html_class', (array) $this->args->navbar_animation_caret));              ?>"></span>
       <?php
       return ob_get_clean();
     }
@@ -435,15 +435,15 @@ abstract class QuadMenuItem {
     ob_start();
     ?>
     <div id="dropdown-<?php echo esc_attr($this->item->ID); ?>" class="<?php echo join(' ', array_map('sanitize_html_class', $this->dropdown_classes)); ?>">
-    <?php echo $this->add_dropdown_background(); ?>
+      <?php echo $this->add_dropdown_background(); ?>
       <ul<?php echo $this->get_dropdown_ul_style(); ?><?php echo $this->get_dropdown_ul_classes(); ?><?php echo $this->get_dropdown_ul_data(); ?>>
-      <?php
-      return ob_get_clean();
-    }
+        <?php
+        return ob_get_clean();
+      }
 
-    function get_dropdown_wrap_end() {
-      ob_start();
-      ?>
+      function get_dropdown_wrap_end() {
+        ob_start();
+        ?>
       </ul>
     </div>
     <?php

@@ -603,40 +603,34 @@ if ( class_exists( 'Tribe__Events__Pro__Main' ) ) {
 	 * @return array the related posts.
 	 */
 	function tribe_get_related_posts( $count = 3, $post = false ) {
-		$post_id    = Tribe__Events__Main::postIdHelper( $post );
-		$tags       = wp_get_post_tags( $post_id, array( 'fields' => 'ids' ) );
-		$categories = wp_get_object_terms( $post_id, Tribe__Events__Main::TAXONOMY, array( 'fields' => 'ids' ) );
-		if ( ! $tags && ! $categories ) {
-			return;
-		}
-		$args = array(
+		$post_id = Tribe__Events__Main::postIdHelper( $post );
+
+		$args = [
 			'posts_per_page' => $count,
-			'post__not_in'   => array( $post_id ),
-			'eventDisplay'   => 'list',
-			'tax_query'      => array( 'relation' => 'OR' ),
-			'meta_key'       => '_EventStartDate',
-			'orderby'        => 'meta_value',
-		);
-		if ( $tags ) {
-			$args['tax_query'][] = array( 'taxonomy' => 'post_tag', 'field' => 'id', 'terms' => $tags );
-		}
-		if ( $categories ) {
-			$args['tax_query'][] = array(
-				'taxonomy' => Tribe__Events__Main::TAXONOMY,
-				'field'    => 'id',
-				'terms'    => $categories,
-			);
+			'start_date' => 'now',
+		];
+		$posts = [];
+
+		$orm_args = tribe_events()->filter_by_related_to( $post_id );
+
+		if ( $orm_args ) {
+			$args = array_merge( $args, $orm_args );
+
+			if ( $args ) {
+				$posts = tribe_get_events( $args );
+			}
 		}
 
-		$args = apply_filters( 'tribe_related_posts_args', $args );
-
-		if ( $args ) {
-			$posts = Tribe__Events__Query::getEvents( $args );
-		} else {
-			$posts = array();
-		}
-
-		return apply_filters( 'tribe_get_related_posts', $posts );
+		/**
+		 * Filter the related posts for the current post.
+		 *
+		 * @param array $posts   The related posts.
+		 * @param int   $post_id Current Post ID.
+		 * @param array $args    Query arguments.
+		 *
+		 * @since 3.2
+		 */
+		return apply_filters( 'tribe_get_related_posts', $posts, $post_id, $args );
 	}
 
 	/**
@@ -730,6 +724,7 @@ if ( class_exists( 'Tribe__Events__Pro__Main' ) ) {
 				'organizer'      => $post_id,
 				'eventDisplay'   => 'list',
 				'posts_per_page' => apply_filters( 'tribe_events_single_organizer_posts_per_page', 100 ),
+				'starts_after'   => 'now',
 			);
 
 			$html = tribe_include_view_list( $args );

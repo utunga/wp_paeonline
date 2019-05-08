@@ -1,10 +1,8 @@
 <?php
+use Tribe__Date_Utils as Dates;
+
 /**
- * @for Photo Template
  * This file contains hooks and functions required to set up the photo view.
- *
- * @package TribeEventsCalendarPro
- *
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -94,13 +92,24 @@ if ( ! class_exists( 'Tribe__Events__Pro__Templates__Photo' ) ) {
 				$post_status[] = 'private';
 			}
 
+			// Set the date explicitly if not set.
+			$date = tribe_get_request_var( 'tribe-bar-date', 'now' );
+
 			$args = array(
 				'eventDisplay' => 'list',
 				'post_type'    => Tribe__Events__Main::POSTTYPE,
 				'post_status'  => $post_status,
 				'paged'        => $tribe_paged,
-				'featured'     => tribe( 'tec.featured_events' )->featured_events_requested(),
 			);
+
+			/*
+			 * In this context a value of `false` means "show all events, featured or not".
+			 * A value of `true` means "Show only featured events".
+			 */
+			$featured = tribe( 'tec.featured_events' )->featured_events_requested();
+			if ( true === $featured ) {
+				$args['featured'] = true;
+			}
 
 			$view_state = 'photo';
 
@@ -108,11 +117,35 @@ if ( ! class_exists( 'Tribe__Events__Pro__Templates__Photo' ) ) {
 				$args[ Tribe__Events__Main::TAXONOMY ] = $_POST['tribe_event_category'];
 			}
 
-			/* if past view */
-			if ( ! empty( $_POST['tribe_event_display'] ) && $_POST['tribe_event_display'] == 'past' ){
-				$view_state = 'past';
-				$args['eventDisplay'] = 'past';
-				$args['order'] = 'DESC';
+			if ( (bool) tribe_get_request_var( 'tribeHideRecurrence' ) ) {
+				$args['hide_subsequent_recurrences'] = true;
+			}
+			// Apply display and date.
+			$date = tribe_get_request_var( 'tribe-bar-date', 'now' );
+
+			if ( 'now' === $date ) {
+				/*
+				 * When defaulting to "now" let's round down to the lower half hour.
+				 * This way we avoid invalidating the hash on requests following each other
+				 * in reasonable (30') time.
+				 */
+				$date = Dates::build_date_object( 'now' );
+				$minutes = $date->format( 'm' );
+				$date->setTime(
+					$date->format( 'H' ),
+					$minutes - ( $minutes % 30 )
+				);
+				$date = $date->format( Dates::DBDATETIMEFORMAT );
+			}
+
+			// Handle current or past view distinction.
+			if ( 'past' === tribe_get_request_var( 'tribe_event_display' ) ) {
+				$view_state            = 'past';
+				$args['eventDisplay']  = 'past';
+				$args['order']         = 'DESC';
+				$args['ends_before']   = $date;
+			} else {
+				$args['ends_after'] = $date;
 			}
 
 			$query = Tribe__Events__Query::getEvents( $args, true );

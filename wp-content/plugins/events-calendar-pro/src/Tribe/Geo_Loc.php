@@ -29,10 +29,10 @@ class Tribe__Events__Pro__Geo_Loc {
 
 	/**
 	 * The meta key for the full address, either from user input that then gets
-     * sent to the geocoder or, if geocoding is successful, this field gets
-     * overwritten with that full address result. Therefore, it's used as a
-     * cache to avoid sending geocoder requests unless this field changes (i.e.
-     * does not match the value saved from the last geocoding result).
+	 * sent to the geocoder or, if geocoding is successful, this field gets
+	 * overwritten with that full address result. Therefore, it's used as a
+	 * cache to avoid sending geocoder requests unless this field changes (i.e.
+	 * does not match the value saved from the last geocoding result).
 	 */
 	const ADDRESS = '_VenueGeoAddress';
 
@@ -126,6 +126,7 @@ class Tribe__Events__Pro__Geo_Loc {
 
 		add_filter( 'tribe_events_rewrite_rules_custom', array( $this, 'add_routes' ), 10, 3 );
 		add_action( 'tribe_events_pre_get_posts', array( $this, 'setup_geoloc_in_query' ) );
+		add_action( 'tribe_repository_events_query', array( $this, 'setup_geoloc_in_query' ) );
 		add_filter( 'tribe_events_list_inside_before_loop', array( $this, 'add_event_distance' ) );
 
 		add_filter( 'tribe_events_importer_venue_array', array( $this, 'filter_aggregator_add_overwrite_geolocation_value' ), 10, 4 );
@@ -241,22 +242,29 @@ class Tribe__Events__Pro__Geo_Loc {
 	 * @return WP_Query
 	 */
 	protected function get_venues_without_geoloc_info( $full_data = false ) {
-		$query_args = array(
+		$query_args = [
 			'post_type'      => Tribe__Events__Main::VENUE_POST_TYPE,
 			'post_status'    => 'publish',
 			'posts_per_page' => 250,
-			'meta_query'     => array(
-				array(
-					'key'     => self::ADDRESS,
-					'compare' => 'NOT EXISTS',
-				),
-				array(
+			'meta_query'     => [
+				'empty-or-no-geo-address' => [
+					[
+						'key'     => self::ADDRESS,
+						'compare' => 'NOT EXISTS',
+					],
+					'relation' => 'OR',
+					[
+						'key' => self::ADDRESS,
+						'='   => '',
+					],
+				],
+				[
 					'key'     => '_VenueAddress',
 					'compare' => '!=',
 					'value'   => '',
-				),
-			),
-		);
+				],
+			],
+		];
 
 		if ( ! $full_data ) {
 			$query_args['fields']         = 'ids';
@@ -451,13 +459,13 @@ class Tribe__Events__Pro__Geo_Loc {
 		if ( ! empty( $query->query_vars['tribe_geoloc_lat'] ) ) {
 			$lat = (float) $query->query_vars['tribe_geoloc_lat'];
 		} elseif ( ! empty( $_REQUEST['tribe-bar-geoloc-lat'] ) ) {
-			$lat = (float) $_REQUEST['tribe-bar-geoloc-lat'];
+			$lat = filter_var( $_REQUEST['tribe-bar-geoloc-lat'], FILTER_SANITIZE_NUMBER_FLOAT );
 		}
 
 		if ( ! empty( $query->query_vars['tribe_geoloc_lng'] ) ) {
 			$lng = (float) $query->query_vars['tribe_geoloc_lng'];
 		} elseif ( ! empty( $_REQUEST['tribe-bar-geoloc-lng'] ) ) {
-			$lng = (float) $_REQUEST['tribe-bar-geoloc-lng'];
+			$lng = filter_var( $_REQUEST['tribe-bar-geoloc-lng'], FILTER_SANITIZE_NUMBER_FLOAT );
 		}
 
 		$force = false;
@@ -626,77 +634,25 @@ class Tribe__Events__Pro__Geo_Loc {
 			return false;
 		}
 
-		// If the address didn't change, doesn't make sense to query google again for the geo data
-		if ( $address === get_post_meta( $venueId, self::ADDRESS, true ) && true !== $reset ) {
+		// If the address didn't change, it doesn't make sense to query Google again for the geo data.
+		if ( true !== $reset && $address === get_post_meta( $venueId, self::ADDRESS, true ) ) {
 			return false;
 		}
 
-		//The basic gMaps API key we provide doesn't support Geocoding queries.
+		//The basic Google Maps API key we provide doesn't support geo-coding queries.
 		if ( tribe_is_using_basic_gmaps_api() ) {
 			return update_post_meta( $venueId, self::ADDRESS, $address );
 		}
 
-		$api_url = 'https://maps.googleapis.com/maps/api/geocode/json?address=' . urlencode( $address );
-		$api_key = tribe_get_option( 'google_maps_js_api_key' );
+		$resolved = $this->geocode_address( $address, $venueId, $pieces );
 
-		if ( ! empty( $api_key ) && is_string( $api_key ) ) {
-			$api_url = add_query_arg( array( 'key' => $api_key ), $api_url );
-		}
-
-		/**
-		 * Allows customizing the Google Maps Geocode API URL for a venue's address, which URL is
-		 * used to validate the address as one that can be plotted on a Google Map.
-		 *
-		 * @param string $api_url The Google Maps Geocode API URL for this venue's address.
-		 */
-		$data = wp_remote_get( apply_filters( 'tribe_events_pro_geocode_request_url', $api_url ) );
-
-		if ( is_wp_error( $data ) || ! isset( $data['body'] ) ) {
-			tribe( 'logger' )->log_warning( sprintf(
-					_x( 'Geocode request failed ($1%s - $2%s)', 'debug geodata', 'tribe-events-calendar-pro' ),
-					is_wp_error( $data ) ? $data->get_error_code() : _x( 'empty response', 'debug geodata' ),
-                    $api_url
-				),
-				__METHOD__
-			);
-			return false;
-		}
-
-		$data_arr = json_decode( $data['body'] );
-
-		if ( isset( $data_arr->status ) && 'OVER_QUERY_LIMIT' === $data_arr->status ) {
-			if ( $this->over_query_limit_displayed ) {
-				return false;
+		if ( false !== $resolved ) {
+			if ( isset( $resolved['lat'] ) ) {
+				update_post_meta( $venueId, self::LAT, $resolved['lat'] );
 			}
-
-			set_transient( 'tribe-google-over-limit', 1, time() + MINUTE_IN_SECONDS );
-
-			$this->over_query_limit_displayed = true;
-
-			return false;
-		}
-
-		if ( ! empty( $data_arr->results[0] ) ) {
-			$geo_result = $data_arr->results[0];
-
-			if ( ! empty( $geo_result->geometry->location->lat ) ) {
-				update_post_meta( $venueId, self::LAT, (string) $geo_result->geometry->location->lat );
+			if ( isset( $resolved['lng'] ) ) {
+				update_post_meta( $venueId, self::LNG, $resolved['lng'] );
 			}
-
-			if ( ! empty( $geo_result->geometry->location->lng ) ) {
-				update_post_meta( $venueId, self::LNG, (string) $geo_result->geometry->location->lng );
-			}
-
-			/**
-			 * Allows further processing of geodata for Venue.
-			 *
-			 * @since 4.4.31
-			 *
-			 * @param int    $venueId    Venue ID.
-			 * @param object $geo_result Geo result object.
-			 * @param array  $pieces     User provided address pieces.
-			 */
-			do_action( 'tribe_geoloc_save_venue_geodata', $venueId, $geo_result, $pieces );
 		}
 
 		// Saving the aggregated address so we don't need to ping google on every save
@@ -850,8 +806,8 @@ class Tribe__Events__Pro__Geo_Loc {
 			$sql = "
 				SELECT DISTINCT venue_id FROM (
 					SELECT coords.venue_id,
-					       MAX( coords.lat ) AS lat,
-					       MAX( coords.lng ) AS lng
+						   MAX( coords.lat ) AS lat,
+						   MAX( coords.lng ) AS lng
 					FROM (
 						SELECT post_id AS venue_id,
 							CASE
@@ -868,7 +824,7 @@ class Tribe__Events__Pro__Geo_Loc {
 							OR meta_key = %s
 					) AS coords
 					INNER JOIN $wpdb->posts p
-					    ON p.id = coords.venue_id
+						ON p.id = coords.venue_id
 					WHERE
 						(lat > %f OR lat IS NULL)
 						AND (lat < %f OR lat IS NULL)
@@ -880,8 +836,8 @@ class Tribe__Events__Pro__Geo_Loc {
 					HAVING
 						lat IS NOT NULL
 						AND lng IS NOT NULL
-			       ) AS query
-		       ";
+				   ) AS query
+			   ";
 
 			$sql = $wpdb->prepare(
 				$sql,
@@ -1200,6 +1156,129 @@ class Tribe__Events__Pro__Geo_Loc {
 		}
 
 		return $markers;
+	}
+
+	/**
+	 * Attempts to perform the geocode resolution of an address.
+	 *
+	 * @since 4.7
+	 *
+	 * @param       string $address The formatted address.
+	 * @param int   $venue_id The post ID of the Venue, if any, the address of which
+	 *                        is currently being resolved.
+	 * @param array $pieces An array containing the address pieces for this Venue.
+	 *
+	 * @return array|false Either an array containing the Venue latitude and longitude
+	 *                    coordinates in the shape [ 'lat' => <lat>, 'lng' => <lng> ] or
+	 *                    `false` if the address could not be resolved to a set of coordinates.
+	 */
+	public function geocode_address( $address, $venue_id = 0, $pieces = array() ) {
+		/**
+		 * Allows customizing whether the Google Maps Geocode API will be used for geocoding addresses.
+		 *
+		 * @since 4.7
+		 *
+		 * @param boolean $geocode_addresses Whether the Geocode Address API is enabled for geocoding addresses.
+		 * @param int     $venue_id          Venue post ID.
+		 * @param string  $address           Address string that will be used for geocoding.
+		 */
+		$geocode_addresses = apply_filters( 'tribe_events_pro_geocode_addresses', true, $venue_id, $address );
+
+		if ( false === $geocode_addresses ) {
+			return false;
+		}
+
+		/**
+		 * Allows filtering the geocode resolution completely to use a custom solution.
+		 *
+		 * Returning a non `null` value here will bail out of the geocode resolution solution
+		 * implemented by the plugin completely.
+		 *
+		 * @since 4.7
+		 *
+		 * @param array  $result   An array specifying the latitude and longitude coordinates for
+		 *                         the address or `false` to indicate a failure in resolving the
+		 *                         address to a set of coordinates; returning a non `null` value
+		 *                         here will make the function return the filtered value.
+		 * @param string $address  The formatted address string.
+		 * @param int    $venue_id The Venue post ID.
+		 * @param array  $pieces   The Venue address pieces.
+		 */
+		$result = apply_filters( 'tribe_events_pro_geocode_resolved', null, $address, $venue_id, $pieces );
+		if ( null !== $result ) {
+			return $result;
+		}
+
+		$api_url = 'https://maps.googleapis.com/maps/api/geocode/json?address=' . urlencode( $address );
+		$api_key = tribe_get_option( 'google_maps_js_api_key' );
+
+		if ( ! empty( $api_key ) && is_string( $api_key ) ) {
+			$api_url = add_query_arg( array( 'key' => $api_key ), $api_url );
+		}
+
+		/**
+		 * Allows customizing the Google Maps Geocode API URL for a venue's address, which URL is
+		 * used to validate the address as one that can be plotted on a Google Map.
+		 *
+		 * @param string $api_url The Google Maps Geocode API URL for this venue's address.
+		 */
+		$api_url = apply_filters( 'tribe_events_pro_geocode_request_url', $api_url );
+
+		$data = wp_remote_get( $api_url );
+
+		if ( is_wp_error( $data ) || ! isset( $data['body'] ) ) {
+			tribe( 'logger' )->log_warning( sprintf(
+				_x( 'Geocode request failed ($1%s - $2%s)', 'debug geodata', 'tribe-events-calendar-pro' ),
+				is_wp_error( $data ) ? $data->get_error_code() : _x( 'empty response', 'debug geodata' ),
+				$api_url
+			),
+				__METHOD__
+			);
+
+			return false;
+		}
+
+		$data_arr = json_decode( $data['body'] );
+
+		if ( isset( $data_arr->status ) && 'OVER_QUERY_LIMIT' === $data_arr->status ) {
+			if ( $this->over_query_limit_displayed ) {
+				return false;
+			}
+
+			set_transient( 'tribe-google-over-limit', 1, time() + MINUTE_IN_SECONDS );
+
+			$this->over_query_limit_displayed = true;
+
+			return false;
+		}
+
+		if ( empty( $data_arr->results[0] ) ) {
+			return false;
+		}
+
+		$result     = array();
+		$geo_result = $data_arr->results[0];
+
+		if ( isset( $geo_result->geometry->location->lat ) ) {
+			$result['lat'] = (string) $geo_result->geometry->location->lat;
+		}
+
+		if ( isset( $geo_result->geometry->location->lng ) ) {
+			$result['lng'] = (string) $geo_result->geometry->location->lng;
+		}
+
+		/**
+		 * Allows further processing of geodata for Venue.
+		 *
+		 * @since 4.4.31
+		 *
+		 * @param int    $venueId    Venue ID.
+		 * @param object $geo_result Geo result object.
+		 * @param array  $pieces     User provided address pieces.
+		 */
+		do_action( 'tribe_geoloc_save_venue_geodata', $venue_id, $geo_result, $pieces );
+
+		return $result;
 	}
 
 	/**

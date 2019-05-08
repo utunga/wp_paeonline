@@ -206,7 +206,9 @@ class QuadMenu_Redux {
       }
     }
 
-    new ReduxFramework(array(), apply_filters('quadmenu_redux_args', $args));
+    if (class_exists('ReduxFramework')) {
+      new ReduxFramework(array(), apply_filters('quadmenu_redux_args', $args));
+    }
   }
 
 }

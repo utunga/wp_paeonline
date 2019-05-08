@@ -173,7 +173,7 @@ class QuadMenu_Nav_Menu_Widgets extends QuadMenu_Settings {
               <span class="spinner active"></span>
             </div>                
             <div class="item-title">
-              <h4 class="quadmenu-title"><?php echo esc_html($widget_obj->title); ?> <?php esc_html_e('(Invalid)', 'quadmenu'); ?></h4>
+              <span class="quadmenu-title"><?php echo esc_html($widget_obj->title); ?> <?php esc_html_e('(Invalid)', 'quadmenu'); ?></span>
             </div>
           </div>
           <div class="settings">                       
@@ -197,7 +197,7 @@ class QuadMenu_Nav_Menu_Widgets extends QuadMenu_Settings {
             <span class="spinner active"></span>
           </div>                
           <div class="item-title">
-            <h4 class="quadmenu-title"><?php echo esc_html($widget_obj->title); ?></h4>
+            <span class="quadmenu-title"><?php echo esc_html($widget_obj->title); ?></span>
           </div>
         </div>
         <div class="settings">

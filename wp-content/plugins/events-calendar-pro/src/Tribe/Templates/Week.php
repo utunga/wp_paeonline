@@ -320,6 +320,8 @@ if ( ! class_exists( 'Tribe__Events__Pro__Templates__Week' ) ) {
 				return;
 			}
 
+			$included_posts = array();
+
 			$week_days = array();
 			$day       = $wp_query->get( 'start_date' );
 
@@ -338,7 +340,6 @@ if ( ! class_exists( 'Tribe__Events__Pro__Templates__Week' ) ) {
 			// each "day" is an array that contains the date and the associated all day / hourly events
 			// $day_number corresponds to the day of the week in $weekday_array
 			foreach ( self::$day_range as $i => $day_number ) {
-
 				// Used to determine how many events start at the same exact time.
 				$cur_datetime       = null;
 				$cur_starting_index = 1;
@@ -357,9 +358,9 @@ if ( ! class_exists( 'Tribe__Events__Pro__Templates__Week' ) ) {
 				$hourly_events  = array();
 				$all_day_events = array();
 
-				// loop through all the wordpress posts and sort them into all day vs hourly for the current $date
+				// Loop through all the wordpress posts and sort them into all day vs hourly for the current $date.
 				foreach ( $wp_query->posts as $j => $event ) {
-					if ( ! tribe_event_is_on_date( $date, $event ) ) {
+					if ( in_array( $event->ID, $included_posts, true ) || ! tribe_event_is_on_date( $date, $event ) ) {
 						continue;
 					}
 
@@ -385,6 +386,10 @@ if ( ! class_exists( 'Tribe__Events__Pro__Templates__Week' ) ) {
 
 						$hourly_events[] = $event;
 					}
+
+					if ( tribe_event_ends_on( $event, $date ) ) {
+						$included_posts[] = $event->ID;
+					}
 				}
 
 				$display_format  = apply_filters( 'tribe_events_pro_week_header_date_format', tribe_get_date_option( 'weekDayFormat', 'D jS' ) );
@@ -405,6 +410,7 @@ if ( ! class_exists( 'Tribe__Events__Pro__Templates__Week' ) ) {
 					'has_events'     => $hourly_events || $all_day_events,
 				);
 			}
+
 			self::$week_days = $week_days;
 		}
 
@@ -702,12 +708,26 @@ if ( ! class_exists( 'Tribe__Events__Pro__Templates__Week' ) ) {
 					$post_status[] = 'private';
 				}
 
+				$this_week = Tribe__Date_Utils::build_date_object( $_POST['eventDate'] );
+				$next_week = clone $this_week;
+				$next_week->setTimestamp( $next_week->getTimestamp() + WEEK_IN_SECONDS );
+
 				$args = array(
-					'post_status'  => $post_status,
-					'eventDate'    => $_POST['eventDate'],
-					'eventDisplay' => 'week',
-					'featured'     => tribe( 'tec.featured_events' )->featured_events_requested(),
+					'post_status'   => $post_status,
+					'starts_after'  => tribe_beginning_of_day( $this_week->format( 'Y-m-d' ) ),
+					'starts_before' => tribe_beginning_of_day( $next_week->format( 'Y-m-d' ) ),
+					'eventDisplay'  => 'week',
+					'posts_per_page' => -1,
 				);
+
+				/*
+				 * In this context a value of `false` means "Show all events, featured or not".
+				 * A value of `true` means "Show only featured events".
+				 */
+				$featured = tribe( 'tec.featured_events' )->featured_events_requested();
+				if ( true === $featured ) {
+					$args['featured'] = true;
+				}
 
 				if ( isset( $_POST['tribe_event_category'] ) ) {
 					$args[ Tribe__Events__Main::TAXONOMY ] = $_POST['tribe_event_category'];
@@ -715,6 +735,7 @@ if ( ! class_exists( 'Tribe__Events__Pro__Templates__Week' ) ) {
 
 				global $wp_query;
 				$wp_query = Tribe__Events__Query::getEvents( $args, true );
+				$wp_query->set( 'start_date', $this_week->format( 'Y-m-d' ) );
 
 				Tribe__Events__Main::instance()->setDisplay();
 

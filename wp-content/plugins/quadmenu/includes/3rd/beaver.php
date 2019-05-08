@@ -39,8 +39,6 @@ if (!class_exists('QuadMenu_Beaver')) :
 
           $(document).ajaxComplete(function (event, xhr, settings) {
 
-            console.log('test');
-
             var document = this,
                     response = JSON.parse(xhr.responseText);
 

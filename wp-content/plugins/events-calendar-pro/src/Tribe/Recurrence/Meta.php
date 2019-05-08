@@ -20,72 +20,126 @@ class Tribe__Events__Pro__Recurrence__Meta {
 	 */
 	protected static $children;
 
-	public static function init() {
-		add_action( 'tribe_events_update_meta', array(
-			__CLASS__,
-			'updateRecurrenceMeta',
-		), 20, 2 ); // give other meta a chance to save, first
-		add_action( 'tribe_events_date_display', array( __CLASS__, 'loadRecurrenceData' ) );
-		add_action( 'wp_trash_post', array( __CLASS__, 'handle_trash_request' ) );
-		add_action( 'before_delete_post', array( __CLASS__, 'handle_delete_request' ) );
-		add_action( 'untrashed_post', array( __CLASS__, 'handle_untrash_request' ) );
-		add_filter( 'get_edit_post_link', array( __CLASS__, 'filter_edit_post_link' ), 10, 3 );
+	/**
+	 * Initializes the Recurrence Meta class and sub-classes and hooks on the filters required for it to work.
+	 *
+	 * @since 3.1
+	 *
+	 * @param bool $all Whether to init all the functions and hook all the filters for the class or just the ones
+	 *                  common to all the Recurrence Instance Engines.
+	 */
+	public static function init( $all = true ) {
+		$actions = array(
+			array( 'tribe_events_date_display', array( __CLASS__, 'loadRecurrenceData' ), 10, 1 ),
+			array( 'pre_get_comments', array( __CLASS__, 'set_post_id_for_recurring_event_comment_queries' ), 10, 1 ),
+			array( 'comment_post_redirect', array( __CLASS__, 'fix_redirect_after_comment_is_posted' ), 10, 2 ),
+			array( 'wp_update_comment_count', array( __CLASS__, 'update_comment_counts_on_child_events' ), 10, 3 ),
+			array(
+				'manage_' . Tribe__Events__Main::POSTTYPE . '_posts_custom_column',
+				array( __CLASS__, 'populate_custom_list_table_columns' ),
+				10,
+				2,
+			),
+			array( 'wp_before_admin_bar_render', array( __CLASS__, 'admin_bar_render' ), 10, 1 ),
+			array( 'tribe_community_events_enqueue_resources', array( __CLASS__, 'enqueue_recurrence_data' ), 10, 1 ),
+			array(
+				'tribe_events_community_form_before_template',
+				array( __CLASS__, 'output_recurrence_json_data' ),
+				10,
+				1,
+			),
+		);
 
-		add_filter( 'preprocess_comment', array( __CLASS__, 'set_parent_for_recurring_event_comments' ), 10, 1 );
-		add_action( 'pre_get_comments', array( __CLASS__, 'set_post_id_for_recurring_event_comment_queries' ), 10, 1 );
-		add_action( 'comment_post_redirect', array( __CLASS__, 'fix_redirect_after_comment_is_posted' ), 10, 2 );
-		add_action( 'wp_update_comment_count', array( __CLASS__, 'update_comment_counts_on_child_events' ), 10, 3 );
-		add_filter( 'comments_array', array( __CLASS__, 'set_comments_array_on_child_events' ), 10, 2 );
-
-		add_action( 'admin_notices', array( __CLASS__, 'showRecurrenceErrorFlash' ) );
-		add_action( 'tribe_recurring_event_error', array( __CLASS__, 'setupRecurrenceErrorMsg' ), 10, 2 );
-
-		add_filter( 'manage_' . Tribe__Events__Main::POSTTYPE . '_posts_columns', array(
-			__CLASS__,
-			'list_table_column_headers',
-		) );
-		add_action( 'manage_' . Tribe__Events__Main::POSTTYPE . '_posts_custom_column', array(
-			__CLASS__,
-			'populate_custom_list_table_columns',
-		), 10, 2 );
-		add_filter( 'post_class', array( __CLASS__, 'add_recurring_event_post_classes' ), 10, 3 );
-
-
-		add_filter( 'post_row_actions', array( __CLASS__, 'edit_post_row_actions' ), 10, 2 );
-		add_action( 'admin_action_tribe_split', array( __CLASS__, 'handle_split_request' ), 10, 1 );
-		add_action( 'wp_before_admin_bar_render', array( __CLASS__, 'admin_bar_render' ) );
-
-		add_filter( 'posts_request', array( 'Tribe__Events__Pro__Recurrence__Queries', 'collapse_sql' ), 10, 2 );
-
-		add_filter( 'tribe_settings_tab_fields', array( __CLASS__, 'inject_settings' ), 10, 2 );
-
-		add_action( 'load-edit.php', array( __CLASS__, 'combineRecurringRequestIds' ) );
-
-		add_action( 'updated_post_meta', array( __CLASS__, 'update_child_thumbnails' ), 4, 40 );
-		add_action( 'added_post_meta', array( __CLASS__, 'update_child_thumbnails' ), 4, 40 );
-		add_action( 'deleted_post_meta', array( __CLASS__, 'remove_child_thumbnails' ), 4, 40 );
-
-		add_action( 'tribe_community_events_enqueue_resources', array( __CLASS__, 'enqueue_recurrence_data' ) );
-		add_action( 'tribe_events_community_form_before_template', array( __CLASS__, 'output_recurrence_json_data' ) );
-
-		add_action( 'update_option_' . Tribe__Main::OPTIONNAME, array(
-			Tribe__Events__Pro__Recurrence__Old_Events_Cleaner::instance(),
-			'clean_up_old_recurring_events',
-		), 10, 2 );
-
-		add_filter( 'tribe_events_pro_output_recurrence_data', array( __CLASS__, 'maybe_fix_datepicker_output' ), 10, 2 );
-
-		if ( is_admin() ) {
-			add_filter( 'tribe_events_pro_localize_script', array( Tribe__Events__Pro__Recurrence__Scripts::instance(), 'localize' ), 10, 3 );
+		if ( $all ) {
+			array_push( $actions,
+				[ 'tribe_events_update_meta', [ __CLASS__, 'updateRecurrenceMeta' ], 20, 2 ],
+				[ 'before_delete_post', [ __CLASS__, 'handle_delete_request' ], 10, 1 ],
+				[ 'wp_trash_post', [ __CLASS__, 'handle_trash_request' ], 10, 1 ],
+				[ 'untrashed_post', [ __CLASS__, 'handle_untrash_request' ], 10, 1 ],
+				[ 'admin_notices', [ __CLASS__, 'showRecurrenceErrorFlash' ], 10, 1 ],
+				[ 'tribe_recurring_event_error', [ __CLASS__, 'setupRecurrenceErrorMsg' ], 10, 2 ],
+				[ 'admin_action_tribe_split', [ __CLASS__, 'handle_split_request' ], 10, 1 ],
+				[ 'load-edit.php', [ __CLASS__, 'combineRecurringRequestIds' ], 10, 1 ],
+				[ 'updated_post_meta', [ __CLASS__, 'update_child_thumbnails' ], 4, 40 ],
+				[ 'added_post_meta', [ __CLASS__, 'update_child_thumbnails' ], 4, 40 ],
+				[ 'deleted_post_meta', [ __CLASS__, 'remove_child_thumbnails' ], 4, 40 ], [
+					'update_option_' . Tribe__Main::OPTIONNAME,
+					[
+						Tribe__Events__Pro__Recurrence__Old_Events_Cleaner::instance(),
+						'clean_up_old_recurring_events',
+					],
+					10,
+					2,
+				] );
 		}
 
-		self::reset_scheduler();
+		foreach ( $actions as $action ) {
+			list( $tag, $callback, $priority, $args ) = $action;
+			if ( has_action( $tag, $callback ) ) {
+				continue;
+			}
+			add_action( $tag, $callback, $priority, $args );
+		}
+
+		$filters = array(
+			array( 'get_edit_post_link', array( __CLASS__, 'filter_edit_post_link' ), 10, 3 ),
+			array( 'preprocess_comment', array( __CLASS__, 'set_parent_for_recurring_event_comments' ), 10, 1 ),
+			array( 'comments_array', array( __CLASS__, 'set_comments_array_on_child_events' ), 10, 2 ),
+			array(
+				'manage_' . Tribe__Events__Main::POSTTYPE . '_posts_columns',
+				array( __CLASS__, 'list_table_column_headers' ),
+				10,
+				1,
+			),
+			array( 'post_class', array( __CLASS__, 'add_recurring_event_post_classes' ), 10, 3 ),
+			array( 'post_row_actions', array( __CLASS__, 'edit_post_row_actions' ), 10, 2 ),
+			array( 'tribe_settings_tab_fields', array( __CLASS__, 'inject_settings' ), 10, 2 ),
+			array(
+				'tribe_events_pro_output_recurrence_data',
+				array( __CLASS__, 'maybe_fix_datepicker_output' ),
+				10,
+				2,
+			),
+		);
+
+		if ( $all ) {
+			$filters[] = array( 'posts_request', array( 'Tribe__Events__Pro__Recurrence__Queries', 'collapse_sql' ), 10, 2 );
+		}
+
+		foreach ( $filters as $filter ) {
+			list( $tag, $callback, $priority, $args ) = $filter;
+			if ( has_filter( $tag, $callback ) ) {
+				continue;
+			}
+			add_filter( $tag, $callback, $priority, $args );
+		}
+
+		if ( is_admin() ) {
+			if ( ! has_filter( 'tribe_events_pro_localize_script', [
+				Tribe__Events__Pro__Recurrence__Scripts::instance(),
+				'localize',
+			] ) ) {
+				add_filter( 'tribe_events_pro_localize_script', [
+					Tribe__Events__Pro__Recurrence__Scripts::instance(),
+					'localize',
+				], 10, 3 );
+			}
+		}
 
 		/**
 		 * Register Notices
 		 */
-		Tribe__Admin__Notices::instance()->register( 'editing-all-recurrences', array( __CLASS__, 'render_notice_editing_all_recurrences' ), 'type=success' );
-		Tribe__Admin__Notices::instance()->register( 'created-recurrences', array( __CLASS__, 'render_notice_created_recurrences' ), 'type=success' );
+		if ( $all ) {
+			self::reset_scheduler();
+			Tribe__Admin__Notices::instance()->register( 'editing-all-recurrences', [
+				__CLASS__,
+				'render_notice_editing_all_recurrences',
+			], 'type=success' );
+			Tribe__Admin__Notices::instance()->register( 'created-recurrences', [
+				__CLASS__,
+				'render_notice_created_recurrences',
+			], 'type=success' );
+		}
 	}
 
 	/**
@@ -489,17 +543,21 @@ class Tribe__Events__Pro__Recurrence__Meta {
 	public static function update_comment_counts_on_child_events( $parent_id, $new_count, $old_count ) {
 		if ( tribe_is_recurring_event( $parent_id ) ) {
 			$event = get_post( $parent_id );
+
 			if ( ! empty( $event->post_parent ) ) {
 				return; // no idea how we got here, but don't update anything
 			}
+
 			/** @var wpdb $wpdb */
 			global $wpdb;
+
 			$wpdb->update( $wpdb->posts, array( 'comment_count' => $new_count ), array(
 				'post_parent' => $parent_id,
 				'post_type'   => Tribe__Events__Main::POSTTYPE,
 			) );
 
 			$child_ids = self::children()->get_ids( $parent_id );
+
 			foreach ( $child_ids as $child ) {
 				clean_post_cache( $child );
 			}
@@ -1452,14 +1510,9 @@ class Tribe__Events__Pro__Recurrence__Meta {
 			isset( $rule['custom']['same-time'] )
 			&& 'no' === $rule['custom']['same-time']
 		) {
-			// Note that we aren't dictating the format here - it currently respects the format used
-			// when the rule was defined
-			//
-			// @todo consider revising so we use the current WP time format
-			$start_time = $rule['custom']['start-time'];
+			$start_time = date( get_option( 'time_format' ), strtotime( $rule['custom']['start-time'] ) );
 		} else {
-			// // @todo consider revising so we use the current WP time format (vs hardcoding 'g:ia')
-			$start_time = date( 'g:ia', $start_date );
+			$start_time = date( get_option( 'time_format' ), $start_date );
 		}
 
 		$days_of_week = null;
@@ -1634,6 +1687,9 @@ class Tribe__Events__Pro__Recurrence__Meta {
 		);
 
 		return $text;
+	}
+
+	public static function init_non_core() {
 	}
 
 	/**
@@ -1872,6 +1928,79 @@ class Tribe__Events__Pro__Recurrence__Meta {
 		}
 
 		return self::$children;
+	}
+
+	/**
+	 * Unhooks the class from all the actions and filters it did, or woruld, hook on
+	 * in the `init` method.
+	 *
+	 * @since 4.7
+	 *
+	 * @param bool $only_core Whether to remove all actions and filters or only the core ones this specific recurring
+	 *                        events implementation uses.
+	 */
+	public static function unhook( $only_core = true ) {
+		// Remove core filters first.
+
+		// Reset the scheduler, it will unhook it too.
+		self::reset_scheduler();
+
+		remove_action( 'tribe_events_update_meta', array(
+			__CLASS__,
+			'updateRecurrenceMeta',
+		), 20 );
+		remove_action( 'wp_trash_post', array( __CLASS__, 'handle_trash_request' ) );
+		remove_action( 'untrashed_post', array( __CLASS__, 'handle_untrash_request' ) );
+		remove_action( 'admin_notices', array( __CLASS__, 'showRecurrenceErrorFlash' ) );
+		remove_action( 'tribe_recurring_event_error', array( __CLASS__, 'setupRecurrenceErrorMsg' ) );
+		remove_action( 'admin_action_tribe_split', array( __CLASS__, 'handle_split_request' ) );
+		remove_filter( 'posts_request', array( 'Tribe__Events__Pro__Recurrence__Queries', 'collapse_sql' ) );
+
+		// Unregister the notices.
+		Tribe__Admin__Notices::instance()->remove( 'editing-all-recurrences' );
+		Tribe__Admin__Notices::instance()->remove( 'created-recurrences' );
+		remove_action( 'load-edit.php', [ __CLASS__, 'combineRecurringRequestIds' ] );
+		remove_action( 'updated_post_meta', [ __CLASS__, 'update_child_thumbnails' ] );
+		remove_action( 'added_post_meta', [ __CLASS__, 'update_child_thumbnails' ] );
+		remove_action( 'deleted_post_meta', [ __CLASS__, 'remove_child_thumbnails' ] );
+		remove_action( 'update_option_' . Tribe__Main::OPTIONNAME, [
+			Tribe__Events__Pro__Recurrence__Old_Events_Cleaner::instance(),
+			'clean_up_old_recurring_events',
+		], 10 );
+
+		if ( $only_core ) {
+			return;
+		}
+
+		// Proceed to remove all filters, including the non-core ones.
+		remove_action( 'tribe_events_date_display', [ __CLASS__, 'loadRecurrenceData' ] );
+		remove_filter( 'get_edit_post_link', [ __CLASS__, 'filter_edit_post_link' ] );
+		remove_filter( 'preprocess_comment', [ __CLASS__, 'set_parent_for_recurring_event_comments' ] );
+		remove_action( 'pre_get_comments', [ __CLASS__, 'set_post_id_for_recurring_event_comment_queries' ] );
+		remove_action( 'comment_post_redirect', [ __CLASS__, 'fix_redirect_after_comment_is_posted' ] );
+		remove_action( 'wp_update_comment_count', [ __CLASS__, 'update_comment_counts_on_child_events' ] );
+		remove_filter( 'comments_array', [ __CLASS__, 'set_comments_array_on_child_events' ] );
+		remove_filter( 'manage_' . Tribe__Events__Main::POSTTYPE . '_posts_columns', [
+			__CLASS__,
+			'list_table_column_headers',
+		] );
+		remove_action( 'manage_' . Tribe__Events__Main::POSTTYPE . '_posts_custom_column', [
+			__CLASS__,
+			'populate_custom_list_table_columns',
+		], 10 );
+		remove_filter( 'post_class', [ __CLASS__, 'add_recurring_event_post_classes' ] );
+
+
+		remove_filter( 'post_row_actions', [ __CLASS__, 'edit_post_row_actions' ] );
+		remove_action( 'wp_before_admin_bar_render', [ __CLASS__, 'admin_bar_render' ] );
+
+		remove_filter( 'tribe_settings_tab_fields', [ __CLASS__, 'inject_settings' ] );
+
+		remove_action( 'tribe_community_events_enqueue_resources', [ __CLASS__, 'enqueue_recurrence_data' ] );
+		remove_action( 'tribe_events_community_form_before_template', [ __CLASS__, 'output_recurrence_json_data' ] );
+
+		remove_filter( 'tribe_events_pro_output_recurrence_data', [ __CLASS__, 'maybe_fix_datepicker_output' ] );
+		remove_filter( 'tribe_events_pro_localize_script', [ Tribe__Events__Pro__Recurrence__Scripts::instance(), 'localize' ] );
 	}
 
 }

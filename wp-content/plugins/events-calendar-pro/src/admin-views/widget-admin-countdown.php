@@ -38,7 +38,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 						<?php selected( $event->ID, $instance['event'] ) ?>
 					>
 						<?php echo esc_attr( strip_tags( $event->post_title ) ); ?>
-						- <?php echo esc_html( tribe_format_date( $event->EventStartDate, false, 'm/d/Y' ) ); ?>
+						- <?php echo esc_html( tribe_format_date( $event->event_date, false, 'm/d/Y' ) ); ?>
 					</option>
 				<?php endforeach; ?>
 			</select>

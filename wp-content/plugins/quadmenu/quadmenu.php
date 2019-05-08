@@ -4,7 +4,7 @@
  * Plugin Name: QuadMenu
  * Plugin URI:  https://www.quadmenu.com
  * Description: The best drag & drop WordPress Mega Menu plugin which allow you to create Tabs Menus & Carousel Menus.
- * Version:     1.7.7
+ * Version:     1.8.3
  * Author:      Mega Menu
  * Author URI:  https://www.quadmenu.com
  * Copyright:   2018 QuadMenu (https://www.quadmenu.com)
@@ -86,9 +86,9 @@ if (!class_exists('QuadMenu')) :
 
       foreach (apply_filters('quadmenu_register_icons', array()) as $id => $settings) {
 
-        if (!wp_style_is($id, $list = 'registered')) {
-          wp_register_style($id, $settings['url']);
-        }
+        //if (!wp_style_is($id, $list = 'registered')) {
+        //  wp_register_style($id, $settings['url']);
+        // }
 
         $settings['ID'] = $id;
 
@@ -111,14 +111,20 @@ if (!class_exists('QuadMenu')) :
       global $quadmenu;
 
       if (empty($quadmenu['styles_icons'])) {
-        return $this->registered_icons()->dashicons;
+        self::$selected_icons = $this->registered_icons()->dashicons;
       }
 
       if (empty($this->registered_icons()->{$quadmenu['styles_icons']})) {
-        return $this->registered_icons()->dashicons;
+        self::$selected_icons = $this->registered_icons()->dashicons;
       }
 
-      return $this->registered_icons()->{$quadmenu['styles_icons']};
+      self::$selected_icons = $this->registered_icons()->{$quadmenu['styles_icons']};
+
+      if (!wp_style_is(self::$selected_icons->ID, $list = 'registered')) {
+        wp_register_style(self::$selected_icons->ID, self::$selected_icons->url);
+      }
+
+      return self::$selected_icons;
     }
 
     private function theme() {
@@ -136,7 +142,7 @@ if (!class_exists('QuadMenu')) :
 
       define('QUADMENU_NAME', 'QuadMenu');
 
-      define('QUADMENU_VERSION', '1.7.7');
+      define('QUADMENU_VERSION', '1.8.3');
 
       define('QUADMENU_OPTIONS', "quadmenu_{$this->theme()}");
 

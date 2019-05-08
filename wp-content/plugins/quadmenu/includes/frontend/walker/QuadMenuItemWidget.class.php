@@ -55,8 +55,11 @@ class QuadMenuItemWidget extends QuadMenuItem {
               array(array_merge(array('widget_id' => $id, 'widget_name' => $wp_registered_widgets[$id]['name']))), (array) $wp_registered_widgets[$id]['params']
       );
 
-      $params[0]['before_title'] = apply_filters('quadmenu_before_widget_title', '<h4 class="quadmenu-title">', $wp_registered_widgets[$id]);
-      $params[0]['after_title'] = apply_filters('quadmenu_after_widget_title', '</h4>', $wp_registered_widgets[$id]);
+      $params[0]['name'] = esc_html__('QuadMenu Widgets', 'quadmenu');
+      $params[0]['id'] = 'quadmenu-widgets';
+      $params[0]['description'] = esc_html__('Do not manually edit this sidebar.', 'quadmenu');
+      $params[0]['before_title'] = apply_filters('quadmenu_before_widget_title', '<span class="quadmenu-title">', $wp_registered_widgets[$id]);
+      $params[0]['after_title'] = apply_filters('quadmenu_after_widget_title', '</span>', $wp_registered_widgets[$id]);
       $params[0]['before_widget'] = apply_filters('quadmenu_before_widget', '', $wp_registered_widgets[$id]);
       $params[0]['after_widget'] = apply_filters('quadmenu_after_widget', '', $wp_registered_widgets[$id]);
 

@@ -67,7 +67,7 @@ if ( ! class_exists( 'Tribe__Events__Pro__Main' ) ) {
 		 */
 		public $template_namespace = 'events-pro';
 
-		const VERSION = '4.6.2.1';
+		const VERSION = '4.7.1';
 
 		/**
 		 * The Events Calendar Required Version
@@ -117,9 +117,7 @@ if ( ! class_exists( 'Tribe__Events__Pro__Main' ) ) {
 
 			add_action( 'tribe_settings_do_tabs', array( $this, 'add_settings_tabs' ) );
 			add_filter( 'tribe_settings_tab_fields', array( $this, 'filter_settings_tab_fields' ), 10, 2 );
-			add_action( 'tribe_events_parse_query', array( $this, 'parse_query' ) );
-			add_action( 'tribe_events_pre_get_posts', array( $this, 'pre_get_posts' ) );
-			add_filter( 'tribe_enable_recurring_event_queries', '__return_true', 10, 1 );
+
 			add_filter( 'body_class', array( $this, 'body_class' ) );
 			add_filter( 'tribe_events_current_view_template', array( $this, 'select_page_template' ) );
 			add_filter( 'tribe_events_current_template_class', array( $this, 'get_current_template_class' ) );
@@ -171,8 +169,6 @@ if ( ! class_exists( 'Tribe__Events__Pro__Main' ) ) {
 			add_action( 'tribe_events_list_before_the_content', array( 'Tribe__Events__Pro__Templates__Mods__List_View', 'print_all_events_link' ) );
 
 			add_filter( 'tribe_is_ajax_view_request', array( $this, 'is_pro_ajax_view_request' ), 10, 2 );
-
-			add_action( 'tribe_events_pre_get_posts', array( $this, 'setup_hide_recurrence_in_query' ) );
 
 			add_filter( 'wp', array( $this, 'detect_recurrence_redirect' ) );
 			add_filter( 'template_redirect', array( $this, 'filter_canonical_link_on_recurring_events' ), 10, 1 );
@@ -493,15 +489,11 @@ if ( ! class_exists( 'Tribe__Events__Pro__Main' ) ) {
 			Tribe__Events__Pro__Mini_Calendar::instance();
 			Tribe__Events__Pro__This_Week::instance();
 			Tribe__Events__Pro__Custom_Meta::init();
-			Tribe__Events__Pro__Recurrence__Meta::init();
 			Tribe__Events__Pro__Geo_Loc::instance();
 			Tribe__Events__Pro__Community_Modifications::init();
 			$this->custom_meta_tools = new Tribe__Events__Pro__Admin__Custom_Meta_Tools;
 			$this->single_event_meta = new Tribe__Events__Pro__Single_Event_Meta;
 			$this->single_event_overrides = new Tribe__Events__Pro__Recurrence__Single_Event_Overrides;
-			$this->queue_processor = new Tribe__Events__Pro__Recurrence__Queue_Processor;
-			$this->queue_realtime = new Tribe__Events__Pro__Recurrence__Queue_Realtime;
-			$this->aggregator = new Tribe__Events__Pro__Recurrence__Aggregator;
 			$this->embedded_maps = new Tribe__Events__Pro__Embedded_Maps;
 			$this->shortcodes = new Tribe__Events__Pro__Shortcodes__Register;
 			$this->singular_event_label = tribe_get_event_label_singular();
@@ -1017,6 +1009,9 @@ if ( ! class_exists( 'Tribe__Events__Pro__Main' ) ) {
 			if ( $query->is_single() && $query->get( 'eventDate' ) ) {
 				$this->set_post_id_for_recurring_event_query( $query );
 			}
+
+			$recurrence_query = null;
+
 			if ( ! empty( $query->tribe_is_event_pro_query ) ) {
 				switch ( $query->query_vars['eventDisplay'] ) {
 					case 'week':
@@ -1065,7 +1060,16 @@ if ( ! class_exists( 'Tribe__Events__Pro__Main' ) ) {
 						$recurrence_query->hook();
 						break;
 				}
-				apply_filters( 'tribe_events_pro_pre_get_posts', $query );
+
+				/**
+				 * Hooks into our query and recurrence query objects after we have done the setup.
+				 *
+				 * @param WP_Query                                         $query            Query object.
+				 * @param null|Tribe__Events__Pro__Recurrence__Event_Query $recurrence_query Recurrence event query object (for `all` view).
+				 *
+				 * @since 4.7
+				 */
+				do_action( 'tribe_events_pro_pre_get_posts', $query, $recurrence_query );
 			}
 		}
 
@@ -1314,30 +1318,31 @@ if ( ! class_exists( 'Tribe__Events__Pro__Main' ) ) {
 		 * @return void
 		 */
 		public function admin_enqueue_scripts() {
-			wp_enqueue_script( 'handlebars', $this->pluginUrl . 'vendor/handlebars/handlebars.min.js', array(), apply_filters( 'tribe_events_pro_js_version', self::VERSION ), true );
-			wp_enqueue_script( 'moment', $this->pluginUrl . 'vendor/momentjs/moment.min.js', array(), apply_filters( 'tribe_events_pro_js_version', self::VERSION ), true );
+
 			wp_enqueue_script(
 				Tribe__Events__Main::POSTTYPE . '-premium-admin',
 				tribe_events_pro_resource_url( 'events-admin.js' ),
-				array( 'jquery-ui-datepicker' ),
-				apply_filters( 'tribe_events_pro_js_version', self::VERSION ),
-				true
-			);
-			wp_enqueue_script(
-				Tribe__Events__Main::POSTTYPE . '-premium-recurrence',
-				tribe_events_pro_resource_url( 'events-recurrence.js' ),
-				array( Tribe__Events__Main::POSTTYPE.'-premium-admin', 'handlebars', 'moment', 'tribe-dropdowns', 'jquery-ui-dialog', 'tribe-buttonset' ),
+				[ 'jquery-ui-datepicker' ],
 				apply_filters( 'tribe_events_pro_js_version', self::VERSION ),
 				true
 			);
 
-			$data = apply_filters( 'tribe_events_pro_localize_script', array(), 'TribeEventsProAdmin', Tribe__Events__Main::POSTTYPE.'-premium-admin' );
+			wp_enqueue_script(
+				Tribe__Events__Main::POSTTYPE . '-premium-recurrence',
+				tribe_events_pro_resource_url( 'events-recurrence.js' ),
+				[ Tribe__Events__Main::POSTTYPE.'-premium-admin', 'tribe-events-pro-handlebars', 'tribe-events-pro-moment', 'tribe-dropdowns', 'jquery-ui-dialog', 'tribe-buttonset' ],
+				apply_filters( 'tribe_events_pro_js_version', self::VERSION ),
+				true
+			);
+
+			$data = apply_filters( 'tribe_events_pro_localize_script', [], 'TribeEventsProAdmin', Tribe__Events__Main::POSTTYPE.'-premium-admin' );
+
 			wp_localize_script( Tribe__Events__Main::POSTTYPE . '-premium-admin', 'TribeEventsProAdmin', $data );
-			wp_localize_script( Tribe__Events__Main::POSTTYPE . '-premium-admin', 'tribe_events_pro_recurrence_strings', array(
+			wp_localize_script( Tribe__Events__Main::POSTTYPE . '-premium-admin', 'tribe_events_pro_recurrence_strings', [
 				'date'       => Tribe__Events__Pro__Recurrence__Meta::date_strings(),
 				'recurrence' => Tribe__Events__Pro__Recurrence__Strings::recurrence_strings(),
-				'exclusion'  => array(),
-			) );
+				'exclusion'  => [],
+			] );
 		}
 
 		public function load_widget_assets( $hook = null ) {
@@ -2085,6 +2090,9 @@ if ( ! class_exists( 'Tribe__Events__Pro__Main' ) ) {
 			tribe( 'events-pro.customizer.photo-view' );
 			tribe( 'events-pro.assets' );
 			tribe( 'events-pro.recurrence.nav' );
+
+			tribe_register_provider( 'Tribe__Events__Pro__Service_Providers__ORM' );
+			tribe_register_provider( 'Tribe__Events__Pro__Service_Providers__RBE' );
 		}
 
 		/**

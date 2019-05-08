@@ -1515,7 +1515,7 @@ class QuadMenu_Options {
                   'customizer' => true,
                   'transport' => 'postMessage',
                   'title' => esc_html__('Background', 'quadmenu'),
-                  'subtitle' => esc_html__('Pick a background color for the links onmouseover.', 'quadmenu'),
+                  'subtitle' => esc_html__('Pick a background color for the links on mouseover.', 'quadmenu'),
                   'id' => $key . '_dropdown_link_bg_hover',
                   'type' => 'rgba',
                   'transparent' => false,

@@ -99,6 +99,27 @@ QuadMenu has been designed by developers for developers. For them, we have inclu
 
 == Changelog ==
 
+= 1.8.1 =
+
+* Fixed. dropdown menu max left position
+* Fixed. menu login and register
+
+
+= 1.8.0 =
+
+* Fixed. elementor library widget
+* Fixed. menu login
+
+= 1.7.9 =
+
+* Fixed. small css issues
+* Fixed. current menu open nested level
+
+= 1.7.8 =
+
+* Fixed. undefined woocommerce cart item menu
+* Fixed. avada fusion builder icon issues
+
 = 1.7.7 =
 
 * Fixed. small css issues

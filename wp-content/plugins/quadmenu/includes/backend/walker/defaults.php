@@ -46,7 +46,7 @@ class QuadMenu_Nav_Menu_Defaults extends QuadMenu_Settings {
               <span class="spinner active"></span>
             </div>                
             <div class="item-title">
-              <h4 class="quadmenu-title"><?php echo esc_html($menu_obj->title); ?> <?php esc_html_e('(Invalid)', 'quadmenu'); ?></h4>
+              <span class="quadmenu-title"><?php echo esc_html($menu_obj->title); ?> <?php esc_html_e('(Invalid)', 'quadmenu'); ?></span>
             </div>
           </div>
           <div class="settings">
@@ -70,7 +70,7 @@ class QuadMenu_Nav_Menu_Defaults extends QuadMenu_Settings {
             <span class="spinner active"></span>
           </div>                
           <div class="item-title">
-            <h4 id="quadmenu-title-<?php echo esc_attr($menu_obj->ID); ?>" class="quadmenu-title"><i class="<?php echo esc_attr($menu_obj->icon); ?>"></i><span><?php echo esc_html($menu_obj->title); ?></span></h4>
+            <span id="quadmenu-title-<?php echo esc_attr($menu_obj->ID); ?>" class="quadmenu-title"><i class="<?php echo esc_attr($menu_obj->icon); ?>"></i><span><?php echo esc_html($menu_obj->title); ?></span></span>
           </div>
         </div>
         <div class="settings">
