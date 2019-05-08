@@ -153,6 +153,18 @@
 		flex-flow: row nowrap;
 	}
 
+	@include media("<=sm") {
+		.more-button-row {
+			.categories {
+				width: 70%;
+			}
+			.more-button {
+				max-height: 21px;
+			}
+		}
+		
+	}
+
 	.directory-logo {
 		display: none; /* not that this happens anyway */
 	}

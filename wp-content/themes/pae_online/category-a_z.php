@@ -41,7 +41,6 @@ function pae_onlinedequeue_skip_links() {
 //// switch out header for custom header
 remove_action( 'genesis_before_content_sidebar_wrap', 'pae_onlinepage_header' );
 // add_action( 'genesis_before_content_sidebar_wrap', 'pae_online_category_banner_header' );
-
 // function pae_online_category_banner_header() {
 //     $category = get_queried_object();
 //     $image = get_field('banner_image', 'category'.'_'.$category->term_id);

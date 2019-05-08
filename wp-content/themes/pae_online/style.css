@@ -2409,7 +2409,6 @@ h6 {
 	font-family: 'lato', Helvetica, Arial, sans-serif;
 	font-weight: 700;
 	line-height: 1.236;
-	margin: 0 0 0.618em;
 }
 
 .content h1,
@@ -2419,6 +2418,15 @@ h6 {
 .content h5,
 .content h6 {
 	margin: 1em 0 1em 0;
+}
+
+.content .foldable h1,
+.content .foldable h2,
+.content .foldable h3,
+.content .foldable h4,
+.content .foldable h5,
+.content .foldable h6 {
+	margin: -0.1em 0 0.618em;
 }
 
 h1 {
@@ -6215,6 +6223,12 @@ p.entry-meta {
 	.a_to_z_section .a_to_z_letter_heading h3 {
 		margin-bottom: 2rem;
 		margin-top: 2rem;
+	}
+	.directory-item-container .more-button-row .categories {
+		width: 70%;
+	}
+	.directory-item-container .more-button-row .more-button {
+		max-height: 21px;
 	}
 	.directory-item-container.supporter {
 		-ms-flex-flow: unset;

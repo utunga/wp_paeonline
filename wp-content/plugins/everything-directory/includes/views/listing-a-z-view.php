@@ -78,9 +78,8 @@
  
         <?php if ($has_taxonomy_row or $has_content) { ?>
         <div class="directory-row taxonomy more-button-row">
-            <div>
-                <?php
-                    echo genesis_post_categories_shortcode($listing, array('before' => '')); 
+            <div class="categories">
+                <?php echo genesis_post_categories_shortcode($listing, array('before' => '')); 
                 ?>
             </div>
             <?php 
