@@ -57,8 +57,13 @@ add_action( 'genesis_loop', 'pae_online_a_to_z' );
 function pae_online_a_to_z() {
     $instance = array();
     the_widget('EverythingDirectory_A_to_Z_Widget', $instance);
-    
 }
+
+// function force_not_is_archive( $query ) {
+//  	$query->is_archive = false;
+// }
+// add_action( 'pre_get_posts', 'force_not_is_archive' );
+
 
 // Run the Genesis loop.
 genesis();

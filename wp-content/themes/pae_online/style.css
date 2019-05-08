@@ -2409,14 +2409,15 @@ h6 {
 	font-family: 'lato', Helvetica, Arial, sans-serif;
 	font-weight: 700;
 	line-height: 1.236;
+	margin: 0 0 0.618em;
 }
 
-.content h1,
-.content h2,
-.content h3,
-.content h4,
-.content h5,
-.content h6 {
+.content .intro_text h1,
+.content .intro_text h2,
+.content .intro_text h3,
+.content .intro_text h4,
+.content .intro_text h5,
+.content .intro_text h6 {
 	margin: 1em 0 1em 0;
 }
 

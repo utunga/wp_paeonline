@@ -398,7 +398,7 @@ add_action('genesis_before_loop', 'wpb_change_home_loop');
  * Adding in our new home loop.
  */
 function wpb_change_home_loop() {
-if ( is_home() || is_search() || is_archive() ) {
+if ( is_home() || is_search() ) {
 
 /** Replace the home loop with our custom **/
 remove_action( 'genesis_loop', 'genesis_do_loop' );
