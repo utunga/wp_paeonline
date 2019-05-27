@@ -92,7 +92,7 @@ function render_category_stories($cat) {
 		        track_displayed_posts(get_the_ID());
 	            $post_count = $post_count+1;
 
-	            if ($post_count >= 1 )  {
+	            if (($post_count >= 1) && strcasecmp($cat->name,"photo stories") != 0)  {
 	            	break;
 	            }
 
@@ -101,7 +101,7 @@ function render_category_stories($cat) {
         </div>
         <div class="all_stories">
             <?php
-            while ( $query->have_posts() ) {
+            while (strcasecmp($cat->name,"photo stories") != 0 && $query->have_posts() ) {
 
                 $query->the_post();
             	track_displayed_posts(get_the_ID());
