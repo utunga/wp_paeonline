@@ -360,25 +360,6 @@
 		}
 	}
 
-	.all_stories {
-
-		article {
-			
-			@include breakpoint(md) {
-				width: 45%
-			}
-	
-			margin-right: 2rem;
-
-			p.entry-meta {
-				margin-top: 1rem;
-			    margin-bottom: 0.5rem;
-			    font-weight: normal;
-			}
-		
-		}
-	}
-
 	.entry-title {
 		a.story_title {
 			font-family: $font-story-heading;
@@ -396,10 +377,41 @@
     width: 100%;
     padding: 0;
     position: relative;
+
     h1 {
     	margin-left: 2rem;
     	margin-bottom: 0;
     }
+
+    .all_stories,
+    .featured_stories {
+    	article {
+			p {
+				font-size: 1.6rem;
+			}	
+		
+			p.entry-meta {
+				margin-top: 1rem;
+			    margin-bottom: 0.5rem;
+			    font-weight: normal;
+			}
+		
+		}
+    }
+
+	.all_stories {
+
+		article {
+			
+			@include breakpoint(md) {
+				width: 45%
+			}
+	
+			margin-right: 2rem;
+			
+		
+		}
+	}
 
     .stories_category {
 
@@ -432,6 +444,7 @@
 		margin-right: 2rem;
 	}
 }
+
 .sponsor {
 
 	h2 {

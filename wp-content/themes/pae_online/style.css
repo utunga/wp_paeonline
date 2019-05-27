@@ -3743,7 +3743,8 @@ article h2.entry-title a:focus {
 }
 
 article p.entry-meta {
-	font-size: 3.2vw;
+	font-size: 14px;
+	font-size: 1.4rem;
 }
 
 article .entry-content {
@@ -5295,19 +5296,6 @@ p.entry-meta .meta {
 	margin-right: 0;
 }
 
-.our_stories .all_stories article {
-	margin-right: 20px;
-	margin-right: 2rem;
-}
-
-.our_stories .all_stories article p.entry-meta {
-	margin-top: 10px;
-	margin-top: 1rem;
-	margin-bottom: 5px;
-	margin-bottom: 0.5rem;
-	font-weight: normal;
-}
-
 .our_stories .entry-title a.story_title {
 	font-family: 'lato', Helvetica, Arial, sans-serif;
 	font-weight: 400;
@@ -5327,6 +5315,26 @@ p.entry-meta .meta {
 	margin-left: 20px;
 	margin-left: 2rem;
 	margin-bottom: 0;
+}
+
+.our_stories_wrap .all_stories article p,
+.our_stories_wrap .featured_stories article p {
+	font-size: 16px;
+	font-size: 1.6rem;
+}
+
+.our_stories_wrap .all_stories article p.entry-meta,
+.our_stories_wrap .featured_stories article p.entry-meta {
+	margin-top: 10px;
+	margin-top: 1rem;
+	margin-bottom: 5px;
+	margin-bottom: 0.5rem;
+	font-weight: normal;
+}
+
+.our_stories_wrap .all_stories article {
+	margin-right: 20px;
+	margin-right: 2rem;
 }
 
 .our_stories_wrap .stories_category {
@@ -6219,7 +6227,7 @@ p.entry-meta .meta {
 	.our_stories .other_stories article {
 		width: 30%;
 	}
-	.our_stories .all_stories article {
+	.our_stories_wrap .all_stories article {
 		width: 45%;
 	}
 }
