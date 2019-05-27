@@ -121,9 +121,14 @@ article {
 p.entry-meta {
     font-size: 1.6rem;
     margin-top: 0rem;
-	font-weight: bold;
+    margin-bottom: 1rem;
+    font-weight: 400;
+    font-variant-ligatures: historical-ligatures;
     .entry-header & {
         margin-bottom: 1em;
+    }
+    .meta {
+        text-transform: uppercase;
     }
 }
 

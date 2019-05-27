@@ -132,143 +132,6 @@ if (    is_active_sidebar( 'top-home' ) ||
 add_filter( 'genesis_pre_get_option_site_layout', '__genesis_return_full_width_content' );
 
 
-function render_featured_post() {
-    
-	genesis_markup( array(
-		'open'    => '<article %s>',
-		'context' => 'entry',
-		'params'  => array(
-				'is_widget' => false,
-		),
-	) );
-
-    echo "<div class='featured_story'>";
-    echo "<div class='image'>";
-
-	$image = genesis_get_image( array(
-		'format'  => 'html',
-		'size'    => 'large',
-		'context' => 'featured-post-widget',
-		'attr'    => genesis_parse_attr( 'entry-image-widget', array(
-			'alt' => get_the_title(),
-		) ),
-	) );
-	printf( '<a href="%s" class="%s">%s</a>', get_permalink(), "", wp_make_content_images_responsive( $image ) );
-
-    echo "</div>";
-    echo "<div class='content'>";
-
-	$title = get_the_title();
-	$heading =  'h3' ;
-	$header = genesis_markup( array(
-		'open'    => "<{$heading} %s>",
-		'close'   => "</{$heading}>",
-		'context' => 'entry-title',
-		'content' => sprintf( '<a href="%s" class="%s">%s</a>',  get_permalink(),  "story_title",$title ),
-		'params'  => array(
-			'is_widget' => false,
-			'wrap'      => $heading,
-		),
-		'echo'    => false,
-	) );
-
-	genesis_markup( array(
-		'open'    => '<header %s>',
-		'close'   => '</header>',
-		'context' => 'entry-header',
-		'params'  => array(
-			'is_widget' => true,
-		),
-		'content' => $header,
-	) );
-
-	genesis_markup( array(
-		'open'    => '<div %s>',
-		'context' => 'entry-content',
-		'params'  => array(
-			'is_widget' => false,
-		),
-	) );
-
-	the_excerpt();
-					
-	genesis_markup( array(
-		'close'   => '</div>',
-		'context' => 'entry-content',
-		'params'  => array(
-			'is_widget' => false,
-		),
-	) );
-
-    //end 'content'
-    echo "</div>";
-
-    //end 'featured_story'
-    echo "</div>";
-
-	genesis_markup( array(
-		'close'   => '</article>',
-		'context' => 'entry',
-		'params'  => array(
-			'is_widget' => true,
-		),
-	) );
-	
-}
-
-function render_other_post() {
-    
-	genesis_markup( array(
-		'open'    => '<article %s>',
-		'context' => 'entry',
-		'params'  => array(
-				'is_widget' => false,
-		),
-	) );
-
-	$title = get_the_title();
-	$heading =  'h4' ;
-	$header = genesis_markup( array(
-		'open'    => "<{$heading} %s>",
-		'close'   => "</{$heading}>",
-		'context' => 'entry-title',
-		'content' => sprintf( '<a href="%s" class="%s">%s</a>',  get_permalink(),  "story_title",$title ),
-		'params'  => array(
-			'is_widget' => false,
-			'wrap'      => $heading,
-		),
-		'echo'    => false,
-	) );
-
-	genesis_markup( array(
-		'open'    => '<header %s>',
-		'close'   => '</header>',
-		'context' => 'entry-header',
-		'params'  => array(
-			'is_widget' => true,
-		),
-		'content' => $header,
-	) );
-
-	genesis_markup( array(
-		'close'   => '</article>',
-		'context' => 'entry',
-		'params'  => array(
-			'is_widget' => true,
-		),
-	) );
-	
-}
-
-function render_post($post_count) {
-    if ($post_count<2) {
-        render_featured_post();
-    }
-    else {
-        render_other_post();
-    }
-}
-
 function do_homepage_featured_posts() {
 
     // WP_Query arguments
@@ -291,26 +154,37 @@ function do_homepage_featured_posts() {
     $post_count = 0;
     if ( $query->have_posts() ) {
 
-        while ( $query->have_posts() && $post_count<2 ) {
+    	?>
+	   
+        <div class="featured_stories">
+	    <?php
+        while ( $query->have_posts() && $post_count<1 ) {
 	        $query->the_post();
         
-            render_post($post_count); 
+            render_featured_post(); 
             $post_count = $post_count+1;
                    
         }
-
         ?>
+        </div>
         <div class="other_stories">
             <?php
             while ( $query->have_posts() ) {
 		        $query->the_post();
             
-                render_post($post_count); 
-                $post_count = $post_count+1;
-                       
+                render_other_post(); 
+                $post_count = $post_count+1; 
+
+                if ($post_count>3)       
+                	break;
             }
             ?>
         </div>
+        <div class="front-page-more">
+	        <div class="more-button">
+	        	<a href="/all-stories">All Stories <span class="arrows">&gt;&gt;</span></a>
+	        </div>
+	    </div>
         <?php
     } else {
 	    echo "No stories yet";

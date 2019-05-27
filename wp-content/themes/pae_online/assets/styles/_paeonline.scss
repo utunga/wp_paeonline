@@ -294,7 +294,7 @@
 			width: 100%;
 
 			@include breakpoint(sm) {
-				width: 30%;
+				width: 50%;
 			}
 		}
 
@@ -304,27 +304,30 @@
 			padding-left: 0;
 
 			@include breakpoint(sm) {
-				width: 60%;
-				padding-left: 1rem;
+				width: 50%;
+
+				padding-left: 2rem;
+				padding-right: 2rem;
 				padding-top: 0.5rem;
 			}
+			font-size: 2rem;
 		}
 	}
 
+	.all_stories,
 	.other_stories {
 		display: flex;
 		flex-flow: column;
 
 		@include breakpoint(sm) {
-			flex-flow: row nowrap;
+			flex-flow: row wrap;
 		}
 
 		width: 100%;
 
 		article {
 			padding: 0;
-			margin-top: 1rem;
-
+			
 			h4.entry-title {
 				a {
 					color: $accent;
@@ -335,11 +338,44 @@
 				}
 			}
 
+		}
+	}
 
+	.other_stories {
+		article {
+			margin: 1rem 2rem;
 
 			@include breakpoint(md) {
-				width: 32.5rem;
+				width: 30%;
 			}
+
+			border-right: solid 1px $accent;
+			&:first-child {
+				margin-left: 0;
+			}
+			&:last-child {
+				border:none;
+				margin-right: 0;
+			}
+		}
+	}
+
+	.all_stories {
+
+		article {
+			
+			@include breakpoint(md) {
+				width: 45%
+			}
+	
+			margin-right: 2rem;
+
+			p.entry-meta {
+				margin-top: 1rem;
+			    margin-bottom: 0.5rem;
+			    font-weight: normal;
+			}
+		
 		}
 	}
 
@@ -355,6 +391,47 @@
 	}
 }
 
+.our_stories_wrap {
+
+    width: 100%;
+    padding: 0;
+    position: relative;
+    h1 {
+    	margin-left: 2rem;
+    	margin-bottom: 0;
+    }
+
+    .stories_category {
+
+    	background-color: $white; 
+    	border-bottom: $site-border;
+    	margin-top: 4rem;
+    	padding: 2rem;
+		h3 {
+			font-size: 3rem;
+			margin-bottom: 0rem;
+		}
+	}
+	
+    .wrap {
+        @include breakpoint(sm) {
+            display: flex;
+            flex-wrap: wrap;
+        }
+    }
+}
+
+.front-page-more {
+	width:100%;
+	.more-button {
+		right: 0px;
+		width: 20rem;
+		font-size: 2rem;
+		justify-content: flex-end;
+		margin-left: auto;
+		margin-right: 2rem;
+	}
+}
 .sponsor {
 
 	h2 {
