@@ -376,22 +376,178 @@ function pae_post_info() {
 		return;
 	}
 
-	$filtered = apply_filters( 'genesis_post_info', '[post_date] - [post_author]' );
+	$post_date = apply_filters( 'genesis_post_info', '[post_date]');
+	$post_type = apply_filters( 'genesis_post_info', '[acf field="pae_post_type"]');
+	$post_author = apply_filters( 'genesis_post_info', '[post_author]');
 
-	if ( false == trim( $filtered ) ) {
-		return;
+	$meta = genesis_strip_p_tags($post_date) ;
+
+	if ('' != trim($post_type)) {
+		$meta = $meta . sprintf( ' / <span class="meta">%s</span>', $post_type);
+	}
+	else if ('' != trim(genesis_strip_p_tags($post_author))) {
+		$meta = $meta . sprintf( ' / %s', genesis_strip_p_tags($post_author));
 	}
 
 	genesis_markup( array(
 		'open'    => '<p %s>',
 		'close'   => '</p>',
-		'content' => genesis_strip_p_tags( $filtered ),
+		'content' =>  $meta,
 		'context' => 'entry-meta-before-content',
 	) );
+}
+
+function pae_post_meta() {
+
+	if ( !post_type_supports( get_post_type(), 'genesis-entry-meta-before-content' ) ) {
+		return;
+	}
+
+	$filtered = apply_filters( 'genesis_post_info', '[post_date] | [acf field="pae_post_type"] ' );
+
+	if ( false === trim( $filtered ) ) {
+		return "";
+	}
+	return $filtered;
 
 }
 
 
+function render_featured_post() {
+    
+	genesis_markup( array(
+		'open'    => '<article %s>',
+		'context' => 'entry',
+		'params'  => array(
+				'is_widget' => false,
+		),
+	) );
+
+    echo "<div class='featured_story'>";
+    echo "<div class='image'>";
+
+	$image = genesis_get_image( array(
+		'format'  => 'html',
+		'size'    => 'large',
+		'context' => 'featured-post-widget',
+		'attr'    => genesis_parse_attr( 'entry-image-widget', array(
+			'alt' => get_the_title(),
+		) ),
+	) );
+	printf( '<a href="%s" class="%s">%s</a>', get_permalink(), "", wp_make_content_images_responsive( $image ) );
+
+    echo "</div>";
+    echo "<div class='content'>";
+
+	$title = get_the_title();
+	$heading =  'h3' ;
+	$header = genesis_markup( array(
+		'open'    => "<{$heading} %s>",
+		'close'   => "</{$heading}>",
+		'context' => 'entry-title',
+		'content' => sprintf( '<a href="%s" class="%s">%s</a>',  get_permalink(),  "story_title",$title ),
+		'params'  => array(
+			'is_widget' => false,
+			'wrap'      => $heading,
+		),
+		'echo'    => false,
+	) );
+
+	pae_post_info();
+
+	genesis_markup( array(
+		'open'    => '<header %s>',
+		'close'   => '</header>',
+		'context' => 'entry-header',
+		'params'  => array(
+			'is_widget' => true,
+		),
+		'content' => $header,
+	) );
+
+	genesis_markup( array(
+		'open'    => '<div %s>',
+		'context' => 'entry-content',
+		'params'  => array(
+			'is_widget' => false,
+		),
+	) );
+
+	the_excerpt();
+					
+	genesis_markup( array(
+		'close'   => '</div>',
+		'context' => 'entry-content',
+		'params'  => array(
+			'is_widget' => false,
+		),
+	) );
+
+    //end 'content'
+    echo "</div>";
+
+    //end 'featured_story'
+    echo "</div>";
+
+	genesis_markup( array(
+		'close'   => '</article>',
+		'context' => 'entry',
+		'params'  => array(
+			'is_widget' => true,
+		),
+	) );
+	
+}
+
+function render_other_post() {
+    
+	genesis_markup( array(
+		'open'    => '<article %s>',
+		'context' => 'entry',
+		'params'  => array(
+				'is_widget' => false,
+		),
+	) );
+
+	$title = get_the_title();
+	$heading =  'h4' ;
+
+	$header = genesis_markup( array(
+		'open'    => "<{$heading} %s>",
+		'close'   => "</{$heading}>",
+		'context' => 'entry-title',
+		'content' => sprintf( '<a href="%s" class="%s">%s</a>', 
+					 get_permalink(), "story_title", $title),
+		'params'  => array(
+			'is_widget' => false,
+			'wrap'      => $heading,
+		),
+		'echo'    => false,
+	) );
+
+	pae_post_info();
+
+	genesis_markup( array(
+		'open'    => '<header %s>',
+		'close'   => '</header>',
+		'context' => 'entry-header',
+		'params'  => array(
+			'is_widget' => true,
+		),
+		'content' => $header,
+	) );
+
+	the_excerpt();
+
+	genesis_markup( array(
+		'close'   => '</article>',
+		'context' => 'entry',
+		'params'  => array(
+			'is_widget' => true,
+		),
+	) );
+	
+}
 
 add_action('genesis_before_loop', 'wpb_change_home_loop');
 /*

@@ -16,7 +16,6 @@ class EverythingDirectory_Category_Links_Widget extends WP_Widget {
 
 
     function output_item($listing_post) {
-        echo "HI";
     }
 
 	function widget( $args, $instance ) {
