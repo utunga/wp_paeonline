@@ -19,7 +19,7 @@ add_action( 'genesis_loop', 'pae_all_stories_loop' );
 function pae_all_stories_loop() {
 
     echo '<div class="our_stories_wrap our_stories">';
-    echo '<h1>Our stories</h1>';
+    //echo '<h1>Our stories</h1>';
     $story_category = get_category_by_slug('stories'); 
     $sub_category_ids = get_term_children($story_category->term_id, 'category');
     if ( empty( $sub_category_ids ) || is_wp_error( $sub_category_ids ) )
@@ -62,7 +62,7 @@ function render_category_stories($cat) {
             )),
 		'order' => 'DESC',
 		'date_query' => array(
-			'after' => date('Y-m-d', strtotime('-1 years'))
+			'after' => date('Y-m-d', strtotime('-2 years'))
 			)
     );
 

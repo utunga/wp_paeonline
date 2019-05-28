@@ -5329,7 +5329,9 @@ p.entry-meta .meta {
 	margin-top: 1rem;
 	margin-bottom: 5px;
 	margin-bottom: 0.5rem;
-	font-weight: normal;
+	font-size: 18px;
+	font-size: 1.8rem;
+	font-weight: 300;
 }
 
 .our_stories_wrap .all_stories article {

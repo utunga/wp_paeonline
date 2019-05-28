@@ -380,13 +380,19 @@ function pae_post_info() {
 	$post_type = apply_filters( 'genesis_post_info', '[acf field="pae_post_type"]');
 	$post_author = apply_filters( 'genesis_post_info', '[post_author]');
 
-	$meta = genesis_strip_p_tags($post_date) ;
-
-	if ('' != trim($post_type)) {
-		$meta = $meta . sprintf( ' / <span class="meta">%s</span>', $post_type);
+	$meta = '';
+	if ('' != trim($post_type) && 'Article' != trim($post_type)) {
+		$meta = sprintf( '<span class="meta">%s</span> / %s', 
+			$post_type,
+			genesis_strip_p_tags($post_author));
 	}
 	else if ('' != trim(genesis_strip_p_tags($post_author))) {
-		$meta = $meta . sprintf( ' / %s', genesis_strip_p_tags($post_author));
+		$meta = sprintf( '%s / %s', 
+			genesis_strip_p_tags($post_date),
+			genesis_strip_p_tags($post_author));
+	}
+	else {
+		$meta = genesis_strip_p_tags($post_date);
 	}
 
 	genesis_markup( array(
