@@ -132,6 +132,8 @@ p.entry-meta {
     }
 }
 
+
+
 .entry-categories,
 .entry-tags {
     display: block;
@@ -148,6 +150,13 @@ p.entry-meta {
     }
 }
 
+footer.entry-footer {
+    border-top: dashed 1px #ccc;
+    padding-top: 1vw;
+    .entry-meta {
+        font-size: 1.2rem;
+    }
+}
 
 /* ## Pagination
 --------------------------------------------- */

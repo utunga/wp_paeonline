@@ -3786,6 +3786,16 @@ p.entry-meta .meta {
 	padding-top: 5vw;
 }
 
+footer.entry-footer {
+	border-top: dashed 1px #cccccc;
+	padding-top: 1vw;
+}
+
+footer.entry-footer .entry-meta {
+	font-size: 12px;
+	font-size: 1.2rem;
+}
+
 /* ## Pagination
 --------------------------------------------- */
 .pagination {

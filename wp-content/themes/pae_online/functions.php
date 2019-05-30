@@ -379,9 +379,10 @@ function pae_post_info() {
 	$post_date = apply_filters( 'genesis_post_info', '[post_date]');
 	$post_type = apply_filters( 'genesis_post_info', '[acf field="pae_post_type"]');
 	$post_author = apply_filters( 'genesis_post_info', '[post_author]');
+	$show_post_type = ('' != trim($post_type) && 'Article' != trim($post_type));
 
 	$meta = '';
-	if ('' != trim($post_type) && 'Article' != trim($post_type)) {
+	if ($show_post_type) {
 		$meta = sprintf( '<span class="meta">%s</span> / %s', 
 			$post_type,
 			genesis_strip_p_tags($post_author));
