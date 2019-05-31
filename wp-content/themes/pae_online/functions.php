@@ -365,6 +365,22 @@ function abs_path_to_url( $path = '' ) {
 }
 
 
+// remove_action( 'genesis_before_entry_content', 'pae_entry_info' );
+// add_action( 'genesis_before_entry_content', 'pae_entry_info' );
+// function pae_entry_info() {
+// 	//$display_author = get_field('display_author');
+// 	// $last_modified = do_shortcode('Last modified: [post_modified_date], [post_modified_time]');
+
+// 	// $meta = sprintf( '%s / %s', 
+// 	// 	genesis_strip_p_tags($display_author),
+// 	// 	genesis_strip_p_tags($last_modified));
+// 	genesis_markup( array(
+// 		'open'    => '<p %s>',
+// 		'close'   => '</p>',
+// 		'content' =>  $display_author,
+// 		'context' => 'entry-meta-before-content',
+// 	) );
+// }
 
 remove_action( 'genesis_entry_header', 'genesis_post_info', 12 );
 remove_action( 'genesis_before_post_content', 'genesis_post_info' );
@@ -378,19 +394,24 @@ function pae_post_info() {
 
 	$post_date = apply_filters( 'genesis_post_info', '[post_date]');
 	$post_type = apply_filters( 'genesis_post_info', '[acf field="pae_post_type"]');
-	$post_author = apply_filters( 'genesis_post_info', '[post_author]');
+	//$post_author = apply_filters( 'genesis_post_info', '[post_author]');
+	$display_author =  get_field('display_author') ?: do_shortcode("[post_author]");
 	$show_post_type = ('' != trim($post_type) && 'Article' != trim($post_type));
 
 	$meta = '';
 	if ($show_post_type) {
 		$meta = sprintf( '<span class="meta">%s</span> / %s', 
 			$post_type,
-			genesis_strip_p_tags($post_author));
+			genesis_strip_p_tags($display_author));
 	}
-	else if ('' != trim(genesis_strip_p_tags($post_author))) {
+	else if (is_singular('post') && ('' != trim(genesis_strip_p_tags($display_author)))) {
 		$meta = sprintf( '%s / %s', 
 			genesis_strip_p_tags($post_date),
-			genesis_strip_p_tags($post_author));
+			genesis_strip_p_tags($display_author));
+	}
+	else if ('' != trim(genesis_strip_p_tags($display_author))) {
+		$meta = sprintf( '%s', 
+			genesis_strip_p_tags($display_author));
 	}
 	else {
 		$meta = genesis_strip_p_tags($post_date);
