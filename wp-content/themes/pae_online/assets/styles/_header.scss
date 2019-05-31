@@ -354,10 +354,12 @@ header.site-header {
     }
     .has-nav-secondary & {
         @include breakpoint(md) {
-            padding-top: 7rem;
+            padding-top: 4rem;
+            padding-bottom: 3rem;
         }
         @include breakpoint(lg) {
-            padding-top: 7rem;
+            padding-top: 4rem;
+            padding-bottom: 3rem;
         }
     }
     .wrap {

@@ -132,6 +132,16 @@ p.entry-meta {
     }
 }
 
+.single article {
+    h1.entry-title {
+        padding:0;
+        margin:0;
+    }
+    p.entry-meta {
+        padding:0;
+        margin-bottom: 3rem;
+    }
+}
 
 
 .entry-categories,

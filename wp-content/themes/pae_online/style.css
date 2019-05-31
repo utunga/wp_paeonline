@@ -3775,6 +3775,17 @@ p.entry-meta .meta {
 	text-transform: uppercase;
 }
 
+.single article h1.entry-title {
+	padding: 0;
+	margin: 0;
+}
+
+.single article p.entry-meta {
+	padding: 0;
+	margin-bottom: 30px;
+	margin-bottom: 3rem;
+}
+
 .entry-categories,
 .entry-tags {
 	display: block;
@@ -6147,7 +6158,8 @@ footer.entry-footer .entry-meta {
 		max-width: 24rem;
 	}
 	.has-nav-secondary .page-header {
-		padding-top: 7rem;
+		padding-top: 4rem;
+		padding-bottom: 3rem;
 	}
 	.menu-item a {
 		padding: 1.6em 1em;
@@ -6260,7 +6272,8 @@ footer.entry-footer .entry-meta {
 		padding: 4rem 0 6rem;
 	}
 	.has-nav-secondary .page-header {
-		padding-top: 7rem;
+		padding-top: 4rem;
+		padding-bottom: 3rem;
 	}
 	.menu-item a {
 		padding: 1.82em 1.25em;

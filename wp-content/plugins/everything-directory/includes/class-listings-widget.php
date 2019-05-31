@@ -90,7 +90,6 @@ class EverythingDirectory_Listings_Widget extends WP_Widget {
                             echo listing_a_z_view(get_the_title(), build_listing($listings->post));
                         endwhile;
                         wp_reset_postdata();
-
                         echo '</div>';
                     //else :
                     //    esc_html_e( 'No listings in this category', 'text-domain' );

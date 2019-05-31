@@ -34,9 +34,9 @@ function pae_online_post_header() {
     echo "<div class='post_header'>";
     genesis_do_post_title();
 
-    if (has_excerpt()) {
-        echo sprintf( '<p class="excerpt">%s</p>', get_the_excerpt() );
-    }
+    // if (has_excerpt()) {
+    //     echo sprintf( '<p class="excerpt">%s</p>', get_the_excerpt() );
+    // }
     echo "</div>";
 }
 
