@@ -670,10 +670,9 @@ function pae_online_banner_header($image_id, $title) {
         <?php
         if ($image_caption)
     	{ ?>
-    		<div class="wrap content">
+    		<div class="wrap figcaption_wrap">
     			<figcaption class="wp-caption-text"><?php echo $image_caption ?></figcaption>
     		</div>
-
     	<?php 
     	} ?>
       

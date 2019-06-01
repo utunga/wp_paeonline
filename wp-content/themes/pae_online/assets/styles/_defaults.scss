@@ -114,12 +114,15 @@ body.category.category-page  {
         background:white;
     }
 
-    .content { 
-        background:white;
-        
+    .figcaption_wrap {
+        background: white;
         figcaption {
-            margin-right: 0.5rem;
+            margin: 0 1rem;
+            padding: 0.2rem 0;
         }
+    }
+
+    .content { 
 
         h2 {
              margin: 1rem 0 0 0;

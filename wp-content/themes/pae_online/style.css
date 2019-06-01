@@ -2416,13 +2416,15 @@ body.category.category-page .content-sidebar-wrap {
 	background: white;
 }
 
-body.category.category-page .content {
+body.category.category-page .figcaption_wrap {
 	background: white;
 }
 
-body.category.category-page .content figcaption {
-	margin-right: 5px;
-	margin-right: 0.5rem;
+body.category.category-page .figcaption_wrap figcaption {
+	margin: 0 10px;
+	margin: 0 1rem;
+	padding: 2px 0;
+	padding: 0.2rem 0;
 }
 
 body.category.category-page .content h2 {
