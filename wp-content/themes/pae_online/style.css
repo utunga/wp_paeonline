@@ -2447,6 +2447,11 @@ body.category.category-page .content .intro-text h6 {
 	margin: 2rem 0 1rem 0;
 }
 
+body.category.category-page .content .intro-text p {
+	margin: 10px 0;
+	margin: 1rem 0;
+}
+
 body.category.category-page .content .foldable h1,
 body.category.category-page .content .foldable h2,
 body.category.category-page .content .foldable h3,
@@ -3667,10 +3672,13 @@ header.site-header .a_to_z_searchbar input.search_button {
 	margin-bottom: 0;
 }
 
+.content .widget .intro-text,
 .entry-content {
 	clear: both;
 }
 
+.content .widget .intro-text:before,
+.content .widget .intro-text:after,
 .entry-content:before,
 .entry-content:after {
 	clear: both;
@@ -3678,6 +3686,8 @@ header.site-header .a_to_z_searchbar input.search_button {
 	content: '';
 }
 
+.content .widget .intro-text ol,
+.content .widget .intro-text ul,
 .entry-content ol,
 .entry-content ul {
 	margin-bottom: 1em;
@@ -3685,30 +3695,40 @@ header.site-header .a_to_z_searchbar input.search_button {
 	margin-left: 4rem;
 }
 
-.error404 .entry-content ol,
+.error404 .content .widget .intro-text ol,
+.error404
+.content .widget .intro-text ul,
+.error404
+.entry-content ol,
 .error404
 .entry-content ul {
 	margin-bottom: 40px;
 	margin-bottom: 4rem;
 }
 
+.content .widget .intro-text ol > li,
 .entry-content ol > li {
 	list-style-type: decimal;
 }
 
+.content .widget .intro-text ul > li,
 .entry-content ul > li {
 	list-style-type: disc;
 }
 
+.content .widget .intro-text ol ol,
+.content .widget .intro-text ul ul,
 .entry-content ol ol,
 .entry-content ul ul {
 	margin-bottom: 0;
 }
 
+.content .widget .intro-text li li,
 .entry-content li li {
 	list-style-type: circle;
 }
 
+.content .widget .intro-text code,
 .entry-content code {
 	background-color: #f4f5f6;
 	display: block;
@@ -3720,12 +3740,16 @@ header.site-header .a_to_z_searchbar input.search_button {
 	font-size: 1.6rem;
 }
 
+.content .widget .intro-text input,
+.content .widget .intro-text select,
+.content .widget .intro-text textarea,
 .entry-content input,
 .entry-content select,
 .entry-content textarea {
 	margin-bottom: 1em;
 }
 
+.content .widget .intro-text > *:last-child,
 .entry-content > *:last-child {
 	margin-bottom: 0;
 }
