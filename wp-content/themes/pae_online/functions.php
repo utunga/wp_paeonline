@@ -413,8 +413,11 @@ function pae_post_info() {
 		$meta = sprintf( '%s', 
 			genesis_strip_p_tags($display_author));
 	}
-	else {
+	else if (is_singular('post')) {
 		$meta = genesis_strip_p_tags($post_date);
+	}
+	else {
+		$meta = '';
 	}
 
 	genesis_markup( array(

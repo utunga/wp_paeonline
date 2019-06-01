@@ -61,15 +61,15 @@ class EverythingDirectory_Listings_Widget extends WP_Widget {
                     
                     <div class="directory-widget-header" <?php if ($foldable) { echo 'data-foldable-role="trigger"'; } ?>>
                     <h2><?php echo $title ?></h2>
-                        <?php 
-                            genesis_markup( array(
-                                'open'    => '<p %s>',
-                                'close'   => '</p>',
-                                'content' =>  $display_author,
-                                'context' => 'entry-meta-before-content',
-                            ) );
-                        ?>
                         <?php if ($show_intro && (trim($intro_text))) { ?>
+                            <?php 
+                                genesis_markup( array(
+                                    'open'    => '<p %s>',
+                                    'close'   => '</p>',
+                                    'content' =>  $display_author,
+                                    'context' => 'entry-meta-before-content',
+                                ) );
+                            ?>
                             <div class="intro-text">
                                 <?php echo $intro_text ?>
                             </div>

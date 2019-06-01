@@ -60,19 +60,8 @@ if ($is_redirect_only) { ?>
     ?>
     </div>
 
-    <div class="w taxonomy">
-        <div>
-            <?php
-                echo the_post_tags($listing);
-            ?>
-        </div>
-    </div>
-
 </div>
 
-    <div>
-        <b>This page Last Updated:</b><br /><?php echo ed_the_last_updated() ?>
-    </div><?php // echo $contact_name ?><?php // echo $duration ?>
 
 </div>
 
@@ -80,5 +69,5 @@ if ($is_redirect_only) { ?>
 <!-- FIXME In theory this include is needed - but it clashes with the 
      Events calendar pro google maps API !!! key so comment this one out here. 
      PHP/Wordpress is just such a clusterf**k of messy code. Argh!-->
-<!--<script src="https://maps.googleapis.com/maps/api/js?key=<?php echo GOOGLE_MAPS_API_KEY ?>;ver=4.4.31"></script>-->
+<script src="https://maps.googleapis.com/maps/api/js?key=<?php echo GOOGLE_MAPS_API_KEY ?>"></script>
 
