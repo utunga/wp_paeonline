@@ -35,7 +35,8 @@ class EverythingDirectory_Listings_Widget extends WP_Widget {
             $foldable = array_key_exists('foldable', $instance) ?  $instance['foldable'] : true;
            
             $intro_text = get_term_meta( $cat->term_id, 'intro_text', true );
-	        $intro_text = apply_filters( 'genesis_term_intro_text_output', $intro_text ? $intro_text : '' );
+            $display_author = get_field("display_author");
+            $intro_text = do_shortcode( $intro_text);
 
             $args = array(
                 'post_type'   => 'listing',
@@ -60,6 +61,14 @@ class EverythingDirectory_Listings_Widget extends WP_Widget {
                     
                     <div class="directory-widget-header" <?php if ($foldable) { echo 'data-foldable-role="trigger"'; } ?>>
                     <h2><?php echo $title ?></h2>
+                        <?php 
+                            genesis_markup( array(
+                                'open'    => '<p %s>',
+                                'close'   => '</p>',
+                                'content' =>  $display_author,
+                                'context' => 'entry-meta-before-content',
+                            ) );
+                        ?>
                         <?php if ($show_intro && (trim($intro_text))) { ?>
                             <div class="intro-text">
                                 <?php echo $intro_text ?>

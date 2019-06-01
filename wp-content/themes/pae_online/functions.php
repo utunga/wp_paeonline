@@ -650,7 +650,7 @@ function pae_online_banner_header($image_id, $title) {
     $image_file = get_attached_file($image_id);
     $wide_image_url = pae_image_resize($image_file, 1200, 515, true);
     $wide_image_url = (is_wp_error($wide_image_url) ? $image_url : $wide_image_url);
-
+    $image_caption = get_post_field( 'post_excerpt', $image_id );
     if ($image_url)
     {
     ?>
@@ -666,6 +666,16 @@ function pae_online_banner_header($image_id, $title) {
         </div>
         <div class='pae_online_banner_header_wide'> 
         </div>
+
+        <?php
+        if ($image_caption)
+    	{ ?>
+    		<div class="wrap content">
+    			<figcaption class="wp-caption-text"><?php echo $image_caption ?></figcaption>
+    		</div>
+
+    	<?php 
+    	} ?>
       
     <?php
     }

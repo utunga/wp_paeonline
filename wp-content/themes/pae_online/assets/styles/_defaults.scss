@@ -108,17 +108,34 @@ h6 {
     margin: 0 0 0.618em;
 }
 
-.content { 
-
-    .intro_text {
-        h1, h2, h3, h4, h5, h6 {
-            margin: 1em 0 1em 0;
-        }
+body.category.category-page  {
+    
+    .content-sidebar-wrap {
+        background:white;
     }
 
-    .foldable {
-         h1, h2, h3, h4, h5, h6 {
-           margin: -0.1em 0 0.618em;
+    .content { 
+        background:white;
+        
+        figcaption {
+            margin-right: 0.5rem;
+        }
+
+        h2 {
+             margin: 1rem 0 0 0;
+        }
+
+        .intro-text {
+            margin-top: 2rem;
+            h1, h2, h3, h4, h5, h6 {
+                margin: 2rem 0 1rem 0;
+            }
+        }
+
+        .foldable {
+             h1, h2, h3, h4, h5, h6 {
+               margin: -0.1em 0 0.618em;
+            }
         }
     }
 }

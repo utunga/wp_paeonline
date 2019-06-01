@@ -2412,21 +2412,45 @@ h6 {
 	margin: 0 0 0.618em;
 }
 
-.content .intro_text h1,
-.content .intro_text h2,
-.content .intro_text h3,
-.content .intro_text h4,
-.content .intro_text h5,
-.content .intro_text h6 {
-	margin: 1em 0 1em 0;
+body.category.category-page .content-sidebar-wrap {
+	background: white;
 }
 
-.content .foldable h1,
-.content .foldable h2,
-.content .foldable h3,
-.content .foldable h4,
-.content .foldable h5,
-.content .foldable h6 {
+body.category.category-page .content {
+	background: white;
+}
+
+body.category.category-page .content figcaption {
+	margin-right: 5px;
+	margin-right: 0.5rem;
+}
+
+body.category.category-page .content h2 {
+	margin: 10px 0 0 0;
+	margin: 1rem 0 0 0;
+}
+
+body.category.category-page .content .intro-text {
+	margin-top: 20px;
+	margin-top: 2rem;
+}
+
+body.category.category-page .content .intro-text h1,
+body.category.category-page .content .intro-text h2,
+body.category.category-page .content .intro-text h3,
+body.category.category-page .content .intro-text h4,
+body.category.category-page .content .intro-text h5,
+body.category.category-page .content .intro-text h6 {
+	margin: 20px 0 10px 0;
+	margin: 2rem 0 1rem 0;
+}
+
+body.category.category-page .content .foldable h1,
+body.category.category-page .content .foldable h2,
+body.category.category-page .content .foldable h3,
+body.category.category-page .content .foldable h4,
+body.category.category-page .content .foldable h5,
+body.category.category-page .content .foldable h6 {
 	margin: -0.1em 0 0.618em;
 }
 
