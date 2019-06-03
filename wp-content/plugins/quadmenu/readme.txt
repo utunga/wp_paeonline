@@ -1,9 +1,9 @@
 === WordPress Mega Menu - QuadMenu ===
 Contributors: quadlayers
 Tags: quadmenu, menu, megamenu, mega menu, responsive menu, mobile menu, wordpress mega menu, horizontal menu, vertical menu, navigation, widget, dropdown menu, drag and drop, mobile, responsive, retina, theme editor, shortcode, sidebar, icons, dashicons
-Requires at least: 4.8
-Tested up to: 5.1
-Stable tag: 1.4.0
+Requires at least: 4.6
+Tested up to: 5.2
+Stable tag: 1.8.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
