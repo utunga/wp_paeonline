@@ -45,19 +45,27 @@ if ($is_redirect_only) { ?>
         </div>
     <?php } 
 
-        if (array_any("not_empty", array( $website))) {
-            echo '<div class="item-lg">';  
-     
-            if (not_empty($website)) {
-                    echo sprintf( '<div class="website"><a href="%s" target="_blank">Visit website</a></div>',$website);  
+        if ($listing->has_content) {
+    
+            if (array_any("not_empty", array( $website))) {
+                echo '<div class="item-lg">';  
+         
+                if (not_empty($website)) {
+                        echo sprintf( '<div class="website"><a href="%s" target="_blank">Visit website</a></div>',$website);  
+                }
+                echo('</div>');  
             }
-            echo('</div>');  
-        }
 
-        echo itemInDiv($address, "item");
-        echo itemsInDiv(array($opening_hours, $duration), "item");
-        echo itemsInDiv(array($contact_name, $phone_number, $email_address), "item-sm");
-    ?>
+            echo itemInDiv($address, "item");
+            echo itemsInDiv(array($opening_hours, $duration), "item");
+            echo itemsInDiv(array($contact_name, $phone_number, $email_address), "item-sm");
+        }
+        ?>
+        <div class="item categories">
+            <?php echo genesis_post_categories_shortcode($listing, array('before' => '')); 
+            ?>
+        </div>
+
     </div>
 
 </div>

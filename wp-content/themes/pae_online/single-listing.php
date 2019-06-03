@@ -8,6 +8,9 @@
  * @license   GPL-2.0+
  */
 
+global $listing;
+$listing = build_listing(get_post($post->ID));
+
 //// move default page header into main entry
 remove_action( 'genesis_before_content_sidebar_wrap', 'pae_onlinepage_header' );
 
@@ -20,7 +23,6 @@ function pae_online_general_banner_header() {
     pae_online_banner_header($image, $title);
 }
 
-$listing = build_listing(get_post($post->ID));
 
 remove_action( 'genesis_entry_header', 'genesis_post_info', 12 );
 add_action( 'genesis_entry_header', 'pae_online_post_header' );
@@ -35,7 +37,7 @@ function pae_online_post_header() {
 
 add_filter( 'genesis_post_meta', 'sp_post_meta_filter' );
 function sp_post_meta_filter($post_meta) {
-    
+ 
     $post_meta = do_shortcode('Last modified: [post_modified_date], [post_modified_time]');
     $post_meta = $post_meta . "<br />" . do_shortcode('Date published: [post_date]');
     
@@ -45,15 +47,12 @@ function sp_post_meta_filter($post_meta) {
 add_action( 'genesis_after_entry_content', 'pae_single_listing_widget' );
 function pae_single_listing_widget() {
      global $listing;
-     if ($listing->has_content) 
-        $title = "";
-     else 
-        $title = get_the_title();
-
-	 render_single_listing_widget(array(
-        'title' => $title,
-        'show_services' => true // show all the services for this listing
-     ));
+     if (!$listing->has_content) {
+     	 render_single_listing_widget(array(
+            'title' => get_the_title(),
+            'show_services' => true // show all the services for this listing
+         ));
+    }
 }
 
 

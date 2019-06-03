@@ -96,6 +96,9 @@ class EverythingDirectory_A_to_Z_Widget extends WP_Widget {
                     else {
                         $(".a_to_z_letter_heading").show();
                     }
+                    $('html, body').animate({
+                        scrollTop: 0
+                    }); 
                 }
             });
             $(".a_to_z_jumplinks a").click(function(event) {
