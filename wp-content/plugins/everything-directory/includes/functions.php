@@ -85,7 +85,7 @@ function everythingdir_listing_sidebar() {
 }
 
 
-function listing_a_z_view($title, $listing) {
+function listing_a_z_view($title, $listing, $show_services) {
     include( dirname( __FILE__ ) . '/views/listing-a-z-view.php' );
 }
 

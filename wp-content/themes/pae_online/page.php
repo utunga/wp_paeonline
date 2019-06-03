@@ -42,8 +42,6 @@ function pae_online_post_header() {
 }
 
 
-
-
 // Run Genesis.
 genesis();
 

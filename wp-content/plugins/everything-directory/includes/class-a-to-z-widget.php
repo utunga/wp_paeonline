@@ -148,7 +148,7 @@ class EverythingDirectory_A_to_Z_Widget extends WP_Widget {
                     <?php
                     foreach ($listings as $sort_title => $listing) 
                     {
-                        echo listing_a_z_view($listing->display_title,$listing);
+                        echo listing_a_z_view($listing->display_title,$listing, false);
                     }
                     ?>
                     </div>

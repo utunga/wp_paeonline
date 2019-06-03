@@ -96,7 +96,7 @@ class EverythingDirectory_Listings_Widget extends WP_Widget {
                         }
 
                         while( $listings->have_posts()) : $listings->the_post();
-                            echo listing_a_z_view(get_the_title(), build_listing($listings->post));
+                            echo listing_a_z_view(get_the_title(), build_listing($listings->post), false);
                         endwhile;
                         wp_reset_postdata();
                         echo '</div>';

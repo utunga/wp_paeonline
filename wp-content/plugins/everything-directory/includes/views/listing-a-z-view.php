@@ -13,6 +13,7 @@
     $page_link = $listing->page_link;
     $has_content = $listing->has_content;
     $has_data_row = !empty($address.$opening_hours.$duration.$contact_name.$phone_number.$email_address);
+    $services = $listing->services;
     $has_description_row = !empty($short_description);
     $has_taxonomy_row = $has_content or !empty(post_tags($listing));
     $is_redirect_only = $listing->is_redirect_only;
@@ -46,7 +47,11 @@
                 else {
                     printf('%s', $title);
                 }
-         
+                if ($show_services) {
+                   echo '<div class="service_row">';
+                   echo implode(', ', array_map(function($service){ return $service->name; }, $services));
+                   echo '</div>';
+                }
             ?>
             </div>
             <?php

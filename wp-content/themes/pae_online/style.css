@@ -4764,6 +4764,30 @@ footer.entry-footer .entry-meta {
 	/* not that this happens anyway */
 }
 
+.directory.single_listing .directory-item-container {
+	margin: 0;
+	margin-top: 3vw;
+	border-top: solid 1px #61b5b5;
+}
+
+.directory.single_listing .title {
+	font-size: 30px;
+	font-size: 3rem;
+}
+
+.directory.single_listing .service_row {
+	font-size: 20px;
+	font-size: 2rem;
+}
+
+.directory.single_listing .more-button-row .categories {
+	width: 100%;
+}
+
+.directory.single_listing .more-button-row .more-button {
+	display: none;
+}
+
 .directory-item-container.supporter {
 	background: #fdf5e6;
 }
