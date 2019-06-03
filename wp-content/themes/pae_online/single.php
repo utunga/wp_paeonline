@@ -39,7 +39,7 @@ function sp_post_meta_filter($post_meta) {
     
     
     return $post_meta;
-}}
+}
 
 // Run Genesis.
 genesis();
