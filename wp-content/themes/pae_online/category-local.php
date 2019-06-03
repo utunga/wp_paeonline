@@ -18,11 +18,8 @@ add_filter( 'body_class', 'pae_online_a_to_z_body_class' );
  * @return array $classes Array of body classes.
  */
 function pae_online_a_to_z_body_class( $classes ) {
-
 	$classes[] = 'a-to-z-page';
-
 	return $classes;
-
 }
 
 add_action( 'wp_enqueue_scripts', 'pae_onlinedequeue_skip_links' );
@@ -32,13 +29,11 @@ add_action( 'wp_enqueue_scripts', 'pae_onlinedequeue_skip_links' );
  * @return void
  */
 function pae_onlinedequeue_skip_links() {
-
 	wp_dequeue_script( 'skip-links' );
-
 }
 
 
-//// switch out header for custom header
+// switch out header for custom header
 remove_action( 'genesis_before_content_sidebar_wrap', 'pae_onlinepage_header' );
 
 add_filter( 'genesis_pre_get_option_site_layout', '__genesis_return_full_width_content' );
@@ -47,7 +42,11 @@ add_filter( 'genesis_pre_get_option_site_layout', '__genesis_return_full_width_c
 remove_action( 'genesis_loop', 'genesis_do_loop' );
 add_action( 'genesis_loop', 'pae_online_a_to_z' );
 function pae_online_a_to_z() {
-    $instance = array();
+    $category = get_queried_object();
+	$instance = array(
+    	'filter_by_cat' => $category->term_id,
+ 		'search_placeholder'  => 'Search local listings'
+    );
     the_widget('EverythingDirectory_A_to_Z_Widget', $instance);
 }
 

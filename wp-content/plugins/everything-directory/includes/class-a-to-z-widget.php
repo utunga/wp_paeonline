@@ -69,14 +69,23 @@ class EverythingDirectory_A_to_Z_Widget extends WP_Widget {
 
 	function widget( $args, $instance ) {
 
+        $instance = wp_parse_args( (array) $instance, array(
+            'filter_by_cat'       => '',
+            'search_placeholder'  => 'Search the A-Z directory'
+        ) );
+
 		extract( $args );
+        $filter_by_cat = $instance["filter_by_cat"];
+        $search_placeholder = $instance["search_placeholder"];
 
 		echo $before_widget;
         $args = array(
             'post_type'   => 'listing',
             'post_status' => 'publish',
-            'posts_per_page' => -1
-            );
+            'posts_per_page' => -1,
+            'cat' => $filter_by_cat
+        );
+
         ?>
         <script>
 
@@ -98,7 +107,7 @@ class EverythingDirectory_A_to_Z_Widget extends WP_Widget {
                     }
                     $('html, body').animate({
                         scrollTop: 0
-                    }); 
+                    });
                 }
             });
             $(".a_to_z_jumplinks a").click(function(event) {
@@ -115,7 +124,7 @@ class EverythingDirectory_A_to_Z_Widget extends WP_Widget {
         <div id="a_to_z_widget" class="directory-widget">
             <div class="a_to_z_searchbar">
                 <div class="wrap">
-                    <input id="livefilter-input" class="search" type="text" placeholder="Search the A-Z directory" value="">
+                    <input id="livefilter-input" class="search" type="text" placeholder="<?php echo $search_placeholder ?>" value="">
                     <input type="button" value="search" class="search_button" />
                 </div>
             </div>
@@ -133,6 +142,7 @@ class EverythingDirectory_A_to_Z_Widget extends WP_Widget {
             $listings = array();
 
             $listings_query = new WP_Query( $args );
+
             if( $listings_query->have_posts() ) :
                 while( $listings_query->have_posts()) : $listings_query->the_post();
                     $listing = build_listing($listings_query->post);
@@ -151,7 +161,7 @@ class EverythingDirectory_A_to_Z_Widget extends WP_Widget {
                     <?php
                     foreach ($listings as $sort_title => $listing) 
                     {
-                        echo listing_a_z_view($listing->display_title,$listing, false);
+                        echo listing_a_z_view($listing->display_title, $listing, false);
                     }
                     ?>
                     </div>
