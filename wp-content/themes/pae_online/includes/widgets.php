@@ -20,6 +20,12 @@ genesis_register_sidebar( array(
 	'description'  => __( 'Top Home above content.', 'pae-online' ),
 ) );
 
+// Register Front Page extra widget area.
+genesis_register_sidebar( array(
+	'id'          => 'front-page-extra',
+	'name'        => __( 'Front Page Extra', 'pae-online' ),
+	'description' => __( 'Front page Extra widget area.', 'pae-online' ),
+) );
 
 // Register Front Page 1 widget area.
 genesis_register_sidebar( array(
@@ -34,6 +40,7 @@ genesis_register_sidebar( array(
 	'name'        => __( 'Front Page 2', 'pae-online' ),
 	'description' => __( 'Front page 2 widget area.', 'pae-online' ),
 ) );
+
 // Sponsor 1 Position
 genesis_register_sidebar( array(
 	'id'          => 'sponsor-1',

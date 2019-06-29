@@ -10,6 +10,7 @@
 
 // Check if any front page widgets are active.
 if (    is_active_sidebar( 'top-home' ) ||
+        is_active_sidebar( 'front-page-extra' ) ||
         is_active_sidebar( 'front-page-1' ) ||
 		is_active_sidebar( 'front-page-2' ) ||
 		is_active_sidebar( 'sponsor-1' ) ||
@@ -38,6 +39,7 @@ if (    is_active_sidebar( 'top-home' ) ||
 	function pae_onlinefront_page_loop() {
 
     ?>
+
     <div class="mihi-widget">
         <div class="wrap">
 	        <div class="main"><?php
@@ -60,6 +62,18 @@ if (    is_active_sidebar( 'top-home' ) ||
             </div>
         </div>
     </div>
+
+    <?php // front-page-extra-content
+    genesis_widget_area( 'front-page-extra', array(
+        'before' => '
+        <div class="front-page-extra widget-area extra-content">
+            <div class="wrap">
+                <div class="extra-content-widget">',
+
+        'after'  => '</div></div></div>',
+    ) );
+    ?>
+        
     
     <div class="front-page-2 widget-area events">
     <div class="wrap">
