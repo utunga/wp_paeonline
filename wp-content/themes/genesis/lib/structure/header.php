@@ -23,29 +23,11 @@ add_action( 'genesis_doctype', 'genesis_do_doctype' );
  * The default doctype is XHTML v1.0 Transitional, unless HTML support os present in the child theme.
  *
  * @since 1.3.0
+ * @since 3.0.0 Removed xhtml logic.
  */
 function genesis_do_doctype() {
 
-	if ( genesis_html5() ) {
-		genesis_html5_doctype();
-	} else {
-		genesis_xhtml_doctype();
-	}
-
-}
-
-/**
- * XHTML 1.0 Transitional doctype markup.
- *
- * @since 2.0.0
- */
-function genesis_xhtml_doctype() {
-
-	?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" <?php language_attributes( 'xhtml' ); ?>>
-<head profile="http://gmpg.org/xfn/11">
-<meta http-equiv="Content-Type" content="<?php bloginfo( 'html_type' ); ?>; charset=<?php bloginfo( 'charset' ); ?>" />
-	<?php
+	genesis_html5_doctype();
 
 }
 
@@ -204,23 +186,17 @@ function genesis_robots_meta() {
 
 add_action( 'genesis_meta', 'genesis_responsive_viewport' );
 /**
- * Optionally output the responsive CSS viewport tag.
- *
- * Child theme needs to support `genesis-responsive-viewport`.
+ * Outputs the responsive CSS viewport tag.
  *
  * Applies `genesis_viewport_value` filter on content attribute.
  *
  * @since 1.9.0
  * @since 2.7.0 Adds `minimum-scale=1` when AMP URL.
+ * @since 3.0 Do not check if theme support `genesis-responsive-viewport`
  *
  * @return void Return early if child theme does not support `genesis-responsive-viewport`.
  */
 function genesis_responsive_viewport() {
-
-	if ( ! current_theme_supports( 'genesis-responsive-viewport' ) ) {
-		return;
-	}
-
 	/**
 	 * Filter the viewport meta tag value.
 	 *
@@ -346,7 +322,7 @@ add_action( 'wp_head', 'genesis_meta_name' );
  */
 function genesis_meta_name() {
 
-	if ( ! genesis_html5() || ! is_front_page() ) {
+	if ( ! is_front_page() ) {
 		return;
 	}
 
@@ -364,7 +340,7 @@ add_action( 'wp_head', 'genesis_meta_url' );
  */
 function genesis_meta_url() {
 
-	if ( ! genesis_html5() || ! is_front_page() ) {
+	if ( ! is_front_page() ) {
 		return;
 	}
 
@@ -499,7 +475,7 @@ function genesis_custom_header() {
 			'width'               => $args['width'],
 			'height'              => $args['height'],
 			'random-default'      => false,
-			'header-selector'     => genesis_html5() ? '.site-header' : '#header',
+			'header-selector'     => '.site-header',
 			'wp-head-callback'    => $args['header_callback'],
 			'admin-head-callback' => $args['admin_header_callback'],
 		)
@@ -540,12 +516,12 @@ function genesis_custom_header_style() {
 	}
 
 	$header_selector = get_theme_support( 'custom-header', 'header-selector' );
-	$title_selector  = genesis_html5() ? '.custom-header .site-title' : '.custom-header #title';
-	$desc_selector   = genesis_html5() ? '.custom-header .site-description' : '.custom-header #description';
+	$title_selector  = '.custom-header .site-title';
+	$desc_selector   = '.custom-header .site-description';
 
 	// Header selector fallback.
 	if ( ! $header_selector ) {
-		$header_selector = genesis_html5() ? '.custom-header .site-header' : '.custom-header #header';
+		$header_selector = '.custom-header .site-header';
 	}
 
 	// Header image CSS, if exists.
@@ -700,7 +676,7 @@ function genesis_seo_site_title() {
 	$wrap = is_front_page() && ! is_home() ? 'p' : $wrap;
 
 	// And finally, $wrap in h1 if HTML5 & semantic headings enabled.
-	$wrap = genesis_html5() && genesis_get_seo_option( 'semantic_headings' ) ? 'h1' : $wrap;
+	$wrap = genesis_get_seo_option( 'semantic_headings' ) ? 'h1' : $wrap;
 
 	/**
 	 * Site title wrapping element
@@ -727,7 +703,7 @@ function genesis_seo_site_title() {
 		)
 	);
 
-	echo apply_filters( 'genesis_seo_title', $title, $inside, $wrap ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+	echo wp_kses_post( apply_filters( 'genesis_seo_title', $title, $inside, $wrap ) );
 
 }
 
@@ -753,7 +729,7 @@ function genesis_seo_site_description() {
 	$wrap = is_front_page() && ! is_home() ? 'p' : $wrap;
 
 	// And finally, $wrap in h2 if HTML5 & semantic headings enabled.
-	$wrap = genesis_html5() && genesis_get_seo_option( 'semantic_headings' ) ? 'h2' : $wrap;
+	$wrap = genesis_get_seo_option( 'semantic_headings' ) ? 'h2' : $wrap;
 
 	/**
 	 * Site description wrapping element
@@ -797,7 +773,7 @@ function genesis_seo_site_description() {
  */
 function genesis_header_menu_args( $args ) {
 
-	$args['container']   = genesis_html5() ? '' : 'div';
+	$args['container']   = '';
 	$args['link_before'] = $args['link_before'] ? $args['link_before'] : sprintf( '<span %s>', genesis_attr( 'nav-link-wrap' ) );
 	$args['link_after']  = $args['link_after'] ? $args['link_after'] : '</span>';
 	$args['menu_class'] .= ' genesis-nav-menu';
