@@ -5,8 +5,8 @@ Author URI: https://www.howardehrenberg.com
 Donate link: https://www.duckdiverllc.com/parallax-image-plugin/
 Tags: Parallax, Full Screen Parallax, Parallax Window, Parallax Image
 Requires at least: 4.5
-Tested up to: 5.0
-Stable tag: 1.6.1
+Tested up to: 5.2
+Stable tag: 1.7
 Requires PHP: 5.4
 License: GPLv3 
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
@@ -39,6 +39,7 @@ Available parameters for use:
 * mobile [optional] - If you want a mobile fixed image for mobile display, choose a different image, otherwise it will select the full sized image from the parallax and make it a responsive image.
 * offset [default = false] (options: "true" or "false") - This will pull the parallax content all the way to the left of your screen.  You can put the contents into a "container" class if you're using bootstrap or just center the contents for horizontal centering.  On testing with the WordPress 2016 Theme, keep offset at False.  With Bootstrap Themes, I recommend using the "offset='true'" parameter.
 * position [optional] – (defaults to 'Left') This is analogous to the background-position-x css property. Specify coordinates as right, left, center, or pixel values (e.g. -10px 0px). The parallax image will be positioned as close to these values as possible while still covering the target element.
+* text-pos [optional] - Default is 'top' (to maintain compatibility with ver 1.6).  Available options are "top", "center", "bottom".
 
 Admin-Settings page enables or disables the TinyMCE icon (if you don't want it in your WP-Editor)
 
@@ -78,6 +79,9 @@ If you’re resizing your browser window to check for responsiveness, the plugin
 3. A Parallax Window on a bootstrap theme with fullwidth template.
 
 == Changelog ==
+
+= 1.7 =
+Updated to work with Twenty Nineteen.  Added ability to position overlay text top, center, or bottom.
 
 = 1.6 =
 Updated Parallax.js source script to version 1.5 fixes some flickering when placed close to other objects.

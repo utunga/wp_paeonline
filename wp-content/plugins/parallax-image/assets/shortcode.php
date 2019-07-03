@@ -29,14 +29,15 @@ function duck_parallax_shortcode($atts, $content = null){
 			'z-index' 	=> '0',
 			'mobile' 	=> '',
 			'position' 	=> 'left',
-			'offset' 	=> false
+			'offset' 	=> false,
+			'text-pos' => 'top',
 		), $atts, 'duck-parallax' );
 
 /* Enqueue only for shortcode */ 
 	wp_enqueue_script('duck-parallax');
 	wp_enqueue_style('duck-parallax');
 
-if ($atts['offset']){
+if ( ( null !== $atts['offset'] ) && ( $atts['offset'] == 'true' ) ) {
 	wp_enqueue_script('duck-px-offset');
 }
 
@@ -101,25 +102,49 @@ $detect = new Mobile_Detect;
 		$factor = $height / $width;
 		$divID = preg_replace('/\\.[^.\\s]{3,4}$/', '', $atts['img']);
 
-
+		$textPos = strtolower($atts['text-pos']);
+		
+		switch($textPos){
+			case 'top':
+				$align = "top: 0;";
+				break;
+			case 'bottom':
+				$align = "bottom: 0;";
+				break;
+			default: 
+				$align = "top: 50%;transform:translate(0,-50%)";
+				break;
+		}
+		
 		$output  ='<div class="px-mobile-container" id="#'.$divID.'" data-factor="'.$factor.'" data-height="'.$height.'"><div class="parallax-mobile">';
 		$output .='<img src="'. $mobile_img .'" class="px-mobile-img" />';
-			$output .= '<div class="parallax-content">';
+			$output .= '<div class="parallax-content" style="'.$align.'">';
 			$output .= do_shortcode($content);
 			$output .= '</div>';
 		$output .='</div></div>';
 	}
 	
 	else{
-	
+			
+		$textPos = strtolower($atts['text-pos']);
+		switch($textPos){
+			case 'top':
+				$align = "flex-start;";
+				break;
+			case 'bottom':
+				$align = "flex-end;";
+				break;
+			default: 
+				$align = "center";
+				break;
+		}
+
 			$output = '<section class="parallax-section">';
 			$output .= '<div class="parallax-window" data-z-index="'.$zindex.'" data-position-x="'.$atts['position'].'" data-parallax="scroll" data-speed="'.$speed.'" data-image-src="'.$image_url.'"';
+			$output .= ' style="align-items: ' . $align .';'; 
+			if ($atts['height'] !== '') $output .= 'min-height: '.$atts['height'].'px;';
+			$output .='">';
 			
-			if ($atts['height'] !== ''){
-				$output .= ' style="min-height: '.$atts['height'].'px">';
-				}
-			else { $output .='>';
-			}
 			
 			$output .= '<div class="parallax-container parallax-content">';
 			$output .= do_shortcode($content);

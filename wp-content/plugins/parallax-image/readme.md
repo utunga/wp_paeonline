@@ -28,6 +28,7 @@ Available parameters for use:
 * z-index [optional] (defulat = 0) - The z-index value of the fixed-position elements. By default these will be behind everything else on the page.
 * mobile [optional] - If you want a mobile fixed image for mobile display, choose a different image, otherwise it will select the full sized image from the parallax and make it a responsive image.
 * Offset [default = false] (options: "true" or "false") - This will pull the parallax content all the way to the left of your screen.  You can put the contents into a "container" class if you're using bootstrap or just center the contents for horizontal centering.
+* text-pos [optional] - Default is 'top' (to maintain compatibility with ver 1.6).  Available options are "top", "center", "bottom".
 
 ### Demo
 
@@ -65,6 +66,11 @@ View a demo of this plugin [here](https://www.duckdiverllc.com/parallax-image-pl
 3. A Parallax Window on a bootstrap theme with fullwidth template.
 
 == Changelog ==
+= 1.7 =
+Updated to work with Twenty Nineteen.  Added ability to position overlay text top, center, or bottom.
+
+= 1.5 =
+Add TinyMCE button and options under settings menu
 
 = 1.4 = 
 Fix for mobile image from external URL.

@@ -2,7 +2,7 @@
 /*
   	Plugin Name: Parallax Image
   	Plugin URI: https://www.duckdiverllc.com/parallax-image-plugin/
-  	Version: 1.6.1
+  	Version: 1.7
   	Contributors: thehowarde
 	Author: Howard Ehrenberg
 	Author URI: https://www.howardehrenberg.com
