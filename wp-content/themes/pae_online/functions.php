@@ -151,6 +151,19 @@ function filter_get_terms_orderby( $orderby, $this_query_vars, $this_query_vars_
 }; 
 add_filter( 'get_terms_orderby', 'filter_get_terms_orderby', 10, 3 );
 
+
+remove_action( 'genesis_footer', 'genesis_footer_markup_open', 5 );
+remove_action( 'genesis_footer', 'genesis_do_footer' );
+remove_action( 'genesis_footer', 'genesis_footer_markup_close', 15 );
+// Customize site footer
+add_action( 'genesis_footer', 'pae_online_custom_footer' );
+function pae_online_custom_footer() { ?>
+
+	<div class="site-footer"><div class="wrap"><p><a href="https://github.com/utunga/wp_paeonline" target="_blank">Paekākāriki theme</a> handcrafted with <span style="color:indianred" class="dashicons dashicons-heart"></span> by <a href="http://goodbright.nz" target="_blank">@utunga</a> and <a href="/about-this-site">the whole team</a> · Site hosted by <a href="https://www.groundtruth.co.nz" target="_blank">Ground Truth</a> · <?php echo do_shortcode("[footer_loginout]") ?> </p></div></div>
+
+<?php
+}
+
 // replace title with custom markup 
 remove_action( 'genesis_site_title', 'genesis_seo_site_title' );
 add_action( 'genesis_site_title', 'paeonline_site_title' );

@@ -5397,24 +5397,30 @@ footer.entry-footer .entry-meta {
 	font-family: 'lato', Helvetica, Arial, sans-serif;
 }
 
+.generic_wrap,
 .our_stories_wrap {
 	width: 100%;
 	padding: 0;
 	position: relative;
 }
 
+.generic_wrap h1,
 .our_stories_wrap h1 {
 	margin-left: 20px;
 	margin-left: 2rem;
 	margin-bottom: 0;
 }
 
+.generic_wrap .all_stories article p,
+.generic_wrap .featured_stories article p,
 .our_stories_wrap .all_stories article p,
 .our_stories_wrap .featured_stories article p {
 	font-size: 16px;
 	font-size: 1.6rem;
 }
 
+.generic_wrap .all_stories article p.entry-meta,
+.generic_wrap .featured_stories article p.entry-meta,
 .our_stories_wrap .all_stories article p.entry-meta,
 .our_stories_wrap .featured_stories article p.entry-meta {
 	margin-top: 10px;
@@ -5426,11 +5432,13 @@ footer.entry-footer .entry-meta {
 	font-weight: 300;
 }
 
+.generic_wrap .all_stories article,
 .our_stories_wrap .all_stories article {
 	margin-right: 20px;
 	margin-right: 2rem;
 }
 
+.generic_wrap .stories_category,
 .our_stories_wrap .stories_category {
 	background-color: #ffffff;
 	border-bottom: 0;
@@ -5440,6 +5448,7 @@ footer.entry-footer .entry-meta {
 	padding: 2rem;
 }
 
+.generic_wrap .stories_category h3,
 .our_stories_wrap .stories_category h3 {
 	font-size: 30px;
 	font-size: 3rem;
@@ -6144,6 +6153,7 @@ footer.entry-footer .entry-meta {
 		-ms-flex-flow: row wrap;
 		    flex-flow: row wrap;
 	}
+	.generic_wrap .wrap,
 	.our_stories_wrap .wrap {
 		display: -ms-flexbox;
 		display: flex;
@@ -6324,6 +6334,7 @@ footer.entry-footer .entry-meta {
 	.our_stories .other_stories article {
 		width: 30%;
 	}
+	.generic_wrap .all_stories article,
 	.our_stories_wrap .all_stories article {
 		width: 45%;
 	}
