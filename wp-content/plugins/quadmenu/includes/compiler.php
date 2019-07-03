@@ -190,8 +190,52 @@ class QuadMenu_Compiler {
     if (!is_array($data))
       return $data;
 
+    if (isset($data['styles'])) {
+      unset($data['styles']);
+    }
+    
+    if (isset($data['styles_normalize'])) {
+      unset($data['styles_normalize']);
+    }    
+    
+    if (isset($data['styles_widgets'])) {
+      unset($data['styles_widgets']);
+    }    
+    
+    if (isset($data['styles_pscrollbar'])) {
+      unset($data['styles_pscrollbar']);
+    }    
+    
+    if (isset($data['styles_owlcarousel'])) {
+      unset($data['styles_owlcarousel']);
+    }    
+    
+    //if (isset($data['styles_icons'])) {
+    //  unset($data['styles_icons']);
+    //}
+
+    if (isset($data['viewport'])) {
+      unset($data['viewport']);
+    }
+
     if (isset($data['css'])) {
       unset($data['css']);
+    }
+
+    if (isset($data['social'])) {
+      unset($data['social']);
+    }      
+
+    if (isset($data['errors'])) {
+      unset($data['errors']);
+    }
+
+    if (isset($data['warnings'])) {
+      unset($data['warnings']);
+    }
+
+    if (isset($data['notification_bar'])) {
+      unset($data['notification_bar']);
     }
 
     foreach ($data as $key => &$val) {

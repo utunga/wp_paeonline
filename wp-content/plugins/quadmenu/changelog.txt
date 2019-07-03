@@ -1,5 +1,9 @@
 == Changelog ==
 
+= 1.8.5 =
+
+* Fixed. removed unnecessary fields from compiler options
+
 = 1.8.4 =
 
 * Fixed. wordpress 5.2 compatibility
