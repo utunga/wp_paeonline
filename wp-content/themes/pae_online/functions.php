@@ -159,7 +159,7 @@ remove_action( 'genesis_footer', 'genesis_footer_markup_close', 15 );
 add_action( 'genesis_footer', 'pae_online_custom_footer' );
 function pae_online_custom_footer() { ?>
 
-	<div class="site-footer"><div class="wrap"><p><a href="https://github.com/utunga/wp_paeonline" target="_blank">Paekākāriki theme</a> handcrafted with <span style="color:indianred" class="dashicons dashicons-heart"></span> by <a href="http://goodbright.nz" target="_blank">@utunga</a> and <a href="/about-this-site">the whole team</a> · Site hosted by <a href="https://www.groundtruth.co.nz" target="_blank">Ground Truth</a> · <?php echo do_shortcode("[footer_loginout]") ?> </p></div></div>
+	<div class="site-footer"><div class="wrap"><p><a href="https://github.com/utunga/wp_paeonline" target="_blank">Custom WordPress site</a> handcrafted with <span style="color:indianred" class="dashicons dashicons-heart"></span> by <a href="/about-this-site">the whole team</a> · Site hosting by <a href="https://www.groundtruth.co.nz" target="_blank">Ground Truth</a> · Thanks everyone for all that you do for this site · <?php echo do_shortcode("[footer_loginout]") ?> </p></div></div>
 
 <?php
 }
