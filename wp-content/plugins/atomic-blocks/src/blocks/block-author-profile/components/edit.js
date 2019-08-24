@@ -12,14 +12,20 @@ import icons from './icons';
  * WordPress dependencies
  */
 const { __ } = wp.i18n;
-const { Component } = wp.element;
+
+const {
+	Component,
+	Fragment
+} = wp.element;
+
 const {
 	RichText,
 	AlignmentToolbar,
 	BlockControls,
-	MediaUpload,
+	MediaUpload
 } = wp.editor;
-const { Button } = wp.components;
+
+const { Button, Dashicon } = wp.components;
 
 const ALLOWED_MEDIA_TYPES = [ 'image' ];
 
@@ -38,23 +44,26 @@ export default class Edit extends Component {
 				profileImgURL,
 				profileImgID,
 				profileImgAlt,
-				profileTextColor,
+				profileTextColor
 			},
 			setAttributes
 		} = this.props;
 
 		return [
+
 			/* Show the block alignment controls on focus */
 			<BlockControls key="controls">
 				<AlignmentToolbar
 					value={ profileAlignment }
-					onChange={ ( value ) => setAttributes( { profileAlignment: value } ) }
+					onChange={ ( value ) => setAttributes({ profileAlignment: value }) }
 				/>
 			</BlockControls>,
+
 			/* Show the block controls on focus */
 			<Inspector
 				{ ...{ setAttributes, ...this.props } }
 			/>,
+
 			/* Show the block markup in the editor */
 			<ProfileBox { ...this.props }>
 				<AvatarColumn { ...this.props }>
@@ -67,23 +76,43 @@ export default class Edit extends Component {
 								{
 									profileImgID: img.id,
 									profileImgURL: img.url,
-									profileImgAlt: img.alt,
+									profileImgAlt: img.alt
 								}
 							) }
 							allowed={ ALLOWED_MEDIA_TYPES }
 							type="image"
 							value={ profileImgID }
-							render={ ( { open } ) => (
-								<Button onClick={ open }>
-									{ ! profileImgID ? icons.upload : <img
-										className={ classnames(
-											'ab-profile-avatar',
-											'wp-image-' + profileImgID
-										) }
-										src={ profileImgURL }
-										alt={ profileImgAlt }
-									/>  }
-								</Button>
+							render={ ({ open }) => (
+								<Fragment>
+									<Button
+										onClick={ open }
+									>
+										{ ! profileImgID ? icons.upload : <img
+											className={ classnames(
+												'ab-profile-avatar',
+												'ab-change-image',
+												'wp-image-' + profileImgID
+											) }
+											src={ profileImgURL }
+											alt={ profileImgAlt }
+											/>
+										}
+									</Button>
+									{ profileImgID && (
+										<Button
+											className="ab-remove-image"
+											onClick={ () => {
+												setAttributes({
+													profileImgID: null,
+													profileImgURL: null,
+													profileImgAlt: null
+												});
+											} }
+										>
+											<Dashicon icon={ 'dismiss' } />
+										</Button>
+									) }
+								</Fragment>
 							) }
 						>
 						</MediaUpload>
@@ -104,7 +133,7 @@ export default class Edit extends Component {
 						style={ {
 							color: profileTextColor
 						} }
-						onChange={ ( value ) => setAttributes( { profileName: value } ) }
+						onChange={ ( value ) => setAttributes({ profileName: value }) }
 					/>
 
 					<RichText
@@ -116,7 +145,7 @@ export default class Edit extends Component {
 						style={ {
 							color: profileTextColor
 						} }
-						onChange={ ( value ) => setAttributes( { profileTitle: value } ) }
+						onChange={ ( value ) => setAttributes({ profileTitle: value }) }
 					/>
 
 					<RichText
@@ -127,7 +156,7 @@ export default class Edit extends Component {
 						keepPlaceholderOnFocus
 						value={ profileContent }
 						formattingControls={ [ 'bold', 'italic', 'strikethrough', 'link' ] }
-						onChange={ ( value ) => setAttributes( { profileContent: value } ) }
+						onChange={ ( value ) => setAttributes({ profileContent: value }) }
 					/>
 
 					<SocialIcons { ...this.props } />

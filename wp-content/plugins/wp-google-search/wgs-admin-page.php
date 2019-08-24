@@ -135,7 +135,7 @@ class WGS_Admin_Page {
 		
 		?>
 		<div class="wrap">
-			<?php screen_icon(); ?>
+			<?php //screen_icon(); ?>
 			<h2><?php _e('WP Google Search by WebshopLogic','wgs') ?></h2>    
 			
 			<div style="float:left; width: 70%">

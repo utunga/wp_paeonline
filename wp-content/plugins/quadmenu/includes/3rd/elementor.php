@@ -37,7 +37,11 @@ class QuadMenu_Elementor {
     if (!class_exists('Elementor\\Plugin')) {
       return;
     }
-    if (!Elementor\Plugin::$instance->editor->is_edit_mode() && !Elementor\Plugin::$instance->preview->is_preview_mode()) {
+    //if (!Elementor\Plugin::$instance->editor->is_edit_mode() && !Elementor\Plugin::$instance->preview->is_preview_mode()) {
+    //  return;
+    //}    
+    
+    if (!Elementor\Plugin::$instance->preview->is_preview_mode()) {
       return;
     }
     ?>

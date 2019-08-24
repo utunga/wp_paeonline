@@ -176,7 +176,6 @@
 
 .round .ab-profile-image-wrap {
 	border-radius: 500px;
-	overflow: hidden;
 
 	&:before {
 		content: '';
@@ -187,25 +186,4 @@
 	img {
 		border-radius: 500px;
 	}
-}
-
-#editor .ab-has-avatar {
-
-	.ab-profile-image-square {
-		&:hover {
-			cursor: pointer;
-
-			img {
-				opacity: .7 !important;
-			}
-		}
-
-		button {
-			top: 0;
-			left: 0;
-			opacity: 1 !important;
-			height: 100%;
-		}
-	}
-
 }

@@ -6,6 +6,12 @@ Installing the customizable Atomic Block plugin adds a collection of beautiful, 
 
 Along with the content blocks you'll find in Atomic Blocks, we're also publishing helpful articles and tutorials to help you get started with Gutenberg.
 
+## New Section and Layout Block!
+
+On top of the handy, time-saving blocks already found in Atomic Blocks, we're excited to introduce the brand new Section and Layout block! This block comes with a library of pre-designed sections and layouts to help you quickly and easily build a beautiful site with the new block editor.
+
+Using the Section and Layout modal window, you can browse designs by category, search, and even add sections and layouts to a Favorites tab for quick access later. Paired with the free [Atomic Blocks theme](https://wordpress.org/themes/atomic-blocks/), which has support for full-width, block-based page building, you have everything you need to start building your site today!
+
 ## Atomic Blocks currently includes the following blocks:
 
 * Section & Layout Block  – [Block Demo (NEW!)](https://atomicblocks.com/blocks/layout-block/)
@@ -87,6 +93,25 @@ Yes, you can use Atomic Blocks with any theme, but we recommend using our [Atomi
 Yes, you will need to have WordPress 5.0 or later installed to take advantage of Atomic Blocks.
 
 ## Changelog
+
+**2.0.2**
+* Remove jQuery dependency when enqueuing dismiss.js.
+* Fix IE styles for blocks that use CSS Grid (pricing table and columns).
+* Fix undefined error for installs under WordPress 5.0.
+* Fix image display CSS property.
+* Fix specificity of CSS Grid for child elements.
+
+**2.0.1**
+* Add double opt-in option to Newsletter block.
+* Remove Google+ from Sharing block.
+* Add button to remove image from Testimonial and Author Profile block.
+* Add prefix to alignment CSS class on Sharing and Accordion block.
+* Change duplicate layout name.
+* Remove duplicate CSS entries to increase performance.
+* Remove outdated French translation files in favor of wp.org translations.
+* Remove default font value in Accordion block so block can use theme font declarations.
+* Remove overly specific font size declaration in Accordion block.
+* Remove the currently viewed post from the posts query to avoid duplicate display in Post Grid.
 
 **2.0**
 * Add Section and Layout block.

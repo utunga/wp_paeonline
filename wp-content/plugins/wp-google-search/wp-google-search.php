@@ -3,13 +3,13 @@
 Plugin Name: WP Google Search
 Plugin URI: http://webshoplogic.com/wp-google-search/
 Description: This plugin gives a very simple way to add Google Search to your WordPress site.  
-Version: 1.0.7
+Version: 1.0.8
 Author: WebshopLogic
 Author URI: http://webshoplogic.com/
 License: GPLv2 or later
 Text Domain: wgs
 Requires at least: 3.7
-Tested up to: 4.8
+Tested up to: 5.2.2
 */
 
 if ( ! class_exists( 'WP_Google_Search' ) ) {

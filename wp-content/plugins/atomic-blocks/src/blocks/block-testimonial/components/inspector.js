@@ -9,20 +9,14 @@ const { Component } = wp.element;
 // Import block components
 const {
 	InspectorControls,
-	BlockDescription,
-	ColorPalette,
-	PanelColorSettings,
+	PanelColorSettings
 } = wp.editor;
 
 // Import Inspector components
 const {
-	Toolbar,
-	Button,
 	PanelBody,
-	PanelRow,
-	FormToggle,
 	RangeControl,
-	SelectControl,
+	SelectControl
 } = wp.components;
 
 /**
@@ -39,15 +33,15 @@ export default class Inspector extends Component {
 		// Cite Alignment Options
 		const citeAlignOptions = [
 			{ value: 'left-aligned', label: __( 'Left Aligned', 'atomic-blocks' ) },
-			{ value: 'right-aligned', label: __( 'Right Aligned', 'atomic-blocks' ) },
+			{ value: 'right-aligned', label: __( 'Right Aligned', 'atomic-blocks' ) }
 		];
 
 		// Setup the attributes
-		const { attributes: { testimonialName, testimonialTitle, testimonialContent, testimonialAlignment, testimonialImgURL, testimonialImgID, testimonialBackgroundColor, testimonialTextColor, testimonialFontSize, testimonialCiteAlign }, isSelected, className, setAttributes } = this.props;
+		const { attributes: { testimonialBackgroundColor, testimonialTextColor, testimonialFontSize, testimonialCiteAlign }, setAttributes } = this.props;
 
 		// Update color values
-		const onChangeBackgroundColor = value => setAttributes( { testimonialBackgroundColor: value } );
-		const onChangeTextColor = value => setAttributes( { testimonialTextColor: value } );
+		const onChangeBackgroundColor = value => setAttributes({ testimonialBackgroundColor: value });
+		const onChangeTextColor = value => setAttributes({ testimonialTextColor: value });
 
 		return (
 		<InspectorControls key="inspector">
@@ -55,7 +49,7 @@ export default class Inspector extends Component {
 				<RangeControl
 					label={ __( 'Font Size', 'atomic-blocks' ) }
 					value={ testimonialFontSize }
-					onChange={ ( value ) => this.props.setAttributes( { testimonialFontSize: value } ) }
+					onChange={ ( value ) => this.props.setAttributes({ testimonialFontSize: value }) }
 					min={ 14 }
 					max={ 24 }
 					step={ 1 }
@@ -66,7 +60,7 @@ export default class Inspector extends Component {
 					description={ __( 'Left or right align the cite name and title.', 'atomic-blocks' ) }
 					options={ citeAlignOptions }
 					value={ testimonialCiteAlign }
-					onChange={ ( value ) => this.props.setAttributes( { testimonialCiteAlign: value } ) }
+					onChange={ ( value ) => this.props.setAttributes({ testimonialCiteAlign: value }) }
 				/>
 			</PanelBody>
 			<PanelColorSettings
@@ -75,7 +69,7 @@ export default class Inspector extends Component {
 				colorSettings={ [ {
 					value: testimonialBackgroundColor,
 					onChange: onChangeBackgroundColor,
-					label: __( 'Background Color', 'atomic-blocks' ),
+					label: __( 'Background Color', 'atomic-blocks' )
 				} ] }
 			>
 			</PanelColorSettings>
@@ -86,7 +80,7 @@ export default class Inspector extends Component {
 				colorSettings={ [ {
 					value: testimonialTextColor,
 					onChange: onChangeTextColor,
-					label: __( 'Text Color', 'atomic-blocks' ),
+					label: __( 'Text Color', 'atomic-blocks' )
 				} ] }
 			>
 			</PanelColorSettings>

@@ -3,8 +3,8 @@ Contributors: WebshopLogic
 Donate link: http://webshoplogic.com/donation-wp-google-search/
 Tags: WP Google Search, Google Search, Google Custom Search, Google, SCE, GCSE, Wordpress Google Search
 Requires at least: 3.7
-Tested up to: 4.8
-Stable tag: 1.0.7
+Tested up to: 5.2.2
+Stable tag: 1.0.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -28,7 +28,8 @@ Search results can be displayed on a normal page or in a popup window. Use Full 
 
 It does not require any coding or other complicated operation.
 
-Please find more information in the [product documentation](http://webshoplogic.com/products/wordpress_plugins/wp-google-search-wordpress-plugin/).
+Please find more information in the product documentation:
+[WP Google Search Documentation](https://webshoplogic.com/wordpress-google-search-plugin-for-free/)
 
 = Available languages =
 * English
@@ -50,7 +51,7 @@ Please find more information in the [product documentation](http://webshoplogic.
 == Frequently Asked Questions ==
 
 =You can find FAQ here:=
-[Documentation / FAQ](http://webshoplogic.com/products/wordpress_plugins/wp-google-search-wordpress-plugin/#tab-faq&noscroll)
+[Documentation / FAQ](https://webshoplogic.com/products/wordpress_plugins/wp-google-search-product-page/#tab-faq&noscroll)
 
 == Screenshots ==
 
@@ -68,6 +69,9 @@ Please find more information in the [product documentation](http://webshoplogic.
 
 
 == Changelog ==
+
+= 1.0.8 =
+* Minor adjustments
 
 = 1.0.7 =
 * Fix Notice: Undefined index: use_default_correction_css2, css3 in wp-google-search.php on line 69 and 72
