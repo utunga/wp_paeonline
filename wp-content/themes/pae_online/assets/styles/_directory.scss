@@ -472,6 +472,12 @@
 .a_to_z_searchbar.fixed-at-top {
 	position:fixed;
 	top:0px;
+	z-index: 1000;
+}
+
+body.category-a_z .nav-secondary #quadmenu .search,
+body.category-local .nav-secondary #quadmenu .search {
+	display: none;
 }
 
 .directory_category_list {

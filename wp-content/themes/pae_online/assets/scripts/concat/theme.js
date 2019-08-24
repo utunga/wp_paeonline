@@ -77,7 +77,7 @@ function adjustAToZSearchBar($) {
 	// for mobile.. we fix at top of screen
 	var widgetInWindowTop = widget.offset().top - $(window).scrollTop();
 	var searchBarInWindowTop = searchBar.offset().top - $(window).scrollTop();
-	if (widgetInWindowTop <= 1 && searchBarInWindowTop <= 0) {
+	if (widgetInWindowTop <= 300 && searchBarInWindowTop <= 0) {
 		if (!searchBar.hasClass("fixed-at-top"))
 			searchBar.addClass("fixed-at-top");
 	}

@@ -4962,6 +4962,12 @@ footer.entry-footer .entry-meta {
 .a_to_z_searchbar.fixed-at-top {
 	position: fixed;
 	top: 0;
+	z-index: 1000;
+}
+
+body.category-a_z .nav-secondary #quadmenu .search,
+body.category-local .nav-secondary #quadmenu .search {
+	display: none;
 }
 
 .directory_category_list {
