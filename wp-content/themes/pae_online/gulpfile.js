@@ -47,100 +47,13 @@ var paths = {
 	concat:  ['assets/scripts/concat/*.js'],
 	images:  ['assets/images/*', '!assets/images/*.svg'],
 	php:     ['./*.php', './**/*.php', './**/**/*.php'],
-	scripts: ['assets/scripts/scripts.js', 'assets/scripts/customize.js', 'assets/scripts/theme.js'],
+	scripts: ['assets/scripts/scripts.js', 'assets/scripts/customize.js'],
 	styles:  ['assets/styles/*.scss', '!assets/styles/min/']
 };
 
-/**
- * Compile WooCommerce styles.
- *
- * https://www.npmjs.com/package/gulp-sass
- */
-gulp.task('woocommerce', function () {
-
-	/**
-	 * Process WooCommerce styles.
-	 */
-	gulp.src('assets/styles/woocommerce.scss')
-
-		// Notify on error
-		.pipe(plumber({
-			errorHandler: notify.onError("Error: <%= error.message %>")
-		}))
-
-		// Initialize source map.
-		.pipe(sourcemaps.init())
-
-		// Process sass
-		.pipe(sass({
-			outputStyle: 'expanded'
-		}))
-
-		// Pixel fallbacks for rem units.
-		.pipe(pixrem())
-
-		// Parse with PostCSS plugins.
-		.pipe(postcss([
-			autoprefixer({
-				browsers: 'last 2 versions'
-			}),
-			mqpacker({
-				sort: true
-			}),
-			focus(),
-		]))
-
-		// Combine similar rules.
-		.pipe(cleancss({
-			level: {
-				2: {
-					all: true
-				}
-			}
-		}))
-
-		// Minify and optimize style.css again.
-		.pipe(cssnano({
-			safe: false,
-			discardComments: {
-				removeAll: true,
-			},
-		}))
-
-		// Add .min suffix.
-		.pipe(rename({
-			suffix: '.min'
-		}))
-
-		// Write source map.
-		.pipe(sourcemaps.write('./', {
-			includeContent: false,
-		}))
-
-		// Output non minified css to theme directory.
-		.pipe(gulp.dest('assets/styles/min/'))
-
-		// Inject changes via browsersync.
-		.pipe(browsersync.reload({
-			stream: true
-		}))
-
-		// Filtering stream to only css files.
-		.pipe(filter('**/*.css'))
-
-		// Notify on successful compile (uncomment for notifications).
-		.pipe(notify("Compiled: <%= file.relative %>"));
-
-});
-
-/**
- * Compile Sass.
- *
- * https://www.npmjs.com/package/gulp-sass
- */
-gulp.task('styles', ['woocommerce'], function () {
-
-	gulp.src('assets/styles/style.scss')
+function styles() {
+  return gulp
+		.src('assets/styles/style.scss')
 
 		// Notify on error
 		.pipe(plumber({
@@ -220,92 +133,33 @@ gulp.task('styles', ['woocommerce'], function () {
 
 		// Notify on successful compile (uncomment for notifications).
 		.pipe(notify("Compiled: <%= file.relative %>"));
+}
 
-});
+function scripts() {
+  return (
+    gulp
+      .src(paths.scripts)
+      .pipe(plumber())
+      .pipe(sourcemaps.init())
+      .pipe(cache('scripts'))
+			.pipe(rename({
+				suffix: '.min'
+			}))
+			.pipe(uglify())
+			.pipe(sourcemaps.write('./', {
+				includeContent: false,
+			}))
+      .pipe(gulp.dest('assets/scripts/min'))
+			.pipe(browsersync.reload({
+				stream: true
+			}))
+			.pipe(notify("Minified: <%= file.relative %>"))
+  );
+}
 
-/**
- * Concat javascript files.
- *
- * https://www.npmjs.com/package/gulp-uglify
- */
-gulp.task('concat', function () {
-
-	gulp.src(paths.concat)
-
-		// Notify on error.
-		.pipe(plumber({
-			errorHandler: notify.onError("Error: <%= error.message %>")
-		}))
-
-		// Concatenate scripts.
-		.pipe(concat('scripts.js'))
-
-		// Output the processed js to this directory.
-		.pipe(gulp.dest('assets/scripts'))
-
-		// Inject changes via browsersync.
-		.pipe(browsersync.reload({
-			stream: true
-		}))
-
-} );
-
-/**
- * Minify javascript files.
- *
- * https://www.npmjs.com/package/gulp-uglify
- */
-gulp.task('scripts', ['concat'], function () {
-
-	gulp.src(paths.scripts)
-
-		// Notify on error.
-		.pipe(plumber({
-			errorHandler: notify.onError("Error: <%= error.message %>")
-		}))
-
-		// Source maps init.
-		.pipe(sourcemaps.init())
-
-		// Cache files to avoid processing files that haven't changed.
-		.pipe(cache('scripts'))
-
-		// Add .min suffix.
-		.pipe(rename({
-			suffix: '.min'
-		}))
-
-		// Minify.
-		.pipe(uglify())
-
-		// Write source map.
-		.pipe(sourcemaps.write('./', {
-			includeContent: false,
-		}))
-
-		// Output the processed js to this directory.
-		.pipe(gulp.dest('assets/scripts/min'))
-
-		// Inject changes via browsersync.
-		.pipe(browsersync.reload({
-			stream: true
-		}))
-
-		// Notify on successful compile.
-		.pipe(notify("Minified: <%= file.relative %>"));
-
-});
-
-/**
- * Optimize images.
- *
- * https://www.npmjs.com/package/gulp-imagemin
- */
-gulp.task('images', function () {
-
-	return gulp.src(paths.images)
-
-		// Notify on error.
+function images() {
+  return gulp
+		.src(paths.images)
 		.pipe(plumber({
 			errorHandler: notify.onError("Error: <%= error.message %>")
 		}))
@@ -328,171 +182,13 @@ gulp.task('images', function () {
 
 		// Notify on successful compile.
 		.pipe(notify("Optimized: <%= file.relative %>"));
+}
 
+gulp.task('default', function (done) {
+	scripts();
+	styles();
+	images();
+	done();
 });
 
-/**
- * Scan the theme and create a POT file.
- *
- * https://www.npmjs.com/package/gulp-wp-pot
- */
-gulp.task('translate', function () {
-
-	return gulp.src(paths.php)
-
-		.pipe(plumber({
-			errorHandler: notify.onError("Error: <%= error.message %>")
-		}))
-
-		.pipe(sort())
-
-		.pipe(wpPot({
-			domain: 'pae-online',
-			destFile: 'pae-online.pot',
-			package: 'Paekakariki Online',
-			bugReport: 'https://seothemes.com/support',
-			lastTranslator: 'Lee Anthony <seothemeswp@gmail.com>',
-			team: 'SEO Themes <seothemeswp@gmail.com>'
-		}))
-
-		.pipe(gulp.dest('./languages/'));
-
-});
-
-/**
- * Package theme.
- *
- * https://www.npmjs.com/package/gulp-zip
- */
-gulp.task('zip', function () {
-
-	gulp.src(['./**/*', '!./node_modules/', '!./node_modules/**', '!./aws.json'])
-		.pipe(zip(__dirname.split("/").pop() + '.zip'))
-		.pipe(gulp.dest('../'));
-
-});
-
-/**
- * Publish packaged theme to S3.
- *
- * https://www.npmjs.com/package/gulp-s3
- */
-gulp.task('publish', function () {
-
-	gulp.src('../pae-online.zip')
-		.pipe(s3(aws));
-
-});
-
-/**
- * Rename theme.
- *
- * https://www.npmjs.com/package/change-case
- * https://www.npmjs.com/package/yargs
- */
-gulp.task('rename', function () {
-
-	var old_proxy = 'pae.online.local',
-		old_name = 'Paekakariki Online',
-		old_domain = 'pae-online',
-		old_prefix = 'pae_online',
-		old_package = 'PaekakarikiOnline';
-
-	var new_proxy = 'pae.online.local',
-		new_name = 'Paekakariki Online',
-		new_domain = 'pae-online',
-		new_prefix = 'pae_online',
-		new_package = 'PaekakarikiOnline';
-
-	del(['./languages/' + old_domain + '.pot']);
-
-	gulp.src(paths.all)
-		.pipe(replace(old_proxy, new_proxy))	
-		.pipe(replace(old_name, new_name))
-		.pipe(replace(old_domain, new_domain))
-		.pipe(replace(old_prefix, new_prefix))
-		.pipe(replace(old_package, new_package))
-		.pipe(gulp.dest('./'));
-
-});
-
-/**
- * Bump version.
- *
- * https://www.npmjs.com/package/gulp-bump
- */
-gulp.task('bump', function () {
-
-	if (args.major) {
-		var kind = 'major';
-	}
-
-	if (args.minor) {
-		var kind = 'minor';
-	}
-
-	if (args.patch) {
-		var kind = 'patch';
-	}
-
-	gulp.src(['./package.json', './style.css'])
-		.pipe(bump({
-			type: kind,
-			version: args.to
-		}))
-		.pipe(gulp.dest('./'));
-
-	gulp.src(['./functions.php'])
-		.pipe(bump({
-			key: "'CHILD_THEME_VERSION',",
-			type: kind,
-			version: args.to
-		}))
-		.pipe(gulp.dest('./'));
-
-	gulp.src('./assets/styles/style.scss')
-		.pipe(bump({
-			type: kind,
-			version: args.to
-		}))
-		.pipe(gulp.dest('./assets/styles/'));
-
-});
-
-/**
- * Process tasks and reload browsers on file changes.
- *
- * https://www.npmjs.com/package/browser-sync
- */
-gulp.task('watch', function () {
-
-	// HTTPS (optional).
-	browsersync({
-		proxy: 'http://pae.online.local',
-		port: 8000,
-		notify: true,
-		open: true,
-		// https: {
-		// 	"key": "/Users/seothemes/.valet/Certificates/pae.online.local.key",
-		// 	"cert": "/Users/seothemes/.valet/Certificates/pae.online.local.crt"
-		// }
-	});
-
-	// Run tasks when files change.
-	gulp.watch(paths.styles, ['styles']);
-	gulp.watch(paths.concat, ['scripts']);
-	gulp.watch(paths.scripts, ['scripts']);
-	gulp.watch(paths.images, ['images']);
-	gulp.watch(paths.php).on('change', browsersync.reload);
-
-});
-
-/**
- * Create default task.
- */
-gulp.task('default', ['watch'], function () {
-
-	gulp.start('styles', 'scripts', 'images');
-
-});
 

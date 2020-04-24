@@ -2378,6 +2378,7 @@ exports.default = Foldable;
  */
 (function (jQuery, exports) {
 	$ = jQuery;
+
 	function jQueryPlugin() {
 		for (var _len3 = arguments.length, args = Array(_len3), _key3 = 0; _key3 < _len3; _key3++) {
 			args[_key3] = arguments[_key3];
@@ -2418,6 +2419,8 @@ exports.default = Foldable;
 
 	// when de DOM is ready, try to auto create plugin instances of each element with [data-foldable]
 	$(function () {
+
+    var $ = this.jQuery || window.jQuery;
 		var $foldables = $('[data-foldable]');
 
 		if ($foldables.length) {
@@ -3122,7 +3125,7 @@ module.exports = __webpack_require__(2);
 //  - swaps out value of labels to mobile label when size is small enough
 //  - hides/shows on load or resize
 //  - needs to be explicitly referenced by doMenuOverrides/initMenuOverrides (see below)
-const secondary_menu_overrides = [
+secondary_menu_overrides = [
 	{
 		mobile_label: "Trains",
 		desktop_label: "Train times ➚"
