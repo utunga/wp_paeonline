@@ -19,9 +19,13 @@
 
 if ($is_redirect_only) { 
 
-    // commented out code that used to do a redirect here 
-    // see git history for what used to be here 
-    
+    // as of now 'is_redirect_only' has no effect whatsoever 
+    //
+    // commented out the code that used to do a redirect here 
+    // see following git history for what used to be here 
+    //
+    //cf. https://github.com/utunga/wp_paeonline/commit/038a23ca517b102c7d4feb9145807da70ec88584
+
 } ?>
 
 <div class="directory-sidebar"><?php
