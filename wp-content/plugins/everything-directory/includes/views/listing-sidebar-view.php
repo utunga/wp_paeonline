@@ -16,22 +16,13 @@
 ?>
 
 <?php 
-if ($is_redirect_only) { ?>
-<script type="text/javascript">
-    (
-        function ($) {
-            $(".entry-content").html("<p>Redirecting you to <br /><strong><a href='<?php echo $website ?>'><?php echo $website ?></strong></a></p>");
-            <?php if( current_user_can('editor') || current_user_can('administrator') ) {  ?> 
-                $(".entry-content").append("<p><i>(Redirect disabled because you are an editor or admin. This allows you to edit this listing.)</i></p>");
-            <?php } else { ?>
-                window.setTimeout(function() {
-                    window.location = "<?php echo $website ?>";
-                }, 200);
-            <?php } ?>
-        }
-    )(jQuery);
-</script>
-<?php } ?>
+
+if ($is_redirect_only) { 
+
+    // commented out code that used to do a redirect here 
+    // see git history for what used to be here 
+    
+} ?>
 
 <div class="directory-sidebar"><?php
     $location = get_field('map');
